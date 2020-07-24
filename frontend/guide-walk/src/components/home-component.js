@@ -1,13 +1,18 @@
 import React from 'react';
+import MapGL from '@urbica/react-map-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
-export const HomeComponent = ({data, getHomeUserDataStart}) => {
-  console.log(data);
-  const handleOnClick = () => {
-    getHomeUserDataStart();
-  };
+export const HomeComponent = () => {
   return (
     <div>
-      <button onClick={handleOnClick}>Click</button>
+      <MapGL
+        style={{ width: '100%', height: '400px' }}
+        mapStyle="mapbox://styles/mapbox/light-v9"
+        accessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+        latitude={37.78}
+        longitude={-122.41}
+        zoom={11}
+      />
     </div>
   );
 };

@@ -1,5 +1,5 @@
-import {handleActions} from 'redux-actions';
-import {getHomeUserDataStart, getHomeUserDataFail, getHomeUserDataSuccess} from '../actions';
+import { handleActions } from 'redux-actions';
+import { getHomeUserDataStart, getHomeUserDataFail, getHomeUserDataSuccess } from '../actions';
 
 const initialState = {
   isLoading: false,
@@ -13,7 +13,7 @@ const reducerMap = {
       isLoading: true,
     };
   },
-  [getHomeUserDataSuccess]: (state, {payload}) => {
+  [getHomeUserDataSuccess]: (state, { payload }) => {
     return {
       ...state,
       isLoading: true,

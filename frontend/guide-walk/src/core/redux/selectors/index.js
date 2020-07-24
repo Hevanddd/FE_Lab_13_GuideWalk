@@ -1,1 +1,1 @@
-export {homeUserDataSelector} from './home-selectors';
+export { homeUserDataSelector } from './home-selectors';

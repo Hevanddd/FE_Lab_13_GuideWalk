@@ -1,1 +1,1 @@
-export {getHomeUserDataStart, getHomeUserDataFail, getHomeUserDataSuccess} from './home-actions';
+export { getHomeUserDataStart, getHomeUserDataFail, getHomeUserDataSuccess } from './home-actions';
