@@ -14,6 +14,7 @@ const reducerMap = {
     };
   },
   [getHomeUserDataSuccess]: (state, { payload }) => {
+    console.log(payload);
     return {
       ...state,
       isLoading: true,
