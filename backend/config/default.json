@@ -1,0 +1,4 @@
+{
+    "mongoUri" : "mongodb+srv://misha:mRnqceZdK10tA7nE@cluster0.oouvy.azure.mongodb.net/app_mock?retryWrites=true&w=majorityCopy",
+    "port": 5000
+}
