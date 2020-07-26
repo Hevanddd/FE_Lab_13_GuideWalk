@@ -1,5 +1,5 @@
 import React from 'react';
-import { RouteItemComponent } from '../route-item-component';
+import { RouteItemComponent } from '../../ui/route-item-component';
 
 export const RouteListComponent = ({ data }) => {
   return (

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import { HomePage, RouteListPage } from './components';
+import { HomePage } from './pages';
+import { RouteListPage } from './ui/map-component';
 
 import 'react-toastify/dist/ReactToastify.css';
 

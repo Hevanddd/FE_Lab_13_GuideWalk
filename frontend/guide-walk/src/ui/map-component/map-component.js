@@ -5,9 +5,13 @@ import { Layer, Source } from 'react-map-gl';
 import { VIEWPORT, DATA, URL } from './constants';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-export const HomeComponent = ({ getHomeUserDataSuccess, data }) => {
+export const MapComponent = ({ getHomeUserDataSuccess, data, width, height, zoom }) => {
+  const mapStyle = {
+    width,
+    height,
+  };
   const history = useHistory();
-  const { latitude, longitude, zoom } = VIEWPORT;
+  const { latitude, longitude } = VIEWPORT;
   const [viewport, setViewport] = useState({
     latitude,
     longitude,
@@ -37,17 +41,17 @@ export const HomeComponent = ({ getHomeUserDataSuccess, data }) => {
     <div>
       <button onClick={handleOnClick}>Click</button>
       <MapGL
-        style={{ width: '100%', height: '400px' }}
-        mapStyle="mapbox://styles/mapbox/light-v9"
+        style={mapStyle}
+        mapStyle='mapbox://styles/mapbox/light-v9'
         accessToken={process.env.REACT_APP_MAPBOX_TOKEN}
         onViewportChange={setViewport}
         {...viewport}
       >
-        <Source id="route" type="geojson" data={DATA} />
+        <Source id='route' type='geojson' data={DATA} />
         <Layer
-          id="route"
-          type="line"
-          source="route"
+          id='route'
+          type='line'
+          source='route'
           layout={{
             'line-join': 'round',
             'line-cap': 'round',
@@ -60,7 +64,7 @@ export const HomeComponent = ({ getHomeUserDataSuccess, data }) => {
         <Marker longitude={position.longitude} latitude={position.latitude} onDragEnd={onDragEnd} draggable>
           <div style={style}>Hi there! 👋</div>
         </Marker>
-        <GeolocateControl position="top-right" />
+        <GeolocateControl position='top-right' />
       </MapGL>
     </div>
   );
