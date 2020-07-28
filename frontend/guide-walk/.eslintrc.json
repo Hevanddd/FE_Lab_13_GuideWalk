@@ -1,3 +1,22 @@
 {
-  "extends": ["react-app", "plugin:prettier/recommended"]
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "extends": ["react-app", "prettier"],
+  "plugins": ["react", "prettier"],
+  "parserOptions": {
+    "ecmaVersion": 2018
+  },
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "printWidth": 120,
+        "trailingComma": "es5",
+        "jsxSingleQuote": true,
+        "singleQuote": true
+      }
+    ]
+  }
 }
