@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import MapGL, { Marker, GeolocateControl } from '@urbica/react-map-gl';
-import { useHistory } from 'react-router';
 import { Layer, Source } from 'react-map-gl';
 import { VIEWPORT, DATA, URL } from './constants';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-export const MapComponent = ({ getHomeUserDataSuccess, data, width, height, zoom }) => {
+export const MapComponent = ({ width, height, zoom }) => {
   const mapStyle = {
     width,
     height,
   };
-  const history = useHistory();
   const { latitude, longitude } = VIEWPORT;
   const [viewport, setViewport] = useState({
     latitude,
@@ -32,14 +30,9 @@ export const MapComponent = ({ getHomeUserDataSuccess, data, width, height, zoom
     setPosition({ longitude: lngLat.lng, latitude: lngLat.lat });
   };
   const routeData = [{ name: 'Guide Walk', rating: 5, image: URL }];
-  const handleOnClick = () => {
-    getHomeUserDataSuccess(routeData);
-    history.push('/route-list');
-  };
 
   return (
     <div>
-      <button onClick={handleOnClick}>Click</button>
       <MapGL
         style={mapStyle}
         mapStyle='mapbox://styles/mapbox/light-v9'

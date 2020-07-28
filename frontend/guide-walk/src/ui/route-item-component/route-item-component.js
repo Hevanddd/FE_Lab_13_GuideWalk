@@ -8,7 +8,7 @@ export const RouteItemComponent = ({ data }) => {
       {data.map(({ image, rating, name }) => {
         return (
           <div key={image}>
-            <img src={image} alt="img" />
+            <img src={image} alt='img' />
             <p>{rating}</p>
             <p>{name}</p>
           </div>
