@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import MapGL, { Marker, GeolocateControl } from '@urbica/react-map-gl';
 import { Layer, Source } from 'react-map-gl';
-import { VIEWPORT, DATA, URL } from './constants';
+import { VIEWPORT, DATA } from './constants';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 export const MapComponent = ({ width, height, zoom }) => {
@@ -15,21 +15,28 @@ export const MapComponent = ({ width, height, zoom }) => {
     longitude,
     zoom,
   });
-  const [position, setPosition] = useState({
-    longitude,
-    latitude,
-  });
+  const [markers, setMatkers] = useState([]);
   const style = {
     padding: '10px',
     color: '#fff',
     cursor: 'pointer',
     background: '#1978c8',
-    borderRadius: '6px',
+    borderRadius: '50%',
+    textAlign: 'center',
+    width: '20px',
+    height: '20px',
+    fontSize: '15px',
   };
-  const onDragEnd = (lngLat) => {
-    setPosition({ longitude: lngLat.lng, latitude: lngLat.lat });
+  const handleOnClick = (e) => {
+    const coordinates = e.lngLat;
+
+    setMatkers((prevState) => {
+      const validateCoordinates = prevState.find(({ lng, lat }) => {
+        return lng === coordinates.lng && lat === coordinates.lat;
+      });
+      return !validateCoordinates ? [...prevState, coordinates] : prevState;
+    });
   };
-  const routeData = [{ name: 'Guide Walk', rating: 5, image: URL }];
 
   return (
     <div>
@@ -38,6 +45,7 @@ export const MapComponent = ({ width, height, zoom }) => {
         mapStyle='mapbox://styles/mapbox/light-v9'
         accessToken={process.env.REACT_APP_MAPBOX_TOKEN}
         onViewportChange={setViewport}
+        onClick={(e) => handleOnClick(e)}
         {...viewport}
       >
         <Source id='route' type='geojson' data={DATA} />
@@ -54,9 +62,13 @@ export const MapComponent = ({ width, height, zoom }) => {
             'line-width': 8,
           }}
         />
-        <Marker longitude={position.longitude} latitude={position.latitude} onDragEnd={onDragEnd} draggable>
-          <div style={style}>Hi there! 👋</div>
-        </Marker>
+        {markers.map(({ lng, lat }, index) => {
+          return (
+            <Marker longitude={lng} latitude={lat} key={lng + lat}>
+              <button style={style}>{index + 1}</button>
+            </Marker>
+          );
+        })}
         <GeolocateControl position='top-right' />
       </MapGL>
     </div>

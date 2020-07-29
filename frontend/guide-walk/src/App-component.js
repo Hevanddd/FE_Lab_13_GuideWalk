@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { HomePage } from './pages';
 import { RouteListPage } from './ui/map-component';
@@ -11,8 +11,9 @@ export const AppComponent = () => {
     <>
       <ToastContainer />
       <Switch>
-        <Route exact path={'/'} component={HomePage} />
-        <Route exact path={'/route-list'} component={RouteListPage} />
+        <Route exact path='/' component={HomePage} />
+        <Route exact path='/route-list' component={RouteListPage} />
+        <Redirect to='/' />
       </Switch>
     </>
   );
