@@ -5,7 +5,7 @@ const schema = new Schema({
     focus: { type: String, required: true },
     description: { type: String, required: true },
     points: [{ type: Types.ObjectId, ref: 'Point' }],
-    owner: [{ type: Types.ObjectId, ref: 'User' }]
+    owner: { type: Types.ObjectId, ref: 'User' }
 });
 
 module.exports = model('Route', schema);

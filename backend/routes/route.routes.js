@@ -47,7 +47,7 @@ router.post('/createRoute',
                 points: req.body.points,
                 owner: req.body.owner,
             })
-            await guide.save()
+            await route.save()
             
             res.status(201).json({ message: 'Route was created.' })
 
@@ -69,7 +69,7 @@ router.post('/editRoute',
             route.description = req.body.description
             route.points = req.body.points
 
-            await guide.save()
+            await route.save()
 
         } catch (e) {
             return res.status(500).json({ message: 'Something is going wrong.' })
