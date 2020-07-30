@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
@@ -13,20 +13,22 @@ const useStyles = makeStyles({
   root: {
     '& button': {
       width: '20%',
-      minWidth: 50
+      minWidth: 50,
+    },
+    '& .Mui-selected': {
+      color: '#457B9D',
     },
     position: 'fixed',
     bottom: 0,
-    width: '100%'
+    width: '100%',
   },
 });
 
 export const NavigationComponent = () => {
-  
   const history = useHistory();
 
   const classes = useStyles();
-  const [value, setValue] = React.useState('home');
+  const [value, setValue] = useState('home');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -36,11 +38,11 @@ export const NavigationComponent = () => {
   return (
     <footer>
       <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
-          <BottomNavigationAction label='Home' value='home' icon={<HomeOutlinedIcon />} />
-          <BottomNavigationAction label='Add' value='add-route' icon={<AddCircleOutlineOutlinedIcon />} />
-          <BottomNavigationAction label='Current' value='current-route' icon={<ExploreOutlinedIcon />} />
-          <BottomNavigationAction label='Favourites' value='favourites' icon={<TurnedInNotOutlinedIcon />} />
-          <BottomNavigationAction label='Profile' value='profile' icon={<PersonOutlineOutlinedIcon />} />
+        <BottomNavigationAction label='Home' value='home' icon={<HomeOutlinedIcon />} />
+        <BottomNavigationAction label='Add' value='add-route' icon={<AddCircleOutlineOutlinedIcon />} />
+        <BottomNavigationAction label='Current' value='current-route' icon={<ExploreOutlinedIcon />} />
+        <BottomNavigationAction label='Favourites' value='favourites' icon={<TurnedInNotOutlinedIcon />} />
+        <BottomNavigationAction label='Profile' value='profile' icon={<PersonOutlineOutlinedIcon />} />
       </BottomNavigation>
     </footer>
   );
