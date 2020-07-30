@@ -5,7 +5,6 @@ export const AddRouteComponent = () => {
 
     return (
     <div>
-        <HeaderComponent />
         Hello ADD
     </div>
   );
