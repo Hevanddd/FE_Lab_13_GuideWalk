@@ -42,7 +42,7 @@ export const MapComponent = ({ width, height, zoom }) => {
     <div>
       <MapGL
         style={mapStyle}
-        mapStyle='mapbox://styles/mapbox/light-v9'
+        mapStyle='mapbox://styles/mapbox/streets-v11'
         accessToken={process.env.REACT_APP_MAPBOX_TOKEN}
         onViewportChange={setViewport}
         onClick={(e) => handleOnClick(e)}
