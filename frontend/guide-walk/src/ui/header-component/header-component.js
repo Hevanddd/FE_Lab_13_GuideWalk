@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styles from './header-component.module.css';
 
@@ -7,7 +7,7 @@ export const HeaderComponent = () => {
 
   const history = useHistory();
   
-  const [location, setLocation] = React.useState('/');
+  const [location, setLocation] = useState('/');
 
   const goToPreviousPath = () => {
     history.goBack();
@@ -15,7 +15,6 @@ export const HeaderComponent = () => {
 
   useEffect(() => {
     return history.listen((location) => {
-      console.log(`You changed the page to: ${location.pathname}`);
       setLocation(location.pathname);
     });
   }, [history]);  
