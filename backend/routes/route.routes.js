@@ -57,7 +57,7 @@ router.post("/createRoute", async (req, res) => {
         description: point.description,
       });
 
-      pointToDB.save((err, point) => route.points.push(point._id));
+      pointToDB.save(async (err, point) => await route.points.push(point._id));
     });
 
     await route.save();
