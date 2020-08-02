@@ -11,11 +11,24 @@ router.post("/", async (req, res) => {
 
     if (!user) {
       const newUser = new User({ username, user_routes: [], saved_routes: [] });
-      await newUser.save((err, newUser) => user = newUser);
+      await newUser.save((err, newUser) =>
+        res
+          .status(201)
+          .json({
+            id: newUser._id,
+            user_routes: [],
+            saved_routes: [],
+          })
+      );
+    } else {
+      res
+        .status(201)
+        .json({
+          id: user._id,
+          user_routes: user.user_routes,
+          saved_routes: user.saved_routes,
+        });
     }
-
-    res.status(201).json({ user });
-    
   } catch (e) {
     res
       .status(500)
