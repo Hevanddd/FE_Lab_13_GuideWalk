@@ -15,9 +15,12 @@ const useStyles = makeStyles({
       width: '20%',
       minWidth: 50,
     },
+    '& .Mui-selected': {
+      color: '#457B9D',
+    },
     position: 'fixed',
     bottom: 0,
-    width: '100%',
+    width: '100%'
   },
 });
 
@@ -35,9 +38,9 @@ export const NavigationComponent = () => {
   return (
     <footer>
       <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
-        <BottomNavigationAction label='Home' value='/' icon={<HomeOutlinedIcon />} />
+        <BottomNavigationAction label='Home' value='home' icon={<HomeOutlinedIcon />} />
         <BottomNavigationAction label='Add' value='add-route' icon={<AddCircleOutlineOutlinedIcon />} />
-        <BottomNavigationAction label='Current' value='direction-route' icon={<ExploreOutlinedIcon />} />
+        <BottomNavigationAction label='Current' value='current-route' icon={<ExploreOutlinedIcon />} />
         <BottomNavigationAction label='Favourites' value='favourites' icon={<TurnedInNotOutlinedIcon />} />
         <BottomNavigationAction label='Profile' value='profile' icon={<PersonOutlineOutlinedIcon />} />
       </BottomNavigation>
