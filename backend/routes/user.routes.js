@@ -3,18 +3,19 @@ const User = require("../models/User");
 
 const router = new Router();
 
-router.get("/", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
-    const { username } = req.body;
+    const username = req.body.username;
 
     let user = await User.findOne({ username });
 
     if (!user) {
       const newUser = new User({ username, user_routes: [], saved_routes: [] });
-      await newUser.save();
-      user = await User.findOne({ username });
+      await newUser.save((err, newUser) => user = newUser);
     }
+
     res.status(201).json({ user });
+    
   } catch (e) {
     res
       .status(500)
