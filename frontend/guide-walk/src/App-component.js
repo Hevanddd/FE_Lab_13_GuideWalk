@@ -7,6 +7,8 @@ import { EditRoutePage } from './pages';
 import { RouteListPage } from './ui/map-component';
 import { NavigationComponent } from './ui/navigation-component';
 import { HeaderComponent } from './ui/header-component';
+import { MapDirectionsComponent } from './ui/map-direction';
+
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -20,9 +22,10 @@ export const AppComponent = () => {
         <Route exact path='/route-list' component={RouteListPage} />
         <Route exact path='/add-route' component={AddRoutePage} />
         <Route exact path='/edit-route' component={EditRoutePage} />
+        <Route exact path='/direction-route' component={MapDirectionsComponent} />
         <Redirect to='/' />
       </Switch>
-      <NavigationComponent/>
+      <NavigationComponent />
     </>
   );
 };

@@ -6,8 +6,9 @@ const router = new Router()
 
 router.get('/', async (req, res) => {
     try {
-        const routes = await Route.find({})
-        res.json(routes)
+        // const routes = await Route.find({})
+        // res.json(routes)
+        return res.status(500).json({ message: 'Everything is ok' });
         
     } catch (e) {
         return res.status(500).json({ message: 'Something is going wrong.' })
