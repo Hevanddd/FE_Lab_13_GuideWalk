@@ -38,6 +38,11 @@ export const MapComponent = ({ width, height, zoom }) => {
     });
   };
 
+  const handleMarkerButton = (e) => {
+    console.log('s');
+    e.preventDefault();
+  };
+
   return (
     <div>
       <MapGL
@@ -64,7 +69,7 @@ export const MapComponent = ({ width, height, zoom }) => {
         />
         {markers.map(({ lng, lat }, index) => {
           return (
-            <Marker longitude={lng} latitude={lat} key={lng + lat}>
+            <Marker longitude={lng} latitude={lat} key={lng + lat} onClick={handleMarkerButton}>
               <button style={style}>{index + 1}</button>
             </Marker>
           );

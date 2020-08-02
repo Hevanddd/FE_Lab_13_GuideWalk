@@ -27,10 +27,10 @@ router.get("/:id", async (req, res) => {
   try {
     const route = await Route.findById(req.params.id);
 
-    const coordinatesArray = route.points.map(pointId => {
+    const coordinatesArray = route.points.map(async (pointId) => {
       const pointInfo = await Point.findById(pointId);
       return pointInfo.location;
-    })
+    });
 
     res.json(route, coordinatesArray);
   } catch (e) {
@@ -51,7 +51,6 @@ router.post("/createRoute", async (req, res) => {
     });
 
     pointArray.forEach((point) => {
-
       const pointToDB = new Point({
         name: point.title,
         location: point.location,
@@ -60,7 +59,7 @@ router.post("/createRoute", async (req, res) => {
 
       pointToDB.save((err, point) => route.points.push(point._id));
     });
-    
+
     await route.save();
 
     res.status(201).json({ message: "Route was created." });
@@ -83,17 +82,16 @@ router.post("/editRoute", async (req, res) => {
   }
 });
 
-router.post('/getNext', async (req, res) => {
+router.post("/getNext", async (req, res) => {
   try {
     const route = await Route.findById(req.body.id);
     const pointId = route.points[req.body.index];
 
     const pointInfo = await Point.findById(pointId);
     res.status(201).json(pointInfo);
-
   } catch (error) {
     return res.status(500).json({ message: "Something is going wrong." });
   }
-})
+});
 
 module.exports = router;

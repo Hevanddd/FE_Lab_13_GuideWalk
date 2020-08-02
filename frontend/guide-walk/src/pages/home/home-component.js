@@ -5,11 +5,12 @@ import { useHttp } from '../../services';
 
 export const HomeComponent = () => {
   const { loading, request, error, clearError } = useHttp();
-  const { loginWithRedirect, isAuthenticated, logout } = useAuth0();
+  const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
+  console.log(user);
+  const username = user && user[`https://username`];
   const handleRequest = async () => {
     try {
-      const data = await request('/api/point', 'GET');
-      console.log(data);
+      const data = await request('/api/user', 'POST', { username });
     } catch (e) {}
   };
   return (
