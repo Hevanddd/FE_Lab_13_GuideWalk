@@ -27,7 +27,7 @@ router.get("/:id", async (req, res) => {
   try {
     const route = await Route.findById(req.params.id);
 
-    const coordinatesArray = route.points.map(pointId => {
+    const coordinatesArray = route.points.map(async (pointId) => {
       const pointInfo = await Point.findById(pointId);
       return pointInfo.location;
     })
