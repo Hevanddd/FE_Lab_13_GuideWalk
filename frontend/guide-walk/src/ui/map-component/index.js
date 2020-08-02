@@ -4,3 +4,4 @@ import { MapContainer } from './map-container';
 export const HomePage = MapContainer(MapComponent);
 export { RouteItemComponent } from '../route-item-component';
 export { RouteListPage } from '../../pages/route-list';
+export { VIEWPORT } from './constants';
