@@ -1,0 +1,17 @@
+.form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+button.saveBtn{
+    background-color: #457B9D;
+    width: 50%;
+    margin-top: 20px;
+}
+
+.form > div{
+    width: 80%;
+    margin-top: 20px;
+}
