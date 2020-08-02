@@ -6,13 +6,16 @@ import { AddRoutePage } from './pages';
 import { EditRoutePage } from './pages';
 import { RouteListPage } from './ui/map-component';
 import { NavigationComponent } from './ui/navigation-component';
+import { HeaderComponent } from './ui/header-component';
 import { MapDirectionsComponent } from './ui/map-direction';
+
 
 import 'react-toastify/dist/ReactToastify.css';
 
 export const AppComponent = () => {
   return (
     <>
+      <HeaderComponent />
       <ToastContainer />
       <Switch>
         <Route exact path='/' component={HomePage} />
