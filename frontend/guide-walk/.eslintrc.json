@@ -15,7 +15,14 @@
         "printWidth": 120,
         "trailingComma": "es5",
         "jsxSingleQuote": true,
-        "singleQuote": true
+        "singleQuote": true,
+        "parserOptions": {
+          "ecmaVersion": 6,
+          "sourceType": "module",
+          "ecmaFeatures": {
+            "jsx": true
+          }
+        }
       }
     ]
   }

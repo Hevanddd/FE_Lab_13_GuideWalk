@@ -2,11 +2,9 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styles from './header-component.module.css';
 
-
 export const HeaderComponent = () => {
-
   const history = useHistory();
-  
+
   const [location, setLocation] = React.useState('/');
 
   const goToPreviousPath = () => {
@@ -15,32 +13,30 @@ export const HeaderComponent = () => {
 
   useEffect(() => {
     return history.listen((location) => {
-      console.log(`You changed the page to: ${location.pathname}`);
       setLocation(location.pathname);
     });
-  }, [history]);  
+  }, [history]);
 
-  
-  if(location === '/profile' || location === '/'){
-    return(
-      <header>
-        <div className={styles.logoWrapper}>
-          <span>Guide</span>
-          <div className={`${styles.logo} ${styles.loading}`}></div>
-          <span>Walk</span>
-        </div>
-      </header>
-    )
-  }
+  const isProfilePage = location === '/profile';
+  const isHomePage = location === '/';
+  const locationName = location.replace(/\//, '').replace(/-/g, ' ');
 
   return (
     <header>
-      <div className={styles.textWrapper}>
-        <h2>
-          {location.replace(/\//, '').replace(/-/g, ' ')}
-        </h2>
-        <button className={styles.backBtn} onClick={goToPreviousPath}></button>
-      </div>
+      {isProfilePage ||
+        (isHomePage && (
+          <div className={styles.logoWrapper}>
+            <span>Guide</span>
+            <div className={`${styles.logo} ${styles.loading}`}></div>
+            <span>Walk</span>
+          </div>
+        ))}
+      {!isProfilePage && !isHomePage && (
+        <div className={styles.textWrapper}>
+          <h2>{locationName}</h2>
+          <button className={styles.backBtn} onClick={goToPreviousPath}></button>
+        </div>
+      )}
     </header>
   );
 };

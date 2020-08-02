@@ -36,12 +36,12 @@ export const HomeComponent = () => {
   };
   const handleRequestNew = async () => {
     try {
-      const data = await request('/api/route/createRoute', 'POST', testDataRequest);
+      await request('/api/route/createRoute', 'POST', testDataRequest);
     } catch (e) {}
   };
   const handleRequestGet = async () => {
     try {
-      const data = await request('/api/route', 'GET');
+      await request('/api/route', 'GET');
     } catch (e) {}
   };
   return (

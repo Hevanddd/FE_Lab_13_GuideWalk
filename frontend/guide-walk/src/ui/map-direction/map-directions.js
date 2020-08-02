@@ -22,6 +22,11 @@ export const MapDirectionsComponent = () => {
       accessToken: mapboxgl.accessToken,
       unit: 'metric',
       profile: 'mapbox/driving',
+      controls: {
+        inputs: false,
+        profileSwitcher: false,
+        instructions: false,
+      },
     });
     map.addControl(directions, 'top-left');
   }, []);
