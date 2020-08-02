@@ -19,27 +19,31 @@ export const HeaderComponent = () => {
     });
   }, [history]);  
 
-  
-  if(location === '/profile' || location === '/'){
-    return(
-      <header>
+
+  const isProfilePage = location === '/profile';
+  const isHomePage = location === '/';
+  const locationName = location.replace(/\//, '').replace(/-/g, ' ');
+  const isLoading = true;
+  const logoStyles = isLoading ? `${styles.logo} ${styles.loading}` : `${styles.logo}`;
+
+  return(
+    <header>
+      {isProfilePage || 
+        (isHomePage && (
         <div className={styles.logoWrapper}>
           <span>Guide</span>
-          <div className={`${styles.logo} ${styles.loading}`}></div>
+          <div className={logoStyles}></div>
           <span>Walk</span>
         </div>
-      </header>
-    )
-  }
-
-  return (
-    <header>
-      <div className={styles.textWrapper}>
-        <h2>
-          {location.replace(/\//, '').replace(/-/g, ' ')}
-        </h2>
-        <button className={styles.backBtn} onClick={goToPreviousPath}></button>
-      </div>
+      ))}
+        {!isProfilePage && !isHomePage && (
+        <div className={styles.textWrapper}>
+          <h2>
+            {locationName}
+          </h2>
+          <button className={styles.backBtn} onClick={goToPreviousPath}></button>
+        </div>
+      )}
     </header>
-  );
+  )
 };
