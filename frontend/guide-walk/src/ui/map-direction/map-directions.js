@@ -26,5 +26,5 @@ export const MapDirectionsComponent = () => {
     map.addControl(directions, 'top-left');
   }, []);
 
-  return <div id='app' ref={mapWrapper} className='mapWrapper'></div>;
+  return <div id='app' ref={mapWrapper} className='mapWrapper' />;
 };
