@@ -6,7 +6,7 @@ const app = express();
 app.use(express.json({ extended: true }));
 
 app.use("/api/route", require("./routes/route.routes"));
-app.use("/api/point", require("./routes/point.routes"));
+app.use("/api/user", require("./routes/user.routes"));
 
 const PORT = config.get("port") || 5000;
 
