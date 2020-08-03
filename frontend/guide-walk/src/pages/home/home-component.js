@@ -1,19 +1,15 @@
 import React, { useState } from 'react';
 import { MapComponent } from '../../ui/map-component/map-component';
 import { useAuth0 } from '@auth0/auth0-react';
-import { useHttp } from '../../services/http-hook/http-hook';
 
-export const HomeComponent = () => {
+export const HomeComponent = ({ getHomeUserDataStart, userData }) => {
   const [testData, setTestData] = useState();
-  const { request } = useHttp();
   const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
-  const username = user && user.nickname;
-  const handleRequest = async () => {
-    console.log(user)
-    try {
-      const data = await request('/api/user', 'POST', { username });
-      setTestData(data);
-    } catch (e) {}
+  console.log(userData && userData);
+  const userName = user && user[`https://username`];
+
+  const handleRequest = () => {
+    getHomeUserDataStart(userName);
   };
   const testDataRequest = {
     pointArray: [
@@ -37,12 +33,12 @@ export const HomeComponent = () => {
   };
   const handleRequestNew = async () => {
     try {
-      await request('/api/route/createRoute', 'POST', testDataRequest);
+      // await request('/api/route/createRoute', 'POST', testDataRequest);
     } catch (e) {}
   };
   const handleRequestGet = async () => {
     try {
-      await request('/api/route', 'GET');
+      // await request('/api/route', 'GET');
     } catch (e) {}
   };
   return (
