@@ -10,29 +10,28 @@ router.post("/", async (req, res) => {
     let user = await User.findOne({ username });
 
     if (!user) {
-      const newUser = new User({ username, user_routes: [], saved_routes: [] });
-      await newUser.save((err, newUser) =>
-        res
-          .status(201)
-          .json({
-            id: newUser._id,
-            user_routes: [],
-            saved_routes: [],
-          })
-      );
-    } else {
+      const newUser = await new User({
+        username,
+        user_routes: [],
+        saved_routes: [],
+      });
+      await newUser.save();
       res
         .status(201)
         .json({
-          id: user._id,
-          user_routes: user.user_routes,
-          saved_routes: user.saved_routes,
+          id: newUser._id,
+          user_routes: newUser.user_routes,
+          saved_routes: newUser.saved_routes,
         });
+    } else {
+      res.status(201).json({
+        id: user._id,
+        user_routes: user.user_routes,
+        saved_routes: user.saved_routes,
+      });
     }
   } catch (e) {
-    res
-      .status(500)
-      .json({ message: "Something is going wrong. Try it again." });
+    res.status(500).json({ message: e });
   }
 });
 
