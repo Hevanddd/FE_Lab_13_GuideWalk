@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
+import { getHomeUserDataStart } from '../../core/redux/actions';
 
-const mapStateToProps = (state) => ({});
-const mapDispatchToProps = {};
+const mapStateToProps = () => ({});
+const mapDispatchToProps = { getHomeUserDataStart };
 
 export const HomeContainer = connect(mapStateToProps, mapDispatchToProps);

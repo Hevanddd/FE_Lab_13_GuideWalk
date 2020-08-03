@@ -9,7 +9,6 @@ import { NavigationComponent } from './ui/navigation-component';
 import { HeaderComponent } from './ui/header-component';
 import { MapDirectionsComponent } from './ui/map-direction';
 
-
 import 'react-toastify/dist/ReactToastify.css';
 
 export const AppComponent = () => {
