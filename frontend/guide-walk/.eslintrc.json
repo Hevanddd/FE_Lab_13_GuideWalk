@@ -6,7 +6,8 @@
   "extends": "eslint:recommended",
   "plugins": ["react", "prettier"],
   "parserOptions": {
-    "ecmaVersion": 2018
+    "ecmaVersion": 2018,
+    "sourceType": "module"
   },
   "rules": {
     "prettier/prettier": [
@@ -15,14 +16,7 @@
         "printWidth": 120,
         "trailingComma": "es5",
         "jsxSingleQuote": true,
-        "singleQuote": true,
-        "parserOptions": {
-          "ecmaVersion": 6,
-          "sourceType": "module",
-          "ecmaFeatures": {
-            "jsx": true
-          }
-        }
+        "singleQuote": true
       }
     ]
   }

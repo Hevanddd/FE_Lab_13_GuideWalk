@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
 import ReactMapGL, { Marker, Popup } from 'react-map-gl';
+import classNames from 'classnames';
 import { VIEWPORT } from './constants';
+import './map.scss';
 
 export const MapComponent = ({ width, height, zoom }) => {
-  const styleMarker = {
-    width: '20px',
-    height: '20px',
-    backgroundColor: 'red',
-    borderRadius: '50%',
-    textAlign: 'center',
-  };
   const { latitude, longitude } = VIEWPORT;
   const [viewport, setViewport] = useState({
     latitude,
@@ -63,7 +58,7 @@ export const MapComponent = ({ width, height, zoom }) => {
         {markers.map(([lng, lat], index) => {
           return (
             <Marker longitude={lng} latitude={lat} key={lng + lat}>
-              <div style={styleMarker} onClick={(e) => handleMarkerButton(e, [lng, lat], index)}>
+              <div className={classNames('map-marker')} onClick={(e) => handleMarkerButton(e, [lng, lat], index)}>
                 {index + 1}
               </div>
             </Marker>
@@ -78,13 +73,19 @@ export const MapComponent = ({ width, height, zoom }) => {
             onClose={() => {
               setSelectedMarker(null);
             }}
+            offsetTop={-10}
+            offsetLeft={15}
           >
-            <div>
-              <button onClick={(e) => handleDeleteMarker(e, selectedMarker.index)}>Delete Marker</button>
+            <div className={classNames('popup__wrapper')}>
+              <button
+                className={classNames('popup__button')}
+                onClick={(e) => handleDeleteMarker(e, selectedMarker.index)}
+              >
+                Delete Marker
+              </button>
             </div>
           </Popup>
         )}
-        {/*<GeolocateControl position='top-right' />*/}
       </ReactMapGL>
     </div>
   );
