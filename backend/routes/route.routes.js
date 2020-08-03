@@ -54,7 +54,7 @@ router.post("/createRoute", async (req, res) => {
 
       pointToDB.save((err, point) => route.points.push(point._id));
     });
-    
+
     await route.save();
 
     res.status(201).json({ message: "Route was created." });

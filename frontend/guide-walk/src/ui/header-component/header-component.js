@@ -6,7 +6,7 @@ import styles from './header-component.module.css';
 export const HeaderComponent = () => {
 
   const history = useHistory();
-  
+
   const [location, setLocation] = useState('/');
 
   const goToPreviousPath = () => {
@@ -17,7 +17,7 @@ export const HeaderComponent = () => {
     return history.listen((location) => {
       setLocation(location.pathname);
     });
-  }, [history]);  
+  }, [history]);
 
 
   const isProfilePage = location === '/profile';
@@ -28,7 +28,7 @@ export const HeaderComponent = () => {
 
   return(
     <header>
-      {isProfilePage || 
+      {isProfilePage ||
         (isHomePage && (
         <div className={styles.logoWrapper}>
           <span>Guide</span>
