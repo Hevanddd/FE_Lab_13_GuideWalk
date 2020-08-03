@@ -7,21 +7,21 @@ import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import styles from './point.module.css';
 
 
-export const PointComponent = ({name, deletePoint, editPoint}) => {
+export const PointComponent = ({point, deletePoint, editPoint}) => {
 
   const [routeFocus, setRouteFocus] = useState('Fun');
   const [addPointForm, toggleAddPointForm] = useState('false');
 
-  
+  const {pointName, id} = point;
   return (
     <li>
-      <IconButton aria-label="delete" onClick={deletePoint}>
+      <IconButton aria-label="delete" onClick={() => deletePoint(id)}>
         <DeleteOutlineOutlinedIcon />
       </IconButton>
-      <IconButton className={styles.editBtn} aria-label="edit" onClick={editPoint}>
+      <IconButton className={styles.editBtn} aria-label="edit" onClick={() => editPoint(id)}>
         <EditOutlinedIcon />
       </IconButton>
-      <span>{name}</span>
+      <span>{pointName}</span>
     </li>
   );
 };

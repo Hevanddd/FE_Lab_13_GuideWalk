@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { MapComponent } from '../map-component/map-component';
@@ -6,24 +6,44 @@ import { useForm, Controller } from "react-hook-form";
 
 import styles from './add-edit-point-form.module.css';
 
-export const AddEditPointFormComponent = ({addPoint}) => {
+export const AddEditPointFormComponent = ({savePoint, editedPoint}) => {
   
-    const {register, handleSubmit, control} = useForm();
+  const {register, handleSubmit, control, setValue} = useForm();
+  
+  const defaultName = editedPoint ? editedPoint.pointName : '';  
+  const defaultDescription = editedPoint ? editedPoint.pointDescription : '';
+  const defaultCoords = editedPoint ? editedPoint.pointCoords : null;
+  
+  useEffect(() => {
+    setValue('pointName', defaultName);
+    setValue('pointDescription', defaultDescription);
+  });
+  
+  const submitPoint = (point) => {
+    // Add function from MAP
+    point.coords = '1, 2';
+    if(editedPoint){
+      savePoint(point, editedPoint.id);
+    } else{
+      savePoint(point);
+    }
+  }
+
+
 
   return (
-
       <div className={styles.form}>
-
         <TextField
           inputRef={register}
-          name="point-name"
+          name="pointName"
           label="Point Name"
           placeholder="Your point"
           variant="outlined"
         />
+        
         <Controller as={TextField}
           control={control}
-          name="point-description"
+          name="pointDescription"
           label="Description"
           multiline
           rows={4}
@@ -38,7 +58,7 @@ export const AddEditPointFormComponent = ({addPoint}) => {
           color = "secondary"
           variant = "contained"
           onClick = {
-            handleSubmit((data) => console.log(JSON.stringify(data)))
+            handleSubmit((data) => submitPoint(data))
           }>
             Save Point
         </Button>

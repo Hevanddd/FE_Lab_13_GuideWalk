@@ -6,53 +6,80 @@ import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOut
 import AddEditPointFormComponent from './../add-edit-point-form-component';
 import { PointComponent } from '../point-component/point-component';
 import { useForm, Controller } from "react-hook-form";
-import Portal from '@material-ui/core/Portal';
 
 import styles from './add-edit-form.module.css';
 
 const routeFocuses = ['Fun', 'SightSeeing', 'Quest'];
 
-
 export const AddEditFormComponent = () => {
+  const data = [{
+      pointName: 'Lviv',
+      pointDescription: 'Very good route',
+      coords: '',
+      id: 1
+    },
+    {
+      pointName: 'Kyiv',
+      pointDescription: 'Very good route',
+      coords: '',
+      id: 2
+    }
+  ];
 
   const {register, handleSubmit, control} = useForm();
 
   const [routeFocus, setRouteFocus] = useState('Fun');
-  const [addPointForm, toggleAddPointForm] = useState('false');
-
-  const container = useRef(null);
+  const [addPointForm, showAddPointForm] = useState(false);
+  const [points, changePointList] = useState(data);
+  const [editedPoint, setEditedPoint] = useState(false);
 
   const routeFocusHandler = (event) => {
     setRouteFocus(event.target.value);
   };
-
-  const togglePointForm = () => {
-    toggleAddPointForm(!addPointForm);
-    console.log(addPointForm);
+  
+  const clearPointForm = () => {
+    setEditedPoint(false);
+    showAddPointForm(false);
   }
 
-  const addPoint = (point) => {
-    points.push(point);
-    console.log('Done')
-    togglePointForm();
+  const savePoint = (point, existedId) => {
+    if(existedId){
+      point.id = existedId;
+      const newPointList = points.map((el) => {
+        if(el.id === existedId){
+          return point;
+        }
+        return el;
+      })
+      changePointList(newPointList);
+      clearPointForm()
+      return true;
+    }
+    point.id = points.length ? points[points.length - 1].id + 1 : 1;
+    changePointList([...points, point]);
+    clearPointForm();
   }
 
-  const editPoint = (point) => {
-    console.log('Edit');
+  const editPoint = (id) => {
+    const editedPoint = points.filter((el) => el.id === id)[0];
+    showAddPointForm(true)
+    setEditedPoint(editedPoint);
   }
 
-  const deletePoint = (point) => {
+  const deletePoint = (id) => {
     console.log('Delete');
+    const idx = points.findIndex((el) => el.id === id);
+    changePointList([
+      ...points.slice(0, idx),
+      ...points.slice(idx + 1)
+    ])
   }
 
-  const points = ['Lviv', 'Kyiv'];
-
-
-  const pointsList = points.map((point, index) => {
-    return <PointComponent key={index} name={point} deletePoint={deletePoint} editPoint={editPoint}/>
+  const pointsList = points.map((point) => {
+    return <PointComponent key={point.id} point={point} deletePoint={deletePoint} editPoint={editPoint}/>
   })
 
-  const pointForm = addPointForm ? null : <AddEditPointFormComponent addPoint={addPoint} /> ;
+  const pointForm = addPointForm ? <AddEditPointFormComponent savePoint={savePoint} editedPoint={editedPoint} /> : null;
   
   return (
     <>
@@ -99,7 +126,10 @@ export const AddEditFormComponent = () => {
         <ul className={styles.pointsList}> 
           {pointsList}
           <li>
-            <IconButton aria-label="delete" onClick={togglePointForm}>
+            <IconButton aria-label="delete" onClick = {() => {
+              clearPointForm();
+              showAddPointForm(true);
+              }}>
               <AddCircleOutlineOutlinedIcon />
             </IconButton>
             <span>Add new point</span>
@@ -107,16 +137,11 @@ export const AddEditFormComponent = () => {
         </ul>
 
         {pointForm}
-        <Portal container={container.current}>
-        </Portal>
-
-        <div ref={container} />
 
         <Button className={styles.saveBtn} type="submit" color="primary" variant="contained" >
           Save Route
         </Button>
       </form>
-      
     </>
   );
 };
