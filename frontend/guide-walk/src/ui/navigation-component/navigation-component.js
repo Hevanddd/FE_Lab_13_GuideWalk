@@ -20,7 +20,8 @@ const useStyles = makeStyles({
     },
     position: 'fixed',
     bottom: 0,
-    width: '100%'
+    width: '100%',
+    borderTop: '1px solid rgba(0, 0, 0, 0.54)'
   },
 });
 
