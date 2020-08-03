@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
-import MapGL, { Marker, GeolocateControl } from '@urbica/react-map-gl';
-import { Layer, Source } from 'react-map-gl';
-import { VIEWPORT, DATA } from './constants';
-import 'mapbox-gl/dist/mapbox-gl.css';
+import ReactMapGL, { Marker, Popup } from 'react-map-gl';
+import classNames from 'classnames';
+import { VIEWPORT } from './constants';
+import './map.scss';
 
 export const MapComponent = ({ width, height, zoom }) => {
-  const mapStyle = {
-    width,
-    height,
-  };
   const { latitude, longitude } = VIEWPORT;
   const [viewport, setViewport] = useState({
     latitude,
@@ -16,61 +12,81 @@ export const MapComponent = ({ width, height, zoom }) => {
     zoom,
   });
   const [markers, setMatkers] = useState([]);
-  const style = {
-    padding: '10px',
-    color: '#fff',
-    cursor: 'pointer',
-    background: '#1978c8',
-    borderRadius: '50%',
-    textAlign: 'center',
-    width: '20px',
-    height: '20px',
-    fontSize: '15px',
-  };
+  const [selectedMarker, setSelectedMarker] = useState(null);
+
   const handleOnClick = (e) => {
     const coordinates = e.lngLat;
 
     setMatkers((prevState) => {
-      const validateCoordinates = prevState.find(({ lng, lat }) => {
+      const validateCoordinates = prevState.find(([lng, lat]) => {
         return lng === coordinates.lng && lat === coordinates.lat;
       });
       return !validateCoordinates ? [...prevState, coordinates] : prevState;
     });
   };
 
+  const handleMarkerButton = (e, coordinateMarker, index) => {
+    e.preventDefault();
+    const markerData = {
+      coordinateMarker,
+      index,
+    };
+    setSelectedMarker(markerData);
+  };
+
+  const handleDeleteMarker = (e, index) => {
+    setMatkers((prevState) => {
+      const copiedState = [...prevState];
+      copiedState.splice(index, 1);
+      return copiedState;
+    });
+    setTimeout(function () {
+      setSelectedMarker(null);
+    }, 300);
+  };
   return (
     <div>
-      <MapGL
-        style={mapStyle}
-        mapStyle='mapbox://styles/mapbox/streets-v11'
-        accessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+      <ReactMapGL
+        width={width}
+        height={height}
+        mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
         onViewportChange={setViewport}
         onClick={(e) => handleOnClick(e)}
+        mapStyle='mapbox://styles/mapbox/streets-v11'
         {...viewport}
       >
-        <Source id='route' type='geojson' data={DATA} />
-        <Layer
-          id='route'
-          type='line'
-          source='route'
-          layout={{
-            'line-join': 'round',
-            'line-cap': 'round',
-          }}
-          paint={{
-            'line-color': '#888',
-            'line-width': 8,
-          }}
-        />
-        {markers.map(({ lng, lat }, index) => {
+        {markers.map(([lng, lat], index) => {
           return (
             <Marker longitude={lng} latitude={lat} key={lng + lat}>
-              <button style={style}>{index + 1}</button>
+              <div className={classNames('map-marker')} onClick={(e) => handleMarkerButton(e, [lng, lat], index)}>
+                {index + 1}
+              </div>
             </Marker>
           );
         })}
-        <GeolocateControl position='top-right' />
-      </MapGL>
+        {selectedMarker && (
+          <Popup
+            longitude={selectedMarker.coordinateMarker[0]}
+            latitude={selectedMarker.coordinateMarker[1]}
+            closeButton={true}
+            closeOnClick={false}
+            onClose={() => {
+              setSelectedMarker(null);
+            }}
+            offsetTop={-10}
+            offsetLeft={15}
+          >
+            <div className={classNames('popup__wrapper')}>
+              <button
+                className={classNames('popup__button')}
+                onClick={(e) => handleDeleteMarker(e, selectedMarker.index)}
+              >
+                Delete Marker
+              </button>
+            </div>
+          </Popup>
+        )}
+      </ReactMapGL>
     </div>
   );
 };

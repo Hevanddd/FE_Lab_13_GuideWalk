@@ -1,0 +1,44 @@
+.logoWrapper{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+}
+
+.logo{
+    background: no-repeat url("../../img/logo.png");
+    background-size: 50px;
+    background-position: 50%;
+    width: 50px;
+    height: 50px;
+    padding: 0px 10px 0px 10px;
+}
+
+@keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(-360deg);}
+}
+
+.loading{
+    animation: spin 1s linear 0s infinite;
+}
+
+.textWrapper{
+    display: flex;
+    justify-content: center;
+    text-transform: uppercase;
+}
+
+.backBtn{
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    left: 35px;
+    top: 20px;
+    background: no-repeat url("../../img/up-arrow.svg");
+    background-size: 30px;
+    transform: rotate(0.75turn);
+    border: none;
+}
