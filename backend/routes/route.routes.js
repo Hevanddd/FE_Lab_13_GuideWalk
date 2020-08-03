@@ -16,8 +16,8 @@ router.get("/", async (req, res) => {
 
 router.get("/user/:userId", async (req, res) => {
   try {
-    const route = await Route.find({ owner: req.params.userId });
-    res.json(route);
+    const routes = await Route.find({ owner: req.params.userId });
+    res.json(routes);
   } catch (e) {
     return res.status(500).json({ message: "Something is going wrong." });
   }
@@ -25,8 +25,14 @@ router.get("/user/:userId", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
-    const routes = await Route.findById(req.params.id);
-    res.json(routes);
+    const route = await Route.findById(req.params.id);
+
+    const coordinatesArray = route.points.map(async (pointId) => {
+      const pointInfo = await Point.findById(pointId);
+      return pointInfo.location;
+    });
+
+    res.json(route, coordinatesArray);
   } catch (e) {
     return res.status(500).json({ message: "Something is going wrong." });
   }
@@ -36,30 +42,31 @@ router.post("/createRoute", async (req, res) => {
   try {
     const { pointArray, routeInfo } = req.body;
 
-    const route = new Route({
-      name: routeInfo.title,
-      focus: routeInfo.focus,
-      description: routeInfo.description,
-      points: [],
-      owner: routeInfo.owner,
-    });
-
-    pointArray.forEach((point) => {
-
+    const pointIndexes = [];
+  
+    pointArray.forEach(async (point) => {
       const pointToDB = new Point({
         name: point.title,
         location: point.location,
         description: point.description,
       });
-
-      pointToDB.save((err, point) => route.points.push(point._id));
+      pointIndexes.push(pointToDB._id);
+      await pointToDB.save();
     });
 
-    await route.save();
 
-    res.status(201).json({ message: "Route was created." });
+    const route = await Route.create({
+      name: routeInfo.title,
+      focus: routeInfo.focus,
+      description: routeInfo.description,
+      points: pointIndexes,
+      owner: routeInfo.owner,
+    });
+
+    res.status(201).json({ route });
+
   } catch (e) {
-    return res.status(500).json({ message: "Something went wrong." });
+    return res.status(500).json({ message: e });
   }
 });
 
@@ -73,6 +80,18 @@ router.post("/editRoute", async (req, res) => {
 
     await route.save();
   } catch (e) {
+    return res.status(500).json({ message: "Something is going wrong." });
+  }
+});
+
+router.post("/getNext", async (req, res) => {
+  try {
+    const route = await Route.findById(req.body.id);
+    const pointId = route.points[req.body.index];
+
+    const pointInfo = await Point.findById(pointId);
+    res.status(201).json(pointInfo);
+  } catch (error) {
     return res.status(500).json({ message: "Something is going wrong." });
   }
 });
