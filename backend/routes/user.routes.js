@@ -3,22 +3,35 @@ const User = require("../models/User");
 
 const router = new Router();
 
-router.get("/", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
-    const { username } = req.body;
+    const username = req.body.username;
 
     let user = await User.findOne({ username });
 
     if (!user) {
-      const newUser = new User({ username, user_routes: [], saved_routes: [] });
+      const newUser = await new User({
+        username,
+        user_routes: [],
+        saved_routes: [],
+      });
       await newUser.save();
-      user = await User.findOne({ username });
+      res
+        .status(201)
+        .json({
+          id: newUser._id,
+          user_routes: newUser.user_routes,
+          saved_routes: newUser.saved_routes,
+        });
+    } else {
+      res.status(201).json({
+        id: user._id,
+        user_routes: user.user_routes,
+        saved_routes: user.saved_routes,
+      });
     }
-    res.status(201).json({ user });
   } catch (e) {
-    res
-      .status(500)
-      .json({ message: "Something is going wrong. Try it again." });
+    res.status(500).json({ message: e });
   }
 });
 
