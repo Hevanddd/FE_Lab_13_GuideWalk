@@ -1,6 +1,7 @@
 const { Router } = require("express");
 
 const Route = require("../models/Route");
+const User = require('../models/User')
 const Point = require("../models/Point");
 
 const router = new Router();
@@ -62,6 +63,10 @@ router.post("/createRoute", async (req, res) => {
       points: pointIndexes,
       owner: routeInfo.owner,
     });
+
+    const ownerItem = await User.findById(routeInfo.owner);
+    ownerItem.user_routes.push(route._id);
+    await ownerItem.save()
 
     res.status(201).json({ route });
 
