@@ -2,29 +2,24 @@ import { handleActions } from 'redux-actions';
 import { getHomeUserDataStart, getHomeUserDataFail, getHomeUserDataSuccess } from '../actions';
 
 const initialState = {
-  isLoading: false,
-  data: [],
+  data: null,
 };
 
 const reducerMap = {
   [getHomeUserDataStart]: (state) => {
     return {
       ...state,
-      isLoading: true,
     };
   },
   [getHomeUserDataSuccess]: (state, { payload }) => {
-    console.log(payload);
     return {
       ...state,
-      isLoading: true,
-      data: [...payload],
+      data: payload,
     };
   },
   [getHomeUserDataFail]: (state) => {
     return {
       ...state,
-      isLoading: false,
       data: [],
     };
   },

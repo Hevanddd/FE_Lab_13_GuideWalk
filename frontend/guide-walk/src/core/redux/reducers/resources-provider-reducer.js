@@ -2,7 +2,7 @@ import { handleActions } from 'redux-actions';
 import { refreshUserData } from '../actions';
 
 const initialState = {
-  userData: [],
+  userData: null,
 };
 
 const reducerMap = {
