@@ -1,13 +1,10 @@
 import React from 'react';
-import { HeaderComponent } from '../../ui/header-component';
-import { AddEditFormComponent } from '../../ui/add-edit-form-component/add-edit-form-component';
+import { AddEditFormComponent } from '../../ui/add-edit-form-component';
 
 export const AddRouteComponent = () => {
-
-    return (
+  return (
     <div>
-        <HeaderComponent />
-        <AddEditFormComponent/>
+      <AddEditFormComponent />
     </div>
   );
 };

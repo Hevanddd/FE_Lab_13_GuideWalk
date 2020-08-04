@@ -5,12 +5,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 export const HomeComponent = ({ getHomeUserDataStart, userData }) => {
   const [testData, setTestData] = useState();
   const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
-  console.log(userData && userData);
   const userName = user && user[`https://username`];
-
-  const handleRequest = () => {
-    getHomeUserDataStart(userName);
-  };
   const testDataRequest = {
     pointArray: [
       {
@@ -31,16 +26,11 @@ export const HomeComponent = ({ getHomeUserDataStart, userData }) => {
       owner: testData && testData.id,
     },
   };
-  const handleRequestNew = async () => {
-    try {
-      // await request('/api/route/createRoute', 'POST', testDataRequest);
-    } catch (e) {}
+  const handleRequest = () => {
+    userData && getHomeUserDataStart(userData);
   };
-  const handleRequestGet = async () => {
-    try {
-      // await request('/api/route', 'GET');
-    } catch (e) {}
-  };
+  const handleRequestNew = () => {};
+  const handleRequestGet = () => {};
   return (
     <div>
       <button onClick={handleRequest}>Request</button>

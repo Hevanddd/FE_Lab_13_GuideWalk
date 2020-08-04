@@ -37,10 +37,10 @@ const postCSSLoader = {
 },
 {
     test: /\.module\.scss$/,
-        use: [
-    'style-loader',
-    CSSModuleLoader,
-    postCSSLoader,
-    'sass-loader',
+    use: [
+      'style-loader',
+      CSSModuleLoader,
+      postCSSLoader,
+      'sass-loader',
 ]
 },
