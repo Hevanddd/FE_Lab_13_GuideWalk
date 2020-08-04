@@ -18,6 +18,8 @@
         "jsxSingleQuote": true,
         "singleQuote": true
       }
-    ]
+    ],
+    "react/no-unused-prop-types": "warn",
+    "react/prop-types": ["warn", { "ignore": ["children"] }]
   }
 }

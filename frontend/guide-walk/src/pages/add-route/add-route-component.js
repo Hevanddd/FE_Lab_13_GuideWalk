@@ -2,8 +2,7 @@ import React from 'react';
 import { AddEditFormComponent } from '../../ui/add-edit-form-component/add-edit-form-component';
 
 export const AddRouteComponent = () => {
-
-    return (
+  return (
     <div>
         <AddEditFormComponent/>
     </div>
