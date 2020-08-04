@@ -1,4 +1,4 @@
-.logoWrapper{
+.logo{
     padding-top: 10px;
     padding-bottom: 10px;
     display: flex;
@@ -7,7 +7,7 @@
     font-size: 22px;
 }
 
-.logo{
+.logo__img{
     background: no-repeat url("../../img/logo.png");
     background-size: 50px;
     background-position: 50%;
@@ -21,17 +21,17 @@
     to {transform:rotate(-360deg);}
 }
 
-.loading{
+.logo__img--loading{
     animation: spin 1s linear 0s infinite;
 }
 
-.textWrapper{
+.header-text{
     display: flex;
     justify-content: center;
     text-transform: uppercase;
 }
 
-.backBtn{
+.header-text__btn{
     width: 30px;
     height: 30px;
     position: absolute;

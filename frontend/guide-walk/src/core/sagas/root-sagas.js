@@ -1,4 +1,4 @@
-import {all, fork} from 'redux-saga/effects';
+import { all, fork } from 'redux-saga/effects';
 import * as homeSagas from './home-saga';
 
 export function* rootSagas() {

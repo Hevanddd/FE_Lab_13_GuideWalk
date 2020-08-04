@@ -6,7 +6,8 @@
   "extends": "eslint:recommended",
   "plugins": ["react", "prettier"],
   "parserOptions": {
-    "ecmaVersion": 2018
+    "ecmaVersion": 2018,
+    "sourceType": "module"
   },
   "rules": {
     "prettier/prettier": [
@@ -17,6 +18,8 @@
         "jsxSingleQuote": true,
         "singleQuote": true
       }
-    ]
+    ],
+    "react/no-unused-prop-types": "warn",
+    "react/prop-types": ["warn", { "ignore": ["children"] }]
   }
 }

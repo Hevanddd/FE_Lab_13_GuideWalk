@@ -5,10 +5,12 @@ import { TextField } from '@material-ui/core';
 export const ProfileInfoComponent = () => {
     // const [inputValue, setInputValue] = useState();
     const {user} = useAuth0();
+    
     const userName = user && user['https://username'];
     const userEmail = user && user.name;
 
     return (
+        <div>
         <form>
             <TextField
                 label="Name"
@@ -35,5 +37,7 @@ export const ProfileInfoComponent = () => {
             }}
             />
         </form>
+      {isAuthenticated && <button onClick={logout}>Log out</button>}
+            </div>
     )
 };
