@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
-import { homeUserDataSelector } from '../../core/redux/selectors';
+import { userAuthDataSelector } from '../../core/redux/selectors';
 
 const mapStateToProps = (state) => ({
-  data: homeUserDataSelector(state),
+  data: userAuthDataSelector(state),
 });
 const mapDispatchToProps = {};
 
