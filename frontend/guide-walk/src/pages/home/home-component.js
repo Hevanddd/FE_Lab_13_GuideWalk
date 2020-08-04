@@ -1,9 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MapComponent } from '../../ui/map-component/map-component';
 import { useAuth0 } from '@auth0/auth0-react';
 import { getAddedRouteDataStart } from '../../core/redux/actions';
 
-export const HomeComponent = ({ getUserInfoDataStart, userDataAuth, routes, userInfoData, getAddedRouteDataStart }) => {
+export const HomeComponent = ({
+  getUserInfoDataStart,
+  userDataAuth,
+  routes,
+  userInfoData,
+  getAddedRouteDataStart,
+  getAllRoutesStart,
+}) => {
   const [testData, setTestData] = useState();
   const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
   const userName = userDataAuth && userDataAuth.userName;
@@ -35,6 +42,11 @@ export const HomeComponent = ({ getUserInfoDataStart, userDataAuth, routes, user
     userInfoData && getAddedRouteDataStart(testDataRequest);
   };
   const handleRequestGet = () => {};
+
+  useEffect(() => {
+    getAllRoutesStart();
+  }, []);
+
   return (
     <div>
       {userName && <button onClick={handleGetUserData}>Get user data</button>}

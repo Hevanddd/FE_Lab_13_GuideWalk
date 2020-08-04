@@ -1,8 +1,16 @@
 import { handleActions } from 'redux-actions';
-import { getAddedRouteDataSuccess, getAddedRouteDataFail, getAddedRouteDataStart } from '../actions';
+import {
+  getAddedRouteDataSuccess,
+  getAddedRouteDataFail,
+  getAddedRouteDataStart,
+  getAllRoutesStart,
+  getAllRoutesFail,
+  getAllRoutesSuccess,
+} from '../actions';
 
 const initialState = {
-  addedRouteInfo: {},
+  addedRouteInfo: null,
+  allRoutes: null,
 };
 
 const reducerMap = {
@@ -21,6 +29,23 @@ const reducerMap = {
     return {
       ...state,
       addedRouteInfo: [],
+    };
+  },
+  [getAllRoutesStart]: (state, { payload }) => {
+    return {
+      ...state,
+    };
+  },
+  [getAllRoutesSuccess]: (state, { payload }) => {
+    return {
+      ...state,
+      allRoutes: { ...payload },
+    };
+  },
+  [getAllRoutesFail]: (state) => {
+    return {
+      ...state,
+      addedRouteInfo: null,
     };
   },
 };
