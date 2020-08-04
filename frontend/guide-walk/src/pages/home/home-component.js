@@ -5,7 +5,7 @@ import { useHttp } from '../../services';
 
 export const HomeComponent = () => {
   const { loading, request, error, clearError } = useHttp();
-  const { loginWithRedirect, isAuthenticated, logout } = useAuth0();
+  const { loginWithRedirect, isAuthenticated, logout , user} = useAuth0();
   const handleRequest = async () => {
     try {
       const data = await request('/api/point', 'GET');
