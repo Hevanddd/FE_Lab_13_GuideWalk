@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
-import { HOME_KEY } from '../constants';
+import { USER_KEY } from '../constants';
 
-const getData = (state) => state[HOME_KEY];
+const getData = (state) => state[USER_KEY];
 
-export const homeUserDataSelector = createSelector(getData, (home) => home.userData);
+export const homeUserDataSelector = createSelector(getData, (user) => user.userData);

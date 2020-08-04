@@ -4,7 +4,8 @@ import classNames from 'classnames';
 import { VIEWPORT } from './constants';
 import './map.scss';
 
-export const MapComponent = ({ width, height, zoom }) => {
+export const MapComponent = ({ width, height, zoom, coordinatesMarker }) => {
+  // const { lng, lat } = coordinatesMarker;
   const { latitude, longitude } = VIEWPORT;
   const [viewport, setViewport] = useState({
     latitude,
@@ -64,6 +65,9 @@ export const MapComponent = ({ width, height, zoom }) => {
             </Marker>
           );
         })}
+        {/*<Marker longitude={lng} latitude={lat} key={lng + lat}>*/}
+        {/*  <div className={classNames('map-marker')}>1</div>*/}
+        {/*</Marker>*/}
         {selectedMarker && (
           <Popup
             longitude={selectedMarker.coordinateMarker[0]}
