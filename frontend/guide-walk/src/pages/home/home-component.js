@@ -2,16 +2,6 @@ import React, { useState } from 'react';
 import { MapComponent } from '../../ui/map-component/map-component';
 import { useAuth0 } from '@auth0/auth0-react';
 
-<<<<<<< HEAD
-export const HomeComponent = () => {
-  const { loading, request, error, clearError } = useHttp();
-  const { loginWithRedirect, isAuthenticated, logout , user} = useAuth0();
-  const handleRequest = async () => {
-    try {
-      const data = await request('/api/point', 'GET');
-      console.log(data);
-    } catch (e) {}
-=======
 export const HomeComponent = ({ getHomeUserDataStart, userData }) => {
   const [testData, setTestData] = useState();
   const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
@@ -35,7 +25,6 @@ export const HomeComponent = ({ getHomeUserDataStart, userData }) => {
       description: 'Description',
       owner: testData && testData.id,
     },
->>>>>>> e1605f740c85ff28adc398812b3f2de127695db1
   };
   const handleRequest = () => {
     userData && getHomeUserDataStart(userData);

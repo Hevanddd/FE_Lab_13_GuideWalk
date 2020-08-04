@@ -37,7 +37,7 @@ export const ProfileInfoComponent = () => {
             }}
             />
         </form>
-      {isAuthenticated && <button onClick={logout}>Log out</button>}
+      {/* {isAuthenticated && <button onClick={logout}>Log out</button>} */}
             </div>
     )
 };
