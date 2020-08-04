@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
-import { getHomeUserDataStart, getHomeUserDataSuccess } from '../../core/redux/actions';
-import { homeUserDataSelector } from '../../core/redux/selectors';
+import { getUserInfoDataStart, getUserInfoDataSuccess } from '../../core/redux/actions';
+import { userAuthDataSelector } from '../../core/redux/selectors';
 
 const mapStateToProps = (state) => ({
-  data: homeUserDataSelector(state),
+  data: userAuthDataSelector(state),
 });
-const mapDispatchToProps = { getHomeUserDataStart, getHomeUserDataSuccess };
+const mapDispatchToProps = { getHomeUserDataStart: getUserInfoDataStart, getHomeUserDataSuccess: getUserInfoDataSuccess };
 
 export const MapContainer = connect(mapStateToProps, mapDispatchToProps);
