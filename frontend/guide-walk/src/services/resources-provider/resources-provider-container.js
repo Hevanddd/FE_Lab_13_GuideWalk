@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { refreshUserData } from '../../core/redux/actions';
+import { refreshUserDataAuth, getUserInfoDataStart, getAllRoutesStart } from '../../core/redux/actions';
 
-const mapDispatchToProps = { refreshUserData };
+const mapDispatchToProps = { refreshUserDataAuth, getUserInfoDataStart };
 
 export const ResourcesProviderContainer = connect(null, mapDispatchToProps);

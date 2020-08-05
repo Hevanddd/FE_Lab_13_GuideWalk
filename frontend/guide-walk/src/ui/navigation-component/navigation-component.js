@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
@@ -30,6 +30,10 @@ export const NavigationComponent = () => {
 
   const classes = useStyles();
   const [value, setValue] = useState('home');
+
+  // useEffect(() => {
+
+  // }, [history])
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
