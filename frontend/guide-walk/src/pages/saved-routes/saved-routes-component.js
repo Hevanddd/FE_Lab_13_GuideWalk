@@ -1,20 +1,6 @@
 import React, { useState } from 'react';
-
-import { MapAddEditPoint } from '../../ui/map-add-edit-poitn';
+import { MapDrawComponent } from '../../ui/map-draw';
 
 export const SavedRoutesComponent = () => {
-  const [coordinates, setCoordinates] = useState({
-    latitude: 49.842957,
-    longitude: 24.031111,
-  });
-  return (
-    <MapAddEditPoint
-      width={'100vw'}
-      height={500}
-      zoom={12}
-      coordinatesMarker={coordinates}
-      setCoordinatesMarker={setCoordinates}
-      nameMarker={'R'}
-    />
-  );
+  return <MapDrawComponent />;
 };
