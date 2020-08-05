@@ -51,20 +51,5 @@ router.post("/addSaved", async (req, res) => {
   }
 });
 
-router.post("/addSaved", async (req, res) => {
-  try {
-    const { savedId, userId } = req.body;
-
-    const user = await User.findById(userId);
-
-    user.saved_routes.push(savedId);
-
-    user.save();
-  } catch (e) {
-    res
-      .status(500)
-      .json({ message: "Something is going wrong. Try it again." });
-  }
-});
 
 module.exports = router;
