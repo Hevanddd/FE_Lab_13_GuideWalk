@@ -12,19 +12,19 @@ import styles from './add-edit-form.module.scss';
 
 const routeFocuses = ['Fun', 'SightSeeing', 'Quest'];
 
-const AddEditFormComponent = () => {
+const AddEditFormComponent = ({ userInfoDate, getAddedRouteDataStart }) => {
   
   const data = [{
       title: 'Lviv',
-      location:{ latitude: 48.841696966703736, longitude: 24.031492762018463 },
+      location:{ lat: 48.841696966703736, lng: 24.031492762018463 },
       description: 'Very good route',
-      id: 1
+      // id: 1
     },
     {
       title: 'Kyiv',
-      location:{ latitude: 47.841696966703736, longitude: 24.031492762018463 },
+      location:{ lat: 47.841696966703736, lng: 24.031492762018463 },
       description: 'Very good route',
-      id: 2
+      // id: 2
     }
   ];
 
@@ -39,10 +39,12 @@ const AddEditFormComponent = () => {
     setEditedPoint(false);
     showAddPointForm(false);
   }
+
   const saveRoute = (route) => {
-    route.owner = 'Igor';
-    route.pointsArray = points;
+    route.owner = userInfoDate.id;
+    route.pointArray = points;
     console.log(route);
+    getAddedRouteDataStart(route);
   }
 
   const savePoint = (point, existedId) => {
@@ -78,8 +80,8 @@ const AddEditFormComponent = () => {
     ])
   }
 
-  const pointsList = points.map((point) => {
-    return <PointComponent key={point.id} point={point} deletePoint={deletePoint} editPoint={editPoint}/>
+  const pointsList = points.map((point, index) => {
+    return <PointComponent key={index} point={point} deletePoint={deletePoint} editPoint={editPoint}/>
   })
 
   const pointForm = addPointForm ? <AddEditPointFormComponent savePoint={savePoint} editedPoint={editedPoint} /> : null;
