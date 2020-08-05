@@ -1,1 +1,3 @@
-export { PointComponent } from './point-component';
+import PointComponent from './point-component';
+
+export default PointComponent;

@@ -1,45 +1,48 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 import AddEditPointFormComponent from './../add-edit-point-form-component';
-import { PointComponent } from '../point-component/point-component';
+import PointComponent from '../point-component/point-component';
 import { useForm, Controller } from "react-hook-form";
+import CSSModules from 'react-css-modules';
 
-import styles from './add-edit-form.module.css';
+import styles from './add-edit-form.module.scss';
 
 const routeFocuses = ['Fun', 'SightSeeing', 'Quest'];
 
-export const AddEditFormComponent = () => {
+const AddEditFormComponent = () => {
+  
   const data = [{
-      pointName: 'Lviv',
-      pointDescription: 'Very good route',
-      coords: '',
+      title: 'Lviv',
+      location:{ latitude: 48.841696966703736, longitude: 24.031492762018463 },
+      description: 'Very good route',
       id: 1
     },
     {
-      pointName: 'Kyiv',
-      pointDescription: 'Very good route',
-      coords: '',
+      title: 'Kyiv',
+      location:{ latitude: 47.841696966703736, longitude: 24.031492762018463 },
+      description: 'Very good route',
       id: 2
     }
   ];
 
   const {register, handleSubmit, control} = useForm();
 
-  const [routeFocus, setRouteFocus] = useState('Fun');
   const [addPointForm, showAddPointForm] = useState(false);
   const [points, changePointList] = useState(data);
   const [editedPoint, setEditedPoint] = useState(false);
 
-  const routeFocusHandler = (event) => {
-    setRouteFocus(event.target.value);
-  };
   
   const clearPointForm = () => {
     setEditedPoint(false);
     showAddPointForm(false);
+  }
+  const saveRoute = (route) => {
+    route.owner = 'Igor';
+    route.pointsArray = points;
+    console.log(route);
   }
 
   const savePoint = (point, existedId) => {
@@ -55,6 +58,7 @@ export const AddEditFormComponent = () => {
       clearPointForm()
       return true;
     }
+    console.log(point);
     point.id = points.length ? points[points.length - 1].id + 1 : 1;
     changePointList([...points, point]);
     clearPointForm();
@@ -62,12 +66,11 @@ export const AddEditFormComponent = () => {
 
   const editPoint = (id) => {
     const editedPoint = points.filter((el) => el.id === id)[0];
-    showAddPointForm(true)
     setEditedPoint(editedPoint);
+    showAddPointForm(true)
   }
 
   const deletePoint = (id) => {
-    console.log('Delete');
     const idx = points.findIndex((el) => el.id === id);
     changePointList([
       ...points.slice(0, idx),
@@ -83,10 +86,10 @@ export const AddEditFormComponent = () => {
   
   return (
     <>
-      <form className={styles.form} onSubmit={handleSubmit((data)=> console.log(JSON.stringify(data)))}>
+      <form styleName='form' onSubmit={handleSubmit((data) => saveRoute(data))}>
 
         <TextField
-          name="route-name"
+          name="title"
           inputRef={register}
           label="Route Name"
           placeholder="The Best Route"
@@ -94,13 +97,11 @@ export const AddEditFormComponent = () => {
         />
 
         <TextField
-          name="route-focus"
+          name="focus"
           inputRef={register}
           select
           label="Route Focus"
           placeholder="Route Focus"
-          value={routeFocus}
-          onChange={routeFocusHandler}
           SelectProps={{
             native: true,
           }}
@@ -115,7 +116,7 @@ export const AddEditFormComponent = () => {
 
         <Controller as={TextField}
           control={control}
-          name="route-description"
+          name="description"
           label="Description"
           multiline
           rows={4}
@@ -123,7 +124,7 @@ export const AddEditFormComponent = () => {
           variant="outlined"
         />
 
-        <ul className={styles.pointsList}> 
+        <ul styleName='form__pointsList'> 
           {pointsList}
           <li>
             <IconButton aria-label="delete" onClick = {() => {
@@ -138,10 +139,12 @@ export const AddEditFormComponent = () => {
 
         {pointForm}
 
-        <Button className={styles.saveBtn} type="submit" color="primary" variant="contained" >
+        <Button styleName='form__btn' type="submit" color="primary" variant="contained" >
           Save Route
         </Button>
       </form>
     </>
   );
 };
+
+export default CSSModules(AddEditFormComponent, styles);

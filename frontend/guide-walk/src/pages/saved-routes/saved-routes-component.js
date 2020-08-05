@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { MapAddEditPoint } from '../../ui/map-add-edit-poitn';
+import { MapAddEditPoint } from '../../ui/map-add-edit-point';
 
 export const SavedRoutesComponent = () => {
   const [coordinates, setCoordinates] = useState({

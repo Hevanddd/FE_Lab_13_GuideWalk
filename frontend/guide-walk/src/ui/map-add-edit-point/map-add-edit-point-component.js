@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactMapGL, { Marker } from 'react-map-gl';
-import classNames from 'classnames';
 import { VIEWPORT } from './constants';
-import './map.scss';
+import CSSModules from 'react-css-modules';
 
-export const MapAddEditPointComponent = ({
+import styles from './map-add-edit-point-component.module.scss';
+
+
+const MapAddEditPointComponent = ({
   width,
   height,
   zoom,
@@ -13,16 +15,23 @@ export const MapAddEditPointComponent = ({
   setCoordinatesMarker,
   nameMarker,
 }) => {
+  
   const { latitude, longitude } = coordinatesMarker || VIEWPORT;
+
   const [viewport, setViewport] = useState({
     latitude,
     longitude,
     zoom,
   });
+  
   const [position, setPosition] = useState({
-    longitude,
     latitude,
+    longitude,
   });
+  
+  console.log(viewport);
+  console.log(coordinatesMarker);
+
   const onDragEnd = ({ lngLat }) => {
     const newCoordinates = { longitude: lngLat[0], latitude: lngLat[1] };
     setPosition(newCoordinates);
@@ -40,7 +49,7 @@ export const MapAddEditPointComponent = ({
         {...viewport}
       >
         <Marker longitude={position.longitude} latitude={position.latitude} onDragEnd={onDragEnd} draggable>
-          <div className={classNames('map-marker')}>{nameMarker || 1}</div>
+          <div styleName='map-marker'>{nameMarker || 1}</div>
         </Marker>
       </ReactMapGL>
     </div>
@@ -55,3 +64,5 @@ MapAddEditPointComponent.propTypes = {
   setCoordinatesMarker: PropTypes.func,
   nameMarker: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
+
+export default CSSModules(MapAddEditPointComponent, styles);
