@@ -11,6 +11,7 @@ export const HomeComponent = ({
   getAllRoutesStart,
   getCoordinatesStart,
   allRoutes,
+  addSavedRouteStart,
 }) => {
   const [testData, setTestData] = useState();
   const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
@@ -44,8 +45,11 @@ export const HomeComponent = ({
   };
   const handleGetCoordinates = () => {
     const routesId = allRoutes && allRoutes[0]._id;
-    console.log(routesId);
     routesId && getCoordinatesStart(routesId);
+  };
+  const handleAddSavedRoute = () => {
+    const routesId = allRoutes && allRoutes[0]._id;
+    routesId && addSavedRouteStart(routesId, owner);
   };
 
   useEffect(() => {
@@ -57,6 +61,7 @@ export const HomeComponent = ({
       {userName && <button onClick={handleGetUserData}>Get user data</button>}
       {owner && <button onClick={handleAddedRouteData}>Add route to server</button>}
       <button onClick={handleGetCoordinates}>Get coordinates of the route</button>
+      <button onClick={handleAddSavedRoute}>Add saved route</button>
       {!isAuthenticated && <button onClick={loginWithRedirect}>Login</button>}
       {isAuthenticated && <button onClick={logout}>Log out</button>}
       <MapComponent width={'100vw'} height={'50vh'} zoom={15} />
