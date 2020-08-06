@@ -17,23 +17,24 @@ export const HomeComponent = ({
   const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
   const userName = userDataAuth && userDataAuth.userName;
   const owner = userInfoData && userInfoData.id;
+  const routesId = allRoutes && allRoutes[4]._id;
   const testDataRequest = {
     pointArray: [
       {
         title: 'Title',
-        location: { lng: 41.4, lat: 10 },
+        location: { lng: 41.4312, lat: 10.213 },
         description: 'Description',
       },
       {
         title: 'Title2',
-        location: { lng: 45.4, lat: 45 },
+        location: { lng: 40.42123423, lat: 45 },
         description: 'Description2',
       },
     ],
     routeInfo: {
       title: 'Title',
       focus: 'Focus',
-      description: 'Description',
+      description: 'NEW',
       owner,
     },
   };
@@ -44,11 +45,9 @@ export const HomeComponent = ({
     userInfoData && getAddedRouteDataStart(testDataRequest);
   };
   const handleGetCoordinates = () => {
-    const routesId = allRoutes && allRoutes[0]._id;
     routesId && getCoordinatesStart(routesId);
   };
   const handleAddSavedRoute = () => {
-    const routesId = allRoutes && allRoutes[0]._id;
     routesId && addSavedRouteStart(routesId, owner);
   };
 
