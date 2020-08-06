@@ -49,21 +49,21 @@ router.post("/create", async (req, res) => {
   try {
     const { pointArray, routeInfo } = req.body;
 
-    const pointIndexes = [];
+    console.log(pointArray, routeInfo);
 
     //to create route we firstly need to create all points
     //and then pass array of route ID's to route property 'points'
 
-    pointArray.forEach(async (point) => {
+    const pointIndexes = await Promise.all(pointArray.map(async (point) => {
       const pointToDB = new Point({
         name: point.title,
         location: point.location,
         description: point.description,
       });
 
-      pointIndexes.push(pointToDB._id);
       await pointToDB.save();
-    });
+      return pointToDB._id;
+    }));
 
     const route = await Route.create({
       name: routeInfo.title,
@@ -73,9 +73,9 @@ router.post("/create", async (req, res) => {
       owner: routeInfo.owner,
     });
 
-    const ownerItem = User.findById(routeInfo.owner);
+    const ownerItem = await User.findById(routeInfo.owner);
     ownerItem.user_routes.push(route._id);
-    
+
     await ownerItem.save();
 
     res.status(201).json({ route });
