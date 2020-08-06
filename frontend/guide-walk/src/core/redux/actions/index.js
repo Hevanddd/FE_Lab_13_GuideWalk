@@ -2,4 +2,5 @@ export { getUserInfoDataStart, getUserInfoDataFail, getUserInfoDataSuccess } fro
 export { refreshUserDataAuth } from './resources-provider-actions';
 export { getAddedRouteDataStart, getAddedRouteDataFail, getAddedRouteDataSuccess } from './routes-actions';
 export { getAllRoutesStart, getAllRoutesFail, getAllRoutesSuccess } from './get-all-routes-actions';
-export { getCoordinatesFail, getCoordinatesStart, getCoordinatesSuccess } from './get-coordinates';
+export { getCoordinatesFail, getCoordinatesStart, getCoordinatesSuccess } from './get-coordinates-actions';
+export { addSavedRouteFail, addSavedRouteStart } from './add-saved-route-actions';
