@@ -2,17 +2,15 @@ import React, {useState} from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { TextField } from '@material-ui/core'; 
 import Button from '@material-ui/core/Button';
-// import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
-// import DeleteIcon from '@material-ui/icons/Delete';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
-export const ProfileInfoComponent = () => {
-    // const [inputValue, setInputValue] = useState();
-    const {user, isAuthenticated, logout} = useAuth0();
-    
-    const userName = user && user['https://username'];
-    const userEmail = user && user.name;
+export const ProfileInfoComponent = ({userAuthData}) => {
+    const {isAuthenticated, logout} = useAuth0();
+    const userName = userAuthData && userAuthData.userName;
+    const userEmail = userAuthData && userAuthData.email;
+    console.log(userName, userEmail);
+
 
     return (
         <div>

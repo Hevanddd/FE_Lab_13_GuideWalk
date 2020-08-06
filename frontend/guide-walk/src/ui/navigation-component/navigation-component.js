@@ -43,7 +43,7 @@ export const NavigationComponent = () => {
         <BottomNavigationAction label='Add' value='add-route' icon={<AddCircleOutlineOutlinedIcon />} />
         <BottomNavigationAction label='Current' value='current-route' icon={<ExploreOutlinedIcon />} />
         <BottomNavigationAction label='Favourites' value='saved-routes' icon={<TurnedInNotOutlinedIcon />} />
-        <BottomNavigationAction label='Profile' value='profile' icon={<PersonOutlineOutlinedIcon />} />
+        <BottomNavigationAction label='Profile' value='profile-info' icon={<PersonOutlineOutlinedIcon />} />
       </BottomNavigation>
     </footer>
   );
