@@ -6,10 +6,11 @@ import { getAddedRouteDataStart } from '../../core/redux/actions';
 export const HomeComponent = ({
   getUserInfoDataStart,
   userDataAuth,
-  routes,
   userInfoData,
   getAddedRouteDataStart,
   getAllRoutesStart,
+  getCoordinatesStart,
+  allRoutes,
 }) => {
   const [testData, setTestData] = useState();
   const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
@@ -41,7 +42,11 @@ export const HomeComponent = ({
   const handleAddedRouteData = () => {
     userInfoData && getAddedRouteDataStart(testDataRequest);
   };
-  const handleRequestGet = () => {};
+  const handleGetCoordinates = () => {
+    const routesId = allRoutes && allRoutes[0]._id;
+    console.log(routesId);
+    routesId && getCoordinatesStart(routesId);
+  };
 
   useEffect(() => {
     getAllRoutesStart();
@@ -51,7 +56,7 @@ export const HomeComponent = ({
     <div>
       {userName && <button onClick={handleGetUserData}>Get user data</button>}
       {owner && <button onClick={handleAddedRouteData}>Add route to server</button>}
-      <button onClick={handleRequestGet}>RequestGet</button>
+      <button onClick={handleGetCoordinates}>Get coordinates of the route</button>
       {!isAuthenticated && <button onClick={loginWithRedirect}>Login</button>}
       {isAuthenticated && <button onClick={logout}>Log out</button>}
       <MapComponent width={'100vw'} height={'50vh'} zoom={15} />
