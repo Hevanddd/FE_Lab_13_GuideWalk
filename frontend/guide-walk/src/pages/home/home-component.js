@@ -48,7 +48,11 @@ export const HomeComponent = ({
     routesId && getCoordinatesStart(routesId);
   };
   const handleAddSavedRoute = () => {
-    routesId && addSavedRouteStart(routesId, owner);
+    const requestData = {
+      savedId: routesId,
+      userId: owner,
+    };
+    routesId && addSavedRouteStart(requestData);
   };
 
   useEffect(() => {
