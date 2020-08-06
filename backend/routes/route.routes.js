@@ -36,7 +36,10 @@ router.get("/preview/:id", async (req, res) => {
       return pointInfo.location;
     });
 
-    res.json({ route, coordinatesArray });
+    Promise.all(coordinatesArray).then((coordinatesArrayValue) =>
+      res.json({ route, coordinatesArrayValue })
+    );
+    
   } catch (e) {
     return res.status(500).json({ message: "Something is going wrong." });
   }
@@ -99,7 +102,7 @@ router.get("/edit/:id", async (req, res) => {
 
 router.post("/edit", async (req, res) => {
   try {
-    const {routeInfo, editedPoints} = req.body;
+    const { routeInfo, editedPoints } = req.body;
 
     const route = await Route.findById(routeInfo.id);
 
@@ -122,9 +125,9 @@ router.post("/edit", async (req, res) => {
 
 router.post("/next", async (req, res) => {
   try {
-    // we are getting route id and point index ex 0,1,2,3 from front-end 
+    // we are getting route id and point index ex 0,1,2,3 from front-end
     const route = await Route.findById(req.body.routeId);
-    
+
     //getting pointId by index in route array
     const pointId = route.points[req.body.pointIndex];
 
