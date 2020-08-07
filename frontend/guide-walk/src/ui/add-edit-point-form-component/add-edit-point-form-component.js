@@ -10,8 +10,8 @@ import styles from './add-edit-point-form.module.scss';
 const AddEditPointFormComponent = ({ savePoint, editedPoint }) => {
   const { register, handleSubmit, control, setValue } = useForm();
 
-  const title = editedPoint && editedPoint.title;
-  const description = editedPoint && editedPoint.description;
+  const title = editedPoint ? editedPoint.title : '';
+  const description = editedPoint ? editedPoint.description : '';
   const initialCoords = editedPoint && editedPoint.location;
 
   const [coordinates, setCoordinates] = useState(initialCoords);
@@ -29,7 +29,7 @@ const AddEditPointFormComponent = ({ savePoint, editedPoint }) => {
   useEffect(() => {
     setValue('title', title);
     setValue('description', description);
-  });
+  }, []);
 
   useEffect(() => {
     setCoordinates(initialCoords);
