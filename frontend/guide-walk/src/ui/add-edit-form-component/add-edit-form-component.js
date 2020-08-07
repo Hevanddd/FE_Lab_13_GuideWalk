@@ -33,7 +33,7 @@ const AddEditFormComponent = ({ userInfoDate, getAddedRouteDataStart }) => {
   const [editedPoint, setEditedPoint] = useState(false);
   
   const titles = points.map(el => el.title);
-  
+
   const clearPointForm = () => {
     setEditedPoint(false);
     setAddPointForm(false);

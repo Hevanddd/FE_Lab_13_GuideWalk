@@ -7,8 +7,10 @@ import { useForm, Controller } from 'react-hook-form';
 
 import styles from './add-edit-point-form.module.scss';
 
+
 const AddEditPointFormComponent = ({ savePoint, editedPoint, titles}) => {
   const { register, handleSubmit, control, setValue, errors} = useForm();
+
 
   const title = editedPoint ? editedPoint.title : '';
   const description = editedPoint ? editedPoint.description : '';
@@ -29,12 +31,14 @@ const AddEditPointFormComponent = ({ savePoint, editedPoint, titles}) => {
   useEffect(() => {
     setValue('title', title);
     setValue('description', description);
+
   }, [title, description, setValue]);
+
 
   useEffect(() => {
     setCoordinates(initialCoords);
   }, [initialCoords]);
-  
+
 
   return (
     <div styleName='form'>
@@ -53,6 +57,7 @@ const AddEditPointFormComponent = ({ savePoint, editedPoint, titles}) => {
             }
           }
         })}
+
         name='title'
         label='Point Name'
         placeholder={'Enter title'}
@@ -82,7 +87,6 @@ const AddEditPointFormComponent = ({ savePoint, editedPoint, titles}) => {
       />
 
       { errors.description && <p styleName='error'> Enter description about your point.</p> }
-
 
       <MapAddEditPoint
         width={'100%'}
