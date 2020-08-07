@@ -10,14 +10,13 @@ import styles from './add-edit-point-form.module.scss';
 const AddEditPointFormComponent = ({ savePoint, editedPoint }) => {
   const { register, handleSubmit, control, setValue } = useForm();
 
-  const title = (editedPoint && editedPoint.title) || '';
-  const description = (editedPoint && editedPoint.description) || '';
+  const title = editedPoint && editedPoint.title;
+  const description = editedPoint && editedPoint.description;
   const initialCoords = editedPoint && editedPoint.location;
 
   const [coordinates, setCoordinates] = useState(initialCoords);
 
   const submitPoint = (point) => {
-    console.log(point);
     point.location = coordinates;
     if (editedPoint) {
       const isEdited = true;
@@ -25,11 +24,6 @@ const AddEditPointFormComponent = ({ savePoint, editedPoint }) => {
     } else {
       savePoint(point);
     }
-  };
-
-  const handleOnChange = (e, title) => {
-    const value = e.target.value;
-    setValue(title, value);
   };
 
   useEffect(() => {
@@ -50,7 +44,6 @@ const AddEditPointFormComponent = ({ savePoint, editedPoint }) => {
         placeholder={'Enter title'}
         variant='outlined'
         InputLabelProps={{ shrink: true }}
-        onChange={(e) => handleOnChange(e, 'title')}
       />
 
       <Controller
@@ -63,7 +56,6 @@ const AddEditPointFormComponent = ({ savePoint, editedPoint }) => {
         placeholder='Enter description'
         variant='outlined'
         InputLabelProps={{ shrink: true }}
-        onChange={(e) => handleOnChange(e, 'description')}
       />
 
       <MapAddEditPoint
