@@ -5,37 +5,40 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
+import styles from './profile-info-component.module.scss';
+
 export const ProfileInfoComponent = ({userAuthData}) => {
     const {isAuthenticated, logout} = useAuth0();
     const userName = userAuthData && userAuthData.userName;
     const userEmail = userAuthData && userAuthData.email;
-    console.log(userName, userEmail);
+    // console.log(userName, userEmail);
 
 
     return (
-        <div>
-            <div>
-                <IconButton aria-label="account circle">
-                    <AccountCircleIcon />
-                </IconButton>
-            </div>
+        <div className={styles.form}>           
             <form>
+                <div className={styles.user_img}>
+                    <IconButton aria-label="account circle">
+                        <AccountCircleIcon />
+                    </IconButton>
+                </div>
                 <TextField
                     label="Name"
                     variant="outlined"
-                    value={userName}
+                    value={userName || ''}
                     InputProps={{
                         readOnly: true,
                     }}
                     InputLabelProps={{
                         shrink: true,
                     }}
+                    className={styles.user_data}
                 />
-                <br/>
+                {/* <br/> */}
                 <TextField
                     id="standard-read-only-input"
                     label="Email"
-                    value={userEmail}
+                    value={userEmail || ''}
                     autoFocus
                     variant="outlined"
                     InputProps={{
@@ -44,6 +47,7 @@ export const ProfileInfoComponent = ({userAuthData}) => {
                     InputLabelProps={{
                         shrink: true,
                     }}
+                    className={styles.user_data}
                 />
             </form>
             {isAuthenticated && <Button variant="contained" color="primary" onClick={logout}>Log out</Button>}
