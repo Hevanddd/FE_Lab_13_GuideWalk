@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { refreshUserDataAuth, getUserInfoDataStart, getAllRoutesStart } from '../../core/redux/actions';
+import { refreshUserDataAuth, getUserInfoDataStart } from '../../core/redux/actions';
 
 const mapDispatchToProps = { refreshUserDataAuth, getUserInfoDataStart };
 

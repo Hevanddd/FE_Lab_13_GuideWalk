@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import CSSModules from 'react-css-modules';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import{ MapAddEditPoint } from '../map-add-edit-point';
+import { MapAddEditPoint } from '../map-add-edit-point';
 import { useForm, Controller } from 'react-hook-form';
 
 import styles from './add-edit-point-form.module.scss';
@@ -10,37 +10,39 @@ import styles from './add-edit-point-form.module.scss';
 const AddEditPointFormComponent = ({ savePoint, editedPoint }) => {
   const { register, handleSubmit, control, setValue } = useForm();
 
-  const title = editedPoint ? editedPoint.title : '';
-  const description = editedPoint ? editedPoint.description : '';
+  const title = editedPoint && editedPoint.title;
+  const description = editedPoint && editedPoint.description;
+  const initialCoords = editedPoint && editedPoint.location;
 
-  let coords = editedPoint ? editedPoint.location : null;
+  const [coordinates, setCoordinates] = useState(initialCoords);
+
+  const submitPoint = (point) => {
+    point.location = coordinates;
+    if (editedPoint) {
+      const isEdited = true;
+      savePoint(point, isEdited);
+    } else {
+      savePoint(point);
+    }
+  };
 
   useEffect(() => {
     setValue('title', title);
     setValue('description', description);
   });
 
-  const setCoordinatesMarker = (data) => {
-    coords = data;
-  }
-
-  const submitPoint = (point) => {
-    point.location = coords;
-    if (editedPoint) {
-      savePoint(point, editedPoint.id);
-    } else {
-      savePoint(point);
-    }
-  };
+  useEffect(() => {
+    setCoordinates(initialCoords);
+  }, [initialCoords]);
 
   return (
     <div styleName='form'>
-      <TextField 
-        inputRef={register} 
-        name='title' 
-        label='Point Name' 
-        placeholder={'Enter title'} 
-        variant='outlined' 
+      <TextField
+        inputRef={register}
+        name='title'
+        label='Point Name'
+        placeholder={'Enter title'}
+        variant='outlined'
         InputLabelProps={{ shrink: true }}
       />
 
@@ -56,17 +58,15 @@ const AddEditPointFormComponent = ({ savePoint, editedPoint }) => {
         InputLabelProps={{ shrink: true }}
       />
 
-      <MapAddEditPoint 
-        width={'100%'} 
-        height={'50vh'} 
-        zoom={15} 
-        coordinatesMarker = {
-          coords
-        }
-        setCoordinatesMarker={setCoordinatesMarker}
+      <MapAddEditPoint
+        width={'100%'}
+        height={'50vh'}
+        zoom={15}
+        coordinatesMarker={coordinates}
+        setCoordinatesMarker={setCoordinates}
       />
-     
-     <Button
+
+      <Button
         styleName='form__btn'
         type='button'
         color='secondary'
