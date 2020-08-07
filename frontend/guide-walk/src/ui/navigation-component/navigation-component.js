@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
@@ -26,10 +26,15 @@ const useStyles = makeStyles({
 });
 
 export const NavigationComponent = () => {
+
   const history = useHistory();
 
   const classes = useStyles();
-  const [value, setValue] = useState('home');
+  const [value, setValue] = useState('');
+
+  useEffect(() => {
+    setValue(history.location.pathname.replace(/\//, ''));
+  }, [history.location.pathname]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -39,7 +44,7 @@ export const NavigationComponent = () => {
   return (
     <footer>
       <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
-        <BottomNavigationAction label='Home' value='home' icon={<HomeOutlinedIcon />} />
+        <BottomNavigationAction label='Home' value='' icon={<HomeOutlinedIcon />} />
         <BottomNavigationAction label='Add' value='add-route' icon={<AddCircleOutlineOutlinedIcon />} />
         <BottomNavigationAction label='Current' value='current-route' icon={<ExploreOutlinedIcon />} />
         <BottomNavigationAction label='Favourites' value='favourites' icon={<TurnedInNotOutlinedIcon />} />
