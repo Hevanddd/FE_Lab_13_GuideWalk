@@ -6,7 +6,6 @@ import CSSModules from 'react-css-modules';
 
 import styles from './map-add-edit-point-component.module.scss';
 
-
 const MapAddEditPointComponent = ({
   width,
   height,

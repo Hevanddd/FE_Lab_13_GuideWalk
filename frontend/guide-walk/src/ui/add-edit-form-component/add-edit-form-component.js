@@ -61,13 +61,12 @@ const AddEditFormComponent = ({ userInfoDate, getAddedRouteDataStart }) => {
         return el;
       })
       changePointList(newPointList);
-      clearPointForm()
-      return true;
+      clearPointForm();
+    } else {
+      point.id = points.length ? points[points.length - 1].id + 1 : 1;
+      changePointList([...points, point]);
+      clearPointForm();
     }
-    console.log(point);
-    point.id = points.length ? points[points.length - 1].id + 1 : 1;
-    changePointList([...points, point]);
-    clearPointForm();
   }
 
   const editPoint = (id) => {
