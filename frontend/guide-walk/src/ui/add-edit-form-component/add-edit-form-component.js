@@ -16,15 +16,15 @@ const AddEditFormComponent = ({ userInfoDate, getAddedRouteDataStart }) => {
   
   const data = [{
       title: 'Lviv',
-      location:{ lat: 48.841696966703736, lng: 24.031492762018463 },
+      location:{ latitude: 48.841696966703736, longitude: 24.031492762018463 },
       description: 'Very good route',
-      // id: 1
+      id: 1
     },
     {
       title: 'Kyiv',
-      location:{ lat: 47.841696966703736, lng: 24.031492762018463 },
+      location:{ latitude: 47.841696966703736, longitude: 24.031492762018463 },
       description: 'Very good route',
-      // id: 2
+      id: 2
     }
   ];
 
@@ -41,10 +41,14 @@ const AddEditFormComponent = ({ userInfoDate, getAddedRouteDataStart }) => {
   }
 
   const saveRoute = (route) => {
+
     route.owner = userInfoDate.id;
-    route.pointArray = points;
-    console.log(route);
-    getAddedRouteDataStart(route);
+    const result = {
+      pointArray: points,
+      routeInfo: route,
+    }
+    console.log(result);
+    getAddedRouteDataStart(result);
   }
 
   const savePoint = (point, existedId) => {
@@ -67,9 +71,10 @@ const AddEditFormComponent = ({ userInfoDate, getAddedRouteDataStart }) => {
   }
 
   const editPoint = (id) => {
+    showAddPointForm(false);
     const editedPoint = points.filter((el) => el.id === id)[0];
     setEditedPoint(editedPoint);
-    showAddPointForm(true)
+    showAddPointForm(true);
   }
 
   const deletePoint = (id) => {

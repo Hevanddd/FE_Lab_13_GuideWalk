@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ReactMapGL, { Marker } from 'react-map-gl';
 import { VIEWPORT } from './constants';
@@ -29,8 +29,17 @@ const MapAddEditPointComponent = ({
     longitude,
   });
   
-  console.log(viewport);
-  console.log(coordinatesMarker);
+  useEffect(() => {
+    setPosition({
+      latitude,
+      longitude
+    });
+    setViewport({
+      latitude,
+      longitude,
+      zoom
+    })
+  }, [coordinatesMarker]);
 
   const onDragEnd = ({ lngLat }) => {
     const newCoordinates = { longitude: lngLat[0], latitude: lngLat[1] };
@@ -60,7 +69,7 @@ MapAddEditPointComponent.propTypes = {
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   zoom: PropTypes.number,
-  coordinatesMarker: PropTypes.object,
+  coordinatesMarker: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   setCoordinatesMarker: PropTypes.func,
   nameMarker: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };

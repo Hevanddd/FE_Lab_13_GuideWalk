@@ -5,7 +5,7 @@ import { handleErrorInSagas } from '../../services/helpers/handle-error-in-sagas
 
 function* callAddedRouteData({ payload }) {
   try {
-    const data = yield call(httpRequest, `/api/route/createRoute`, 'POST', payload);
+    const data = yield call(httpRequest, `/api/route/create`, 'POST', payload);
     yield put(getAddedRouteDataSuccess(data));
   } catch (e) {
     yield call(handleErrorInSagas, getAddedRouteDataFail);
