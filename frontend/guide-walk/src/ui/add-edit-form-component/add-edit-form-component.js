@@ -26,7 +26,7 @@ const AddEditFormComponent = ({ userInfoDate, getAddedRouteDataStart }) => {
     },
   ];
 
-  const { register, handleSubmit, control, errors, setError } = useForm();
+  const { register, handleSubmit, control, errors } = useForm();
 
   const [addPointForm, setAddPointForm] = useState(false);
   const [points, setPoints] = useState(data);

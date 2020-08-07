@@ -38,7 +38,7 @@ const MapAddEditPointComponent = ({
       longitude,
       zoom
     })
-  }, [coordinatesMarker]);
+  }, [coordinatesMarker, latitude, longitude, zoom]);
 
   const onDragEnd = ({ lngLat }) => {
     const newCoordinates = { longitude: lngLat[0], latitude: lngLat[1] };
