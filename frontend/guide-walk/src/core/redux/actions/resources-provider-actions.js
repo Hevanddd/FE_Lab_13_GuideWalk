@@ -1,3 +1,3 @@
 import { createAction } from 'redux-actions';
 
-export const refreshUserData = createAction('REFRESH_USER_DATA');
+export const refreshUserDataAuth = createAction('REFRESH_USER_DATA_AUTH');

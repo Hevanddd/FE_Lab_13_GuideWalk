@@ -7,4 +7,4 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = { getHomeUserDataStart: getUserInfoDataStart, getHomeUserDataSuccess: getUserInfoDataSuccess };
 
-export const MapContainer = connect(mapStateToProps, mapDispatchToProps);
+export const MapAddEditPointContainer = connect(mapStateToProps, mapDispatchToProps);

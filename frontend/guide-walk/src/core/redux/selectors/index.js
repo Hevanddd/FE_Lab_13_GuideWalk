@@ -1,1 +1,2 @@
-export { homeUserDataSelector } from './home-selectors';
+export { userAuthDataSelector, userInfoDateSelector } from './user-selectors';
+export { userRoutesSelector } from './routes-selectors';

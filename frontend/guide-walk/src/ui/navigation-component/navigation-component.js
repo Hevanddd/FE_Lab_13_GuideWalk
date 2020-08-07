@@ -21,7 +21,7 @@ const useStyles = makeStyles({
     position: 'fixed',
     bottom: 0,
     width: '100%',
-    borderTop: '1px solid rgba(0, 0, 0, 0.54)'
+    borderTop: '1px solid rgba(0, 0, 0, 0.54)',
   },
 });
 
@@ -47,7 +47,7 @@ export const NavigationComponent = () => {
         <BottomNavigationAction label='Home' value='' icon={<HomeOutlinedIcon />} />
         <BottomNavigationAction label='Add' value='add-route' icon={<AddCircleOutlineOutlinedIcon />} />
         <BottomNavigationAction label='Current' value='current-route' icon={<ExploreOutlinedIcon />} />
-        <BottomNavigationAction label='Favourites' value='favourites' icon={<TurnedInNotOutlinedIcon />} />
+        <BottomNavigationAction label='Favourites' value='saved-routes' icon={<TurnedInNotOutlinedIcon />} />
         <BottomNavigationAction label='Profile' value='profile' icon={<PersonOutlineOutlinedIcon />} />
       </BottomNavigation>
     </footer>

@@ -1,5 +1,3 @@
-export const GET_HOME_USER_DATA_START = 'GET_HOME_USER_DATA_START';
-export const GET_HOME_USER_DATA_SUCCESS = 'GET_HOME_USER_DATA_SUCCESS';
-export const GET_HOME_USER_DATA_FAIL = 'GET_HOME_USER_DATA_FAIL';
-
 export const HOME_KEY = 'home';
+export const USER_KEY = 'user';
+export const ROUTES_KEY = 'routes';
