@@ -37,6 +37,10 @@ export const NavigationComponent = () => {
     setValue(history.location.pathname.replace(/\//, ''));
   }, [history.location.pathname]);
 
+  // useEffect(() => {
+
+  // }, [history])
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
     history.push(newValue);
