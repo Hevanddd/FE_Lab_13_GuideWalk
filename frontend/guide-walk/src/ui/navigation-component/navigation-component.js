@@ -26,10 +26,16 @@ const useStyles = makeStyles({
 });
 
 export const NavigationComponent = () => {
+
   const history = useHistory();
 
   const classes = useStyles();
-  const [value, setValue] = useState('home');
+  const path = history.location.pathname.replace(/\//, '');
+  const [value, setValue] = useState(path);
+
+  useEffect(() => {
+    setValue(history.location.pathname.replace(/\//, ''));
+  }, [history.location.pathname]);
 
   // useEffect(() => {
 
@@ -43,7 +49,7 @@ export const NavigationComponent = () => {
   return (
     <footer>
       <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
-        <BottomNavigationAction label='Home' value='home' icon={<HomeOutlinedIcon />} />
+        <BottomNavigationAction label='Home' value='' icon={<HomeOutlinedIcon />} />
         <BottomNavigationAction label='Add' value='add-route' icon={<AddCircleOutlineOutlinedIcon />} />
         <BottomNavigationAction label='Current' value='current-route' icon={<ExploreOutlinedIcon />} />
         <BottomNavigationAction label='Favourites' value='saved-routes' icon={<TurnedInNotOutlinedIcon />} />
