@@ -44,8 +44,7 @@ router.post("/addSaved", async (req, res) => {
       await user.save();
       res.status(201).json({ message: "Route saved" });
     }
-    res.status(205).json({ message: "Route is already in featured" });
-    
+    res.status(208).json({ message: "Route is already in featured" });
   } catch (e) {
     res
       .status(500)
