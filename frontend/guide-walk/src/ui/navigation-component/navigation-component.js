@@ -30,7 +30,8 @@ export const NavigationComponent = () => {
   const history = useHistory();
 
   const classes = useStyles();
-  const [value, setValue] = useState('');
+  const path = history.location.pathname.replace(/\//, '');
+  const [value, setValue] = useState(path);
 
   useEffect(() => {
     setValue(history.location.pathname.replace(/\//, ''));
