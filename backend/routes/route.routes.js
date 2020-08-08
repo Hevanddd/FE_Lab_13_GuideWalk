@@ -12,17 +12,7 @@ router.get("/", async (req, res) => {
     const routes = await Route.find({}).limit(10);
     res.status(201).json(routes);
   } catch (e) {
-    return res.status(500).json({ message: "Getting routes fault" + e });
-  }
-});
-
-router.get("/user/:userId", async (req, res) => {
-  try {
-    //To get all user routes we are looking for routes with matching ownerID
-    const routes = await Route.find({ owner: req.params.userId });
-    res.json(routes);
-  } catch (e) {
-    return res.status(500).json({ message: "Something is going wrong." });
+    return res.status(500).json({ message: "Getting routes fault " + e });
   }
 });
 
@@ -39,7 +29,6 @@ router.get("/preview/:id", async (req, res) => {
     Promise.all(coordinatesArray).then((coordinatesArrayValue) =>
       res.json({ route, coordinatesArrayValue })
     );
-
   } catch (e) {
     return res.status(500).json({ message: "Something is going wrong." });
   }
@@ -54,23 +43,26 @@ router.post("/create", async (req, res) => {
     //to create route we firstly need to create all points
     //and then pass array of route ID's to route property 'points'
 
-    const pointIndexes = await Promise.all(pointArray.map(async (point) => {
-      const pointToDB = new Point({
-        name: point.title,
-        location: point.location,
-        description: point.description,
-      });
+    const pointIndexes = await Promise.all(
+      pointArray.map(async (point) => {
+        const pointToDB = new Point({
+          name: point.title,
+          location: point.location,
+          description: point.description,
+        });
 
-      await pointToDB.save();
-      return pointToDB._id;
-    }));
+        await pointToDB.save();
+        return pointToDB._id;
+      })
+    );
 
     const route = await Route.create({
       name: routeInfo.title,
       focus: routeInfo.focus,
       description: routeInfo.description,
       points: pointIndexes,
-      owner: routeInfo.owner,
+      userRateIds: [],
+      ownerName: routeInfo.ownerName,
     });
 
     const ownerItem = await User.findById(routeInfo.owner);
@@ -142,4 +134,53 @@ router.post("/next", async (req, res) => {
   }
 });
 
+router.post("/add-rating", async (req, res) => {
+  try {
+    const { routeId, userId } = req.body;
+
+    const route = await Route.findById(routeId);
+
+    if (route.userRateIds.includes(userId)) {
+      return res.status(206).json({ message: "User already liked this route" });
+    }
+
+    route.rating += 1;
+    route.userRateIds.push(userId);
+    await route.save();
+
+    return res
+      .status(201)
+      .json({ userRateIds: route.userRateIds, rating: route.rating });
+  } catch (error) {
+    res.status(500).json({ message: "Add rating error " + error });
+  }
+});
+
+router.post("/remove-rating", async (req, res) => {
+  try {
+    const { routeId, userId } = req.body;
+
+    const route = await Route.findById(routeId);
+
+    if (!route.userRateIds.includes(userId)) {
+      return res
+        .status(206)
+        .json({ message: "User haven't liked this route yet" });
+    }
+
+    route.rating -= 1;
+
+    const index = route.userRateIds.indexOf(userId);
+
+    route.userRateIds.splice(index, 1);
+
+    await route.save();
+
+    return res
+      .status(201)
+      .json({ userRateIds: route.userRateIds, rating: route.rating });
+  } catch (error) {
+    res.status(500).json({ message: "Remove rating error " + error });
+  }
+});
 module.exports = router;

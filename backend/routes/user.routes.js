@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const User = require("../models/User");
+const Route = require("../models/Route");
 
 const router = new Router();
 
@@ -33,7 +34,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.post("/addSaved", async (req, res) => {
+router.post("/add-saved", async (req, res) => {
   try {
     const { savedId, userId } = req.body;
 
@@ -49,6 +50,48 @@ router.post("/addSaved", async (req, res) => {
     res
       .status(500)
       .json({ message: "Something is going wrong. Try it again." });
+  }
+});
+
+router.post("/delete-saved", async (req, res) => {
+  try {
+    const { userId, routeId } = req.body;
+
+    const user = await User.findById(userId);
+
+    const index = user.saved_routes.indexOf(routeId);
+
+    if (index > -1) {
+      user.saved_routes.splice(index, 1);
+    }
+
+    await user.save();
+
+    res.status(200).json({ message: "Route succesfully removed from saved" });
+  } catch (error) {
+    res.status(500).json({ message: "Deleting saved route error: " + error });
+  }
+});
+
+router.post("/delete-route", async (req, res) => {
+  try {
+    const { userId, routeId } = req.body;
+
+    const user = await User.findById(userId);
+
+    await Route.findByIdAndDelete(routeId);
+
+    const index = user.user_routes.indexOf(routeId);
+
+    if (index > -1) {
+      user.user_routes.splice(index, 1);
+    }
+
+    await user.save();
+
+    res.status(200).json({ message: "Route succesfully deleted" });
+  } catch (error) {
+    res.status(500).json({ message: "Deleting route error: " + error });
   }
 });
 
