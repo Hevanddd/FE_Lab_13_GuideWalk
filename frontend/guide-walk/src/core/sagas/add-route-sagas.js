@@ -1,14 +1,23 @@
 import { takeEvery, put, call } from 'redux-saga/effects';
 import { httpRequest } from '../../services';
-import { getAddedRouteDataStart, getAddedRouteDataFail, getAddedRouteDataSuccess } from '../redux/actions';
+import {
+  getAddedRouteDataStart,
+  getAddedRouteDataFail,
+  getAddedRouteDataSuccess,
+  loadingStop,
+  loadingStart,
+} from '../redux/actions';
 import { handleErrorInSagas } from '../../services/helpers/handle-error-in-sagas';
 
 function* callAddedRouteData({ payload }) {
   try {
+    yield put(loadingStart());
     const data = yield call(httpRequest, `/api/route/create`, 'POST', payload);
     yield put(getAddedRouteDataSuccess(data));
   } catch (e) {
     yield call(handleErrorInSagas, getAddedRouteDataFail);
+  } finally {
+    yield put(loadingStop());
   }
 }
 
