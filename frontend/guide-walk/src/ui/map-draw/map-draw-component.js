@@ -1,13 +1,18 @@
 import React, { useEffect, useRef } from 'react';
 import mapboxgl from 'mapbox-gl';
+import { createGeoJSONCircle, getRadiusFromLatLngInKm, calculateCenterCircleWithTwoPoints } from './helpers';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './map-draw.scss';
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_KEY;
+const data = { longitude: 24.004760978637364, latitude: 49.836812658441346 };
+const data2 = { longitude: 24.046989677368202, latitude: 49.840355437175816 };
 
 export const MapDrawComponent = () => {
   const mapWrapper = useRef();
   useEffect(() => {
+    const centerRadius = calculateCenterCircleWithTwoPoints(data, data2);
+    const radiusInKm = getRadiusFromLatLngInKm(data, data2);
     const map = new mapboxgl.Map({
       container: mapWrapper.current,
       style: 'mapbox://styles/mapbox/streets-v11',
@@ -16,27 +21,12 @@ export const MapDrawComponent = () => {
     });
 
     map.on('load', function () {
-      map.addSource('maine', {
-        type: 'geojson',
-        data: {
-          type: 'Feature',
-          geometry: {
-            type: 'Polygon',
-            coordinates: [
-              [
-                [23.996950385986167, 49.84854711881408],
-                [23.99660706323192, 49.825961283767384],
-                [24.03454422753876, 49.82540757692388],
-                [24.0311211, 49.842213],
-              ],
-            ],
-          },
-        },
-      });
+      map.addSource('polygon', createGeoJSONCircle(centerRadius, radiusInKm));
+
       map.addLayer({
-        id: 'maine',
+        id: 'polygon',
         type: 'fill',
-        source: 'maine',
+        source: 'polygon',
         layout: {},
         paint: {
           'fill-color': '#088',

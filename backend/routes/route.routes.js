@@ -12,17 +12,7 @@ router.get("/", async (req, res) => {
     const routes = await Route.find({}).limit(10);
     res.status(201).json(routes);
   } catch (e) {
-    return res.status(500).json({ message: "Getting routes fault" + e });
-  }
-});
-
-router.get("/user/:userId", async (req, res) => {
-  try {
-    //To get all user routes we are looking for routes with matching ownerID
-    const routes = await Route.find({ owner: req.params.userId });
-    res.json(routes);
-  } catch (e) {
-    return res.status(500).json({ message: "Something is going wrong." });
+    return res.status(500).json({ message: "Getting routes fault " + e });
   }
 });
 
@@ -36,7 +26,9 @@ router.get("/preview/:id", async (req, res) => {
       return pointInfo.location;
     });
 
-    res.json({ route, coordinatesArray });
+    Promise.all(coordinatesArray).then((coordinatesArrayValue) =>
+      res.json({ route, coordinatesArrayValue })
+    );
   } catch (e) {
     return res.status(500).json({ message: "Something is going wrong." });
   }
@@ -46,29 +38,33 @@ router.post("/create", async (req, res) => {
   try {
     const { pointArray, routeInfo } = req.body;
 
-    const pointIndexes = [];
-
     //to create route we firstly need to create all points
     //and then pass array of route ID's to route property 'points'
 
-    pointArray.forEach(async (point) => {
-      const pointToDB = new Point({
-        name: point.title,
-        location: point.location,
-        description: point.description,
-      });
+    const pointIndexes = await Promise.all(
+      pointArray.map(async (point) => {
+        const pointToDB = new Point({
+          name: point.title,
+          location: point.location,
+          description: point.description,
+        });
 
-      pointIndexes.push(pointToDB._id);
-      await pointToDB.save();
-    });
+        await pointToDB.save();
+        return pointToDB._id;
+      })
+    );
 
     const route = await Route.create({
       name: routeInfo.title,
       focus: routeInfo.focus,
       description: routeInfo.description,
       points: pointIndexes,
-      owner: routeInfo.owner,
+      userRateIds: [],
+      ownerName: routeInfo.ownerName,
     });
+
+    const ownerItem = await User.findById(routeInfo.owner);
+    ownerItem.user_routes.push(route._id);
 
     await ownerItem.save();
 
@@ -87,9 +83,11 @@ router.get("/edit/:id", async (req, res) => {
     const route = await Route.findById(req.params.id);
 
     //here we are getting points data
-    const points = route.points.map(async (pointId) => {
-      return await Point.findById(pointId);
-    });
+    const points = await Promise.all(
+      route.points.map(async (pointId) => {
+        return await Point.findById(pointId);
+      })
+    );
 
     res.status(201).json({ route, points });
   } catch (e) {
@@ -99,7 +97,7 @@ router.get("/edit/:id", async (req, res) => {
 
 router.post("/edit", async (req, res) => {
   try {
-    const {routeInfo, editedPoints} = req.body;
+    const { routeInfo, editedPoints } = req.body;
 
     const route = await Route.findById(routeInfo.id);
 
@@ -122,17 +120,49 @@ router.post("/edit", async (req, res) => {
 
 router.post("/next", async (req, res) => {
   try {
-    // we are getting route id and point index ex 0,1,2,3 from front-end 
+    // we are getting route id and point index ex 0,1,2,3 from front-end
     const route = await Route.findById(req.body.routeId);
-    
+
     //getting pointId by index in route array
     const pointId = route.points[req.body.pointIndex];
-
     const pointInfo = await Point.findById(pointId);
 
-    res.status(201).json(pointInfo);
+    const { name, location, description } = pointInfo;
+
+    const pointsLeft = route.points.length - req.body.pointIndex - 1;
+
+    res
+      .status(201)
+      .json({ routeName: route.name, pointsLeft, name, location, description });
   } catch (error) {
-    return res.status(500).json({ message: "Something is going wrong." });
+    return res.status(500).json({ message: error });
+  }
+});
+
+router.post("/rate", async (req, res) => {
+  try {
+    const { routeId, userId } = req.body;
+
+    const route = await Route.findById(routeId);
+
+    if (route.userRateIds.includes(userId)) {
+      route.rating -= 1;
+
+      const index = route.userRateIds.indexOf(userId);
+
+      route.userRateIds.splice(index, 1);
+    } else {
+      route.rating += 1;
+      route.userRateIds.push(userId);
+    }
+
+    await route.save();
+
+    return res
+      .status(201)
+      .json({ userRateIds: route.userRateIds, rating: route.rating });
+  } catch (error) {
+    res.status(500).json({ message: "Rating error " + error });
   }
 });
 

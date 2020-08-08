@@ -1,5 +1,12 @@
 import { handleActions } from 'redux-actions';
-import { getUserInfoDataStart, getUserInfoDataFail, getUserInfoDataSuccess, refreshUserDataAuth } from '../actions';
+import {
+  getUserInfoDataStart,
+  getUserInfoDataFail,
+  getUserInfoDataSuccess,
+  refreshUserDataAuth,
+  addSavedRouteStart,
+  addSavedRouteFail,
+} from '../actions';
 
 const initialState = {
   userInfoData: null,
@@ -29,6 +36,18 @@ const reducerMap = {
     return {
       ...state,
       userDataAuth: { ...payload, userName },
+    };
+  },
+  [addSavedRouteStart]: (state) => {
+    return {
+      ...state,
+    };
+  },
+
+  [addSavedRouteFail]: (state) => {
+    return {
+      ...state,
+      savedRoutes: null,
     };
   },
 };

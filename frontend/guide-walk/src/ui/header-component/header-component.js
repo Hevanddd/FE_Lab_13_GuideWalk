@@ -5,10 +5,11 @@ import classnames from 'classnames';
 
 import styles from './header-component.module.scss';
 
-const HeaderComponent = () => {
-
+const HeaderComponent = ({ isLoading }) => {
+  console.log(isLoading);
   const history = useHistory();
-  const [location, setLocation] = useState('/');
+
+  const [location, setLocation] = useState(history.location.pathname);
 
   const goToPreviousPath = () => {
     history.goBack();
@@ -23,33 +24,29 @@ const HeaderComponent = () => {
   const isProfilePage = location === '/profile';
   const isHomePage = location === '/';
   const locationName = location.replace(/\//, '').replace(/-/g, ' ');
-  const isLoading = true;
 
-  const  logoClass = classnames({
-    'logo__img': true,
-    'logo__img--loading': isLoading
-  })
+  const logoClass = classnames('logo__img', {
+    'logo__img--loading': isLoading,
+  });
 
-  return(
+  return (
     <header>
       {isProfilePage ||
         (isHomePage && (
-        <div styleName="logo">
-          <span>Guide</span>
-          <div styleName={logoClass}></div>
-          <span>Walk</span>
-        </div>
-      ))}
-        {!isProfilePage && !isHomePage && (
-        <div styleName="header-text">
-          <h2>
-            {locationName}
-          </h2>
-          <button styleName="header-text__btn" onClick={goToPreviousPath}></button>
+          <div styleName='logo'>
+            <span>Guide</span>
+            <div styleName={logoClass}></div>
+            <span>Walk</span>
+          </div>
+        ))}
+      {!isProfilePage && !isHomePage && (
+        <div styleName='header-text'>
+          <h2>{locationName}</h2>
+          <button styleName='header-text__btn' onClick={goToPreviousPath}></button>
         </div>
       )}
     </header>
-  )
+  );
 };
 
-export default CSSModules(HeaderComponent, styles, {allowMultiple: true});
+export default CSSModules(HeaderComponent, styles, { allowMultiple: true });
