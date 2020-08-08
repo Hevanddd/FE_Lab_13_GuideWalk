@@ -1,110 +1,104 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 import AddEditPointFormComponent from './../add-edit-point-form-component';
-import { PointComponent } from '../point-component/point-component';
-import { useForm, Controller } from "react-hook-form";
+import PointComponent from '../point-component/point-component';
+import { useForm, Controller } from 'react-hook-form';
+import CSSModules from 'react-css-modules';
 
-import styles from './add-edit-form.module.css';
+import styles from './add-edit-form.module.scss';
 
 const routeFocuses = ['Fun', 'SightSeeing', 'Quest'];
 
-export const AddEditFormComponent = () => {
-  const data = [{
-      pointName: 'Lviv',
-      pointDescription: 'Very good route',
-      coords: '',
-      id: 1
+const AddEditFormComponent = ({ userInfoDate, getAddedRouteDataStart }) => {
+  const data = [
+    {
+      title: 'Lviv',
+      location: { latitude: 48.841696966703736, longitude: 24.031492762018463 },
+      description: 'Very good route',
     },
     {
-      pointName: 'Kyiv',
-      pointDescription: 'Very good route',
-      coords: '',
-      id: 2
-    }
+      title: 'Kyiv',
+      location: { latitude: 47.841696966703736, longitude: 24.031492762018463 },
+      description: 'Very good route',
+    },
   ];
 
-  const {register, handleSubmit, control} = useForm();
+  const { register, handleSubmit, control, errors } = useForm();
 
-  const [routeFocus, setRouteFocus] = useState('Fun');
-  const [addPointForm, showAddPointForm] = useState(false);
-  const [points, changePointList] = useState(data);
+  const [addPointForm, setAddPointForm] = useState(false);
+  const [points, setPoints] = useState(data);
   const [editedPoint, setEditedPoint] = useState(false);
-
-  const routeFocusHandler = (event) => {
-    setRouteFocus(event.target.value);
-  };
   
+  const titles = points.map(el => el.title);
+
   const clearPointForm = () => {
     setEditedPoint(false);
-    showAddPointForm(false);
-  }
+    setAddPointForm(false);
+  };
 
-  const savePoint = (point, existedId) => {
-    if(existedId){
-      point.id = existedId;
-      const newPointList = points.map((el) => {
-        if(el.id === existedId){
-          return point;
-        }
-        return el;
-      })
-      changePointList(newPointList);
-      clearPointForm()
-      return true;
+  const saveRoute = (route) => {
+    route.owner = userInfoDate && userInfoDate.id;
+    const result = {
+      pointArray: points,
+      routeInfo: route,
+    };
+    getAddedRouteDataStart(result);
+  };
+
+  const savePoint = (point, isEdited) => {
+    if (isEdited) {
+      const index = points.findIndex((el) => el.title === editedPoint.title);
+      const copiedPoints = [...points];
+      copiedPoints.splice(index, 1, point);
+
+      setPoints(copiedPoints);
+      clearPointForm();
+    } else {
+      setPoints((prevState) => [...prevState, point]);
+      clearPointForm();
     }
-    point.id = points.length ? points[points.length - 1].id + 1 : 1;
-    changePointList([...points, point]);
-    clearPointForm();
-  }
+  };
 
-  const editPoint = (id) => {
-    const editedPoint = points.filter((el) => el.id === id)[0];
-    showAddPointForm(true)
+  const editPoint = (title) => {
+    const editedPoint = points.find((el) => el.title === title);
     setEditedPoint(editedPoint);
-  }
+    setAddPointForm(true);
+  };
 
-  const deletePoint = (id) => {
-    console.log('Delete');
-    const idx = points.findIndex((el) => el.id === id);
-    changePointList([
-      ...points.slice(0, idx),
-      ...points.slice(idx + 1)
-    ])
-  }
+  const deletePoint = (title) => {
+    const index = points.findIndex((el) => el.title === title);
+    const copiedPoints = [...points];
+    copiedPoints.splice(index, 1);
+    setPoints(copiedPoints);
+    setAddPointForm(false);
+  };
 
-  const pointsList = points.map((point) => {
-    return <PointComponent key={point.id} point={point} deletePoint={deletePoint} editPoint={editPoint}/>
-  })
-
-  const pointForm = addPointForm ? <AddEditPointFormComponent savePoint={savePoint} editedPoint={editedPoint} /> : null;
-  
   return (
     <>
-      <form className={styles.form} onSubmit={handleSubmit((data)=> console.log(JSON.stringify(data)))}>
-
+      <form styleName='form' onSubmit={handleSubmit((data) => saveRoute(data))}>
         <TextField
-          name="route-name"
-          inputRef={register}
-          label="Route Name"
-          placeholder="The Best Route"
-          variant="outlined"
+          name='title'
+          inputRef={register({ required: true })}
+          label='Route Name'
+          placeholder='The Best Route'
+          variant='outlined'
         />
 
+        { errors.title && <p styleName='error'> Enter title of your route </p> }
+
         <TextField
-          name="route-focus"
+          name='focus'
           inputRef={register}
           select
-          label="Route Focus"
-          placeholder="Route Focus"
-          value={routeFocus}
-          onChange={routeFocusHandler}
+          label='Route Focus'
+          placeholder='Route Focus'
           SelectProps={{
             native: true,
           }}
-          variant="outlined"
+          variant='outlined'
         >
           {routeFocuses.map((option) => (
             <option key={option} value={option}>
@@ -113,35 +107,47 @@ export const AddEditFormComponent = () => {
           ))}
         </TextField>
 
-        <Controller as={TextField}
+        <Controller
+          as={TextField}
           control={control}
-          name="route-description"
-          label="Description"
+          name='description'
+          label='Description'
           multiline
           rows={4}
-          placeholder="Enter description"
-          variant="outlined"
+          placeholder='Enter description'
+          variant='outlined'
+          rules={{ required: true }}
         />
 
-        <ul className={styles.pointsList}> 
-          {pointsList}
+        { errors.description && <p styleName='error'> Enter description about your route</p> }
+
+        <ul styleName='form__pointsList'>
+          {points &&
+            points.map((point) => {
+              return <PointComponent key={point.title} point={point} deletePoint={deletePoint} editPoint={editPoint} />;
+            })}
           <li>
-            <IconButton aria-label="delete" onClick = {() => {
-              clearPointForm();
-              showAddPointForm(true);
-              }}>
+            <IconButton
+              aria-label='delete'
+              onClick={() => {
+                clearPointForm();
+                setAddPointForm(true);
+              }}
+            >
               <AddCircleOutlineOutlinedIcon />
             </IconButton>
             <span>Add new point</span>
           </li>
         </ul>
 
-        {pointForm}
+        {addPointForm && <AddEditPointFormComponent savePoint={savePoint} editedPoint={editedPoint} titles={titles}/>}
 
-        <Button className={styles.saveBtn} type="submit" color="primary" variant="contained" >
+        <Button styleName='form__btn' type='submit' color='primary' variant='contained'>
           Save Route
         </Button>
       </form>
     </>
   );
 };
+
+export default CSSModules(AddEditFormComponent, styles);
