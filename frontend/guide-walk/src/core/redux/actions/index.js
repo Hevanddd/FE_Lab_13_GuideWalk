@@ -4,3 +4,4 @@ export { getAddedRouteDataStart, getAddedRouteDataFail, getAddedRouteDataSuccess
 export { getAllRoutesStart, getAllRoutesFail, getAllRoutesSuccess } from './get-all-routes-actions';
 export { getCoordinatesFail, getCoordinatesStart, getCoordinatesSuccess } from './get-coordinates-actions';
 export { addSavedRouteFail, addSavedRouteStart } from './add-saved-route-actions';
+export { getAllRouteDataFail, getAllRouteDataStart, getAllRouteDataSuccess } from './all-route-data-actions';

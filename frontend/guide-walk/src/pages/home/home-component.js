@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MapComponent } from '../../ui/map-component/map-component';
 import { useAuth0 } from '@auth0/auth0-react';
-import { getAddedRouteDataStart } from '../../core/redux/actions';
+import { getAddedRouteDataStart, getAllRouteDataStart } from '../../core/redux/actions';
 
 export const HomeComponent = ({
   getUserInfoDataStart,
@@ -12,6 +12,7 @@ export const HomeComponent = ({
   getCoordinatesStart,
   allRoutes,
   addSavedRouteStart,
+  getAllRouteDataStart,
 }) => {
   const [testData, setTestData] = useState();
   const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
@@ -55,6 +56,10 @@ export const HomeComponent = ({
     routesId && addSavedRouteStart(requestData);
   };
 
+  const handleAllRouteInfo = () => {
+    routesId && getAllRouteDataStart(routesId);
+  };
+
   useEffect(() => {
     getAllRoutesStart();
   }, []);
@@ -65,6 +70,7 @@ export const HomeComponent = ({
       {owner && <button onClick={handleAddedRouteData}>Add route to server</button>}
       <button onClick={handleGetCoordinates}>Get coordinates of the route</button>
       <button onClick={handleAddSavedRoute}>Add saved route</button>
+      {routesId && <button onClick={handleAllRouteInfo}>All route info</button>}
       {!isAuthenticated && <button onClick={loginWithRedirect}>Login</button>}
       {isAuthenticated && <button onClick={logout}>Log out</button>}
       <MapComponent width={'100vw'} height={'50vh'} zoom={15} />

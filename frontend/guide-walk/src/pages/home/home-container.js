@@ -5,12 +5,14 @@ import {
   getAllRoutesStart,
   getCoordinatesStart,
   addSavedRouteStart,
+  getAllRouteDataStart,
 } from '../../core/redux/actions';
 import {
   userAuthDataSelector,
   userRoutesSelector,
   userInfoDateSelector,
   allRoutesSelector,
+  routeDataSelector,
 } from '../../core/redux/selectors';
 
 const mapStateToProps = (state) => ({
@@ -18,6 +20,7 @@ const mapStateToProps = (state) => ({
   routes: userRoutesSelector(state),
   userInfoData: userInfoDateSelector(state),
   allRoutes: allRoutesSelector(state),
+  routeData: routeDataSelector(state),
 });
 const mapDispatchToProps = {
   getAddedRouteDataStart,
@@ -25,6 +28,7 @@ const mapDispatchToProps = {
   getAllRoutesStart,
   getCoordinatesStart,
   addSavedRouteStart,
+  getAllRouteDataStart,
 };
 
 export const HomeContainer = connect(mapStateToProps, mapDispatchToProps);
