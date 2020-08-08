@@ -1,1 +1,3 @@
-export { AddEditFormComponent } from './add-edit-form-component';
+import AddEditFormComponent from './add-edit-form-component';
+
+export default AddEditFormComponent;

@@ -1,4 +1,4 @@
-div.form{
+.form{
     border-top: 1px solid rgb(118, 118, 118);
     width: 100%;
     display: flex;
@@ -6,13 +6,16 @@ div.form{
     align-items: center;
 }
 
-button.saveBtn{
+button.form__btn{
     width: 50%;
     margin-top: 20px;
 }
 
-
 .form > div{
     width: 100%;
     margin-top: 40px;
+}
+
+.error{
+    color: red;
 }

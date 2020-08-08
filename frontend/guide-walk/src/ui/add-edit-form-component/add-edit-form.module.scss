@@ -3,12 +3,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    &__pointsList{
+        width: 80%;
+        list-style-type: none;
+    }
 }
 
-button.saveBtn{
+button.form__btn{
     background-color: #457B9D;
     width: 50%;
     margin-top: 20px;
+    margin-bottom: 70px;
 }
 
 .form > div{
@@ -16,7 +21,6 @@ button.saveBtn{
     margin-top: 20px;
 }
 
-.pointsList{
-    width: 80%;
-    list-style-type: none;
+.error{
+    color: red;
 }

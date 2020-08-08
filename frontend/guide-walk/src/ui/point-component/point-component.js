@@ -1,27 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import CSSModules from 'react-css-modules';
 
+import styles from './point.module.scss';
 
-import styles from './point.module.css';
-
-
-export const PointComponent = ({point, deletePoint, editPoint}) => {
-
-  const [routeFocus, setRouteFocus] = useState('Fun');
-  const [addPointForm, toggleAddPointForm] = useState('false');
-
-  const {pointName, id} = point;
+const PointComponent = ({ point, deletePoint, editPoint }) => {
+  const { title } = point;
   return (
     <li>
-      <IconButton aria-label="delete" onClick={() => deletePoint(id)}>
+      <IconButton aria-label='delete' onClick={() => deletePoint(title)}>
         <DeleteOutlineOutlinedIcon />
       </IconButton>
-      <IconButton className={styles.editBtn} aria-label="edit" onClick={() => editPoint(id)}>
+      <IconButton styleName='edit-btn' aria-label='edit' onClick={() => editPoint(title)}>
         <EditOutlinedIcon />
       </IconButton>
-      <span>{pointName}</span>
+      <span>{title}</span>
     </li>
   );
 };
+
+export default CSSModules(PointComponent, styles);
