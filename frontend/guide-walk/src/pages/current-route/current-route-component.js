@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { MapDirectionsComponent } from '../../ui/map-direction/map-directions';
+import { CurrentRouteInfoBlock } from '../../ui/current-route-info-block/current-route-info-block';
 
 export const CurrentRouteComponent = ({
   currentRoute,
@@ -48,26 +49,25 @@ export const CurrentRouteComponent = ({
     }
     //TODO: Make window to show after route finished
     else {
-      alert ('You have succesfully finished this route');
+      alert('You have succesfully finished this route');
     }
   };
 
   return (
     <div>
-      {markersPositions? (
+      {markersPositions ? (
         <div>
-          <div>
-            <MapDirectionsComponent markerPositions={markersPositions} zoom={1}></MapDirectionsComponent>
+          <div style = {{position: 'relative', height: '50vh', margin: '30px'}}>
+            <MapDirectionsComponent markerPositions={markersPositions} zoom={1} dragable = {false}></MapDirectionsComponent>
           </div>
-          <div className='info-block' style={{ position: 'relative' }}>
-            <h2>{currentPointData.routeName}</h2>
-            <h3>{currentPointData.name}</h3>
-            <h3>{currentPointData.description}</h3>
-            <h3>{currentPointData.pointsLeft}</h3>
-            <button onClick={handleNextRoute}>{currentPointData.pointsLeft ? 'Next Point' : 'Finish'}</button>
-          </div>
+          <CurrentRouteInfoBlock
+            currentPointData={currentPointData}
+            handleNextRoute={handleNextRoute}
+          ></CurrentRouteInfoBlock>
         </div>
-      ) : <h1>You didn't choose any route</h1>}
+      ) : (
+        <h1>You didn't choose any route</h1>
+      )}
     </div>
   );
 };

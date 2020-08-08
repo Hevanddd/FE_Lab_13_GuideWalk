@@ -5,6 +5,7 @@ import * as allRoutesSagas from './get-all-routes-sagas';
 import * as getCoordinatesSagas from './get-coordinates-sagas';
 import * as addSavedRoute from './add-saved-route-sagas';
 import * as allRouteDataSagas from './all-route-data-sagas';
+import * as nextPointSagas from './next-point-sagas'
 
 export function* rootSagas() {
   yield all(

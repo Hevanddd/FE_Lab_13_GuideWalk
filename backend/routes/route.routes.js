@@ -38,8 +38,6 @@ router.post("/create", async (req, res) => {
   try {
     const { pointArray, routeInfo } = req.body;
 
-    console.log(pointArray, routeInfo);
-
     //to create route we firstly need to create all points
     //and then pass array of route ID's to route property 'points'
 
@@ -131,7 +129,6 @@ router.post("/next", async (req, res) => {
 
     const pointsLeft = route.points.length - req.body.pointIndex - 1;
 
-    console.log({routeName: route.name, pointsLeft, name, location, description});
     res.status(201).json({routeName: route.name, pointsLeft, name, location, description});
 
   } catch (error) {
