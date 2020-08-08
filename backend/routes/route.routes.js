@@ -38,8 +38,6 @@ router.post("/create", async (req, res) => {
   try {
     const { pointArray, routeInfo } = req.body;
 
-    console.log(pointArray, routeInfo);
-
     //to create route we firstly need to create all points
     //and then pass array of route ID's to route property 'points'
 
@@ -127,12 +125,17 @@ router.post("/next", async (req, res) => {
 
     //getting pointId by index in route array
     const pointId = route.points[req.body.pointIndex];
-
     const pointInfo = await Point.findById(pointId);
 
-    res.status(201).json(pointInfo);
+    const { name, location, description } = pointInfo;
+
+    const pointsLeft = route.points.length - req.body.pointIndex - 1;
+
+    res
+      .status(201)
+      .json({ routeName: route.name, pointsLeft, name, location, description });
   } catch (error) {
-    return res.status(500).json({ message: "Something is going wrong." });
+    return res.status(500).json({ message: error });
   }
 });
 
@@ -148,14 +151,13 @@ router.post("/rate", async (req, res) => {
       const index = route.userRateIds.indexOf(userId);
 
       route.userRateIds.splice(index, 1);
-
     } else {
       route.rating += 1;
       route.userRateIds.push(userId);
     }
 
     await route.save();
-    
+
     return res
       .status(201)
       .json({ userRateIds: route.userRateIds, rating: route.rating });
