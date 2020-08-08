@@ -4,7 +4,8 @@ import { MapDirectionsComponent } from '../../ui/map-direction';
 export const SavedRoutesComponent = () => {
   let startLatitude = 49.842957;
   let startLongitude = 24.031111;
-  
+  let finishLatitude = 49.8053;
+  let finishLongitude = 24.0021;
 
   const markerPositions = {
     startMarkerPositions: [startLongitude, startLatitude],

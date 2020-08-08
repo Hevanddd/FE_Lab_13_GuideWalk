@@ -129,7 +129,13 @@ router.post("/next", async (req, res) => {
     const pointId = route.points[req.body.pointIndex];
     const pointInfo = await Point.findById(pointId);
 
-    res.status(201).json(pointInfo);
+    const {name, location, description} = pointInfo;
+
+    const pointsLeft = route.points.length - req.body.pointIndex - 1;
+
+    console.log({routeName: route.name, pointsLeft, name, location, description});
+    res.status(201).json({routeName: route.name, pointsLeft, name, location, description});
+
   } catch (error) {
     return res.status(500).json({ message: error });
   }

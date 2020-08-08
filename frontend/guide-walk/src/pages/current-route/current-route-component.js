@@ -11,46 +11,63 @@ export const CurrentRouteComponent = ({
   const [markersPositions, setMarkersPositions] = useState();
 
   useEffect(() => {
+    //TODO: This action should be invoked when user clicks "Start route", now it's just test case
     setCurrentRoute('5f28420de5f2f124240041c3');
   }, []);
 
   useEffect(() => {
+    //TODO: Here we can take if statement away
     if (currentRoute) {
       getNextPointStart({ routeId: currentRoute, pointIndex: 0 });
     }
   }, [currentRoute]);
 
   useEffect(() => {
-    // let startLongitude = markersPositions.finishMarkerPositions[1];
-    // let startLatitude = markersPositions.finishMarkerPositions[0];
-
     if (currentPointData) {
-      let startLatitude = 49.842957;
-      let startLongitude = 24.031111;
-      let finishLatitude = 49.8053;
-      let finishLongitude = 24.0021;
-      // let finishLatitude = currentPointData.location.lat;
-      // let finishLongitude = currentPointData.location.lng;
-
-      setMarkersPositions({
-        startMarkerPositions: [startLongitude, startLatitude],
-        finishMarkerPositions: [finishLongitude, finishLatitude],
-      });
+      //on first point state is not defined so we need this check
+      if (!markersPositions) {
+        setMarkersPositions({
+          //TODO: Set start marker to user geolocation in moment of invocation Start Route
+          startMarkerPositions: [49.842957, 26.041111],
+          finishMarkerPositions: [currentPointData.location.lng, currentPointData.location.lat],
+        });
+      }
+      //on next points we have start marker as previous point and finish marker as next point
+      else {
+        setMarkersPositions({
+          startMarkerPositions: [markersPositions.finishMarkerPositions[0], markersPositions.finishMarkerPositions[1]],
+          finishMarkerPositions: [currentPointData.location.lng, currentPointData.location.lat],
+        });
+      }
     }
   }, [currentPointData]);
 
   const handleNextRoute = () => {
-    getNextPointStart({ routeId: currentRoute, pointIndex: currentPointIndex });
+    if (currentPointData.pointsLeft) {
+      getNextPointStart({ routeId: currentRoute, pointIndex: currentPointIndex });
+    }
+    //TODO: Make window to show after route finished
+    else {
+      alert ('You have succesfully finished this route');
+    }
   };
 
-  if (markersPositions) {
-    console.log(markersPositions);
-  }
   return (
     <div>
-      <h1>IM HERE</h1>
-      {markersPositions && <MapDirectionsComponent markerPositions={markersPositions}></MapDirectionsComponent>}
-      <button onClick={handleNextRoute}>click</button>
+      {markersPositions? (
+        <div>
+          <div>
+            <MapDirectionsComponent markerPositions={markersPositions} zoom={1}></MapDirectionsComponent>
+          </div>
+          <div className='info-block' style={{ position: 'relative' }}>
+            <h2>{currentPointData.routeName}</h2>
+            <h3>{currentPointData.name}</h3>
+            <h3>{currentPointData.description}</h3>
+            <h3>{currentPointData.pointsLeft}</h3>
+            <button onClick={handleNextRoute}>{currentPointData.pointsLeft ? 'Next Point' : 'Finish'}</button>
+          </div>
+        </div>
+      ) : <h1>You didn't choose any route</h1>}
     </div>
   );
 };
