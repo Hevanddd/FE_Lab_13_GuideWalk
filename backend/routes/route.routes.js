@@ -134,53 +134,32 @@ router.post("/next", async (req, res) => {
   }
 });
 
-router.post("/add-rating", async (req, res) => {
+router.post("/rate", async (req, res) => {
   try {
     const { routeId, userId } = req.body;
 
     const route = await Route.findById(routeId);
 
     if (route.userRateIds.includes(userId)) {
-      return res.status(206).json({ message: "User already liked this route" });
+      route.rating -= 1;
+
+      const index = route.userRateIds.indexOf(userId);
+
+      route.userRateIds.splice(index, 1);
+
+    } else {
+      route.rating += 1;
+      route.userRateIds.push(userId);
     }
 
-    route.rating += 1;
-    route.userRateIds.push(userId);
     await route.save();
-
+    
     return res
       .status(201)
       .json({ userRateIds: route.userRateIds, rating: route.rating });
   } catch (error) {
-    res.status(500).json({ message: "Add rating error " + error });
+    res.status(500).json({ message: "Rating error " + error });
   }
 });
 
-router.post("/remove-rating", async (req, res) => {
-  try {
-    const { routeId, userId } = req.body;
-
-    const route = await Route.findById(routeId);
-
-    if (!route.userRateIds.includes(userId)) {
-      return res
-        .status(206)
-        .json({ message: "User haven't liked this route yet" });
-    }
-
-    route.rating -= 1;
-
-    const index = route.userRateIds.indexOf(userId);
-
-    route.userRateIds.splice(index, 1);
-
-    await route.save();
-
-    return res
-      .status(201)
-      .json({ userRateIds: route.userRateIds, rating: route.rating });
-  } catch (error) {
-    res.status(500).json({ message: "Remove rating error " + error });
-  }
-});
 module.exports = router;
