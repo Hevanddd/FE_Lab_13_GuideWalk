@@ -85,9 +85,11 @@ router.get("/edit/:id", async (req, res) => {
     const route = await Route.findById(req.params.id);
 
     //here we are getting points data
-    const points = route.points.map(async (pointId) => {
-      return await Point.findById(pointId);
-    });
+    const points = await Promise.all(
+      route.points.map(async (pointId) => {
+        return await Point.findById(pointId);
+      })
+    );
 
     res.status(201).json({ route, points });
   } catch (e) {
