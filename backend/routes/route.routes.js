@@ -12,17 +12,7 @@ router.get("/", async (req, res) => {
     const routes = await Route.find({}).limit(10);
     res.status(201).json(routes);
   } catch (e) {
-    return res.status(500).json({ message: "Getting routes fault" + e });
-  }
-});
-
-router.get("/user/:userId", async (req, res) => {
-  try {
-    //To get all user routes we are looking for routes with matching ownerID
-    const routes = await Route.find({ owner: req.params.userId });
-    res.json(routes);
-  } catch (e) {
-    return res.status(500).json({ message: "Something is going wrong." });
+    return res.status(500).json({ message: "Getting routes fault " + e });
   }
 });
 
@@ -39,7 +29,6 @@ router.get("/preview/:id", async (req, res) => {
     Promise.all(coordinatesArray).then((coordinatesArrayValue) =>
       res.json({ route, coordinatesArrayValue })
     );
-
   } catch (e) {
     return res.status(500).json({ message: "Something is going wrong." });
   }
@@ -72,7 +61,8 @@ router.post("/create", async (req, res) => {
       focus: routeInfo.focus,
       description: routeInfo.description,
       points: pointIndexes,
-      owner: routeInfo.owner,
+      userRateIds: [],
+      ownerName: routeInfo.ownerName,
     });
 
     const ownerItem = await User.findById(routeInfo.owner);
@@ -143,6 +133,34 @@ router.post("/next", async (req, res) => {
     res.status(201).json(pointInfo);
   } catch (error) {
     return res.status(500).json({ message: "Something is going wrong." });
+  }
+});
+
+router.post("/rate", async (req, res) => {
+  try {
+    const { routeId, userId } = req.body;
+
+    const route = await Route.findById(routeId);
+
+    if (route.userRateIds.includes(userId)) {
+      route.rating -= 1;
+
+      const index = route.userRateIds.indexOf(userId);
+
+      route.userRateIds.splice(index, 1);
+
+    } else {
+      route.rating += 1;
+      route.userRateIds.push(userId);
+    }
+
+    await route.save();
+    
+    return res
+      .status(201)
+      .json({ userRateIds: route.userRateIds, rating: route.rating });
+  } catch (error) {
+    res.status(500).json({ message: "Rating error " + error });
   }
 });
 
