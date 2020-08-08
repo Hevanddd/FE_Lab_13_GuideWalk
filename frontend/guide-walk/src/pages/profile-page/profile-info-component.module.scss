@@ -1,28 +1,37 @@
-div.form{
+.form{
     border-top: 1px solid rgb(118, 118, 118);
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    &__img{
+        text-align: center;
+    
+        .form__img__large{
+            width: 100px;
+            height: 100px;
+        }
+    }
 }
 
-.user_img {
+.form > div{
+    width: 80%;
+    margin-top: 20px;
+}
+
+button.logout__btn {
+    width: 80%;
+    margin-top: 20px;
+    background-color: #457B9D;
+    width: 50%;
+    margin-top: 20px;
+    margin-bottom: 70px;
+}
+
+input {
     text-align: center;
 }
 
-// button.saveBtn{
-//     width: 50%;
-//     margin-top: 20px;
-// }
 
 
-.form > div {
-    width: 100%;
-    margin-top: 40px;
-}
-
-
-// .user_data {
-//     background: red;
-//     margin: 20px;
-// }
