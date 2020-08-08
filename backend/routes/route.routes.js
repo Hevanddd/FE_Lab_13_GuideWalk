@@ -83,9 +83,11 @@ router.get("/edit/:id", async (req, res) => {
     const route = await Route.findById(req.params.id);
 
     //here we are getting points data
-    const points = await Promise.all(route.points.map(async (pointId) => {
-      return await Point.findById(pointId);
-    }));
+    const points = await Promise.all(
+      route.points.map(async (pointId) => {
+        return await Point.findById(pointId);
+      })
+    );
 
     res.status(201).json({ route, points });
   } catch (e) {
@@ -125,12 +127,13 @@ router.post("/next", async (req, res) => {
     const pointId = route.points[req.body.pointIndex];
     const pointInfo = await Point.findById(pointId);
 
-    const {name, location, description} = pointInfo;
+    const { name, location, description } = pointInfo;
 
     const pointsLeft = route.points.length - req.body.pointIndex - 1;
 
-    res.status(201).json({routeName: route.name, pointsLeft, name, location, description});
-
+    res
+      .status(201)
+      .json({ routeName: route.name, pointsLeft, name, location, description });
   } catch (error) {
     return res.status(500).json({ message: error });
   }
@@ -148,14 +151,13 @@ router.post("/rate", async (req, res) => {
       const index = route.userRateIds.indexOf(userId);
 
       route.userRateIds.splice(index, 1);
-
     } else {
       route.rating += 1;
       route.userRateIds.push(userId);
     }
 
     await route.save();
-    
+
     return res
       .status(201)
       .json({ userRateIds: route.userRateIds, rating: route.rating });
