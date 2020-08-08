@@ -39,7 +39,6 @@ router.get("/preview/:id", async (req, res) => {
     Promise.all(coordinatesArray).then((coordinatesArrayValue) =>
       res.json({ route, coordinatesArrayValue })
     );
-
   } catch (e) {
     return res.status(500).json({ message: "Something is going wrong." });
   }
