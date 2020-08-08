@@ -1,3 +1,4 @@
 import HeaderComponent from './header-component';
+import { HeaderContainer } from './header-container';
 
-export default HeaderComponent;
+export const Header = HeaderContainer(HeaderComponent);

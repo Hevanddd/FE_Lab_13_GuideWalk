@@ -4,7 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import { HomePage, SavedRoutesPage, AddRoutePage, EditRoutePage } from './pages';
 import { RouteListPage } from './ui/map-component';
 import { NavigationComponent } from './ui/navigation-component';
-import HeaderComponent from './ui/header-component';
+import { Header } from './ui/header-component';
 import { MapDirectionsComponent } from './ui/map-direction';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export const AppComponent = () => {
   return (
     <>
-      <HeaderComponent />
+      <Header />
       <ToastContainer />
       <Switch>
         <Route exact path='/' component={HomePage} />
