@@ -87,9 +87,9 @@ router.get("/edit/:id", async (req, res) => {
     const route = await Route.findById(req.params.id);
 
     //here we are getting points data
-    const points = route.points.map(async (pointId) => {
+    const points = await Promise.all(route.points.map(async (pointId) => {
       return await Point.findById(pointId);
-    });
+    }));
 
     res.status(201).json({ route, points });
   } catch (e) {
@@ -127,16 +127,11 @@ router.post("/next", async (req, res) => {
 
     //getting pointId by index in route array
     const pointId = route.points[req.body.pointIndex];
-    
-    if (!pointId) {
-      res.status(206).json({message: 'Its all points we have'});
-    }
-
     const pointInfo = await Point.findById(pointId);
 
     res.status(201).json(pointInfo);
   } catch (error) {
-    return res.status(500).json({ message: "Something is going wrong." });
+    return res.status(500).json({ message: error });
   }
 });
 

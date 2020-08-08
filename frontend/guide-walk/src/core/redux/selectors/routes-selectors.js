@@ -8,4 +8,4 @@ export const allRoutesSelector = createSelector(getRouteData, (routes) => routes
 
 export const currentRouteSelector = createSelector(getRouteData, (routes) => routes.currentRoute);
 export const currentPointIndexSelector = createSelector(getRouteData, (routes) => routes.currentPointIndex);
-export const currentPointDataSelector = createSelector(getRouteData, (routes) => routes.currentPointData);
+export const currentPointDataSelector = createSelector(getRouteData, (routes) => routes.currentPoint);
