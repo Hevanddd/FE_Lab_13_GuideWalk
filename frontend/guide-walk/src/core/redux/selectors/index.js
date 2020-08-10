@@ -1,4 +1,9 @@
-export { userAuthDataSelector, userInfoDateSelector, userSavedRoutesSelector } from './user-selectors';
+export {
+  userAuthDataSelector,
+  userInfoDateSelector,
+  userSavedRoutesDataSelector,
+  userRoutesDataSelector,
+} from './user-selectors';
 export {
   userRoutesSelector,
   allRoutesSelector,

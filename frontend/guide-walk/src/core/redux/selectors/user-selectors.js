@@ -5,7 +5,5 @@ const getData = (state) => state[USER_KEY];
 
 export const userAuthDataSelector = createSelector(getData, (user) => user.userDataAuth);
 export const userInfoDateSelector = createSelector(getData, (user) => user.userInfoData);
-export const userSavedRoutesSelector = createSelector(
-  userInfoDateSelector,
-  (userInfoData) => userInfoData && userInfoData.saved_routes
-);
+export const userSavedRoutesDataSelector = createSelector(getData, (user) => user.userSavedRouteData);
+export const userRoutesDataSelector = createSelector(getData, (user) => user.userRoutesData);

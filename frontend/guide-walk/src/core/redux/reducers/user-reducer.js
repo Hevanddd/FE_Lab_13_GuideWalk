@@ -10,11 +10,19 @@ import {
   removeSavedRouteStart,
   toggleRatingFail,
   toggleRatingStart,
+  getUserSavedRoutesDataStart,
+  getUserSavedRoutesDataSuccess,
+  getUserSavedRoutesDataFail,
+  getUserRoutesDataSuccess,
+  getUserRoutesDataStart,
+  getUserRoutesDataFail,
 } from '../actions';
 
 const initialState = {
   userInfoData: null,
   userDataAuth: null,
+  userSavedRouteData: null,
+  userRoutesData: null,
 };
 
 const reducerMap = {
@@ -79,6 +87,46 @@ const reducerMap = {
   [toggleRatingFail]: (state) => {
     return {
       ...state,
+    };
+  },
+
+  [getUserSavedRoutesDataStart]: (state) => {
+    return {
+      ...state,
+    };
+  },
+
+  [getUserSavedRoutesDataSuccess]: (state, { payload }) => {
+    return {
+      ...state,
+      userSavedRouteData: payload,
+    };
+  },
+
+  [getUserSavedRoutesDataFail]: (state) => {
+    return {
+      ...state,
+      userSavedRouteData: null,
+    };
+  },
+
+  [getUserRoutesDataStart]: (state) => {
+    return {
+      ...state,
+    };
+  },
+
+  [getUserRoutesDataSuccess]: (state, { payload }) => {
+    return {
+      ...state,
+      userRoutesData: payload,
+    };
+  },
+
+  [getUserRoutesDataFail]: (state) => {
+    return {
+      ...state,
+      userRoutesData: null,
     };
   },
 };

@@ -1,4 +1,14 @@
-export { getUserInfoDataStart, getUserInfoDataFail, getUserInfoDataSuccess } from './user-actions';
+export {
+  getUserInfoDataStart,
+  getUserInfoDataFail,
+  getUserInfoDataSuccess,
+  getUserRoutesDataFail,
+  getUserRoutesDataStart,
+  getUserRoutesDataSuccess,
+  getUserSavedRoutesDataFail,
+  getUserSavedRoutesDataStart,
+  getUserSavedRoutesDataSuccess,
+} from './user-actions';
 export { refreshUserDataAuth } from './resources-provider-actions';
 export {
   getAddedRouteDataStart,

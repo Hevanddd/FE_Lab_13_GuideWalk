@@ -9,6 +9,8 @@ import * as nextPointSagas from './next-point-sagas';
 import * as removeSavedRouteSagas from './remove-saved-route-sagas';
 import * as toggleRatingSagas from './toggle-rating-sagas';
 import * as removeRouteSagas from './remove-route-sagas';
+import * as userRoutesDataSagas from './user-routes-data-sagas';
+import * as userSavedRoutesData from './get-user-saved-routes-sagas';
 
 export function* rootSagas() {
   yield all(
@@ -23,6 +25,8 @@ export function* rootSagas() {
       ...Object.values(removeSavedRouteSagas),
       ...Object.values(toggleRatingSagas),
       ...Object.values(removeRouteSagas),
+      ...Object.values(userRoutesDataSagas),
+      ...Object.values(userSavedRoutesData),
     ].map(fork)
   );
 }
