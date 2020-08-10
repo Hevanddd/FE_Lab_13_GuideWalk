@@ -58,7 +58,7 @@ export const CurrentRouteComponent = ({
       {markersPositions ? (
         <div>
           <div style = {{position: 'relative', height: '50vh', margin: '30px'}}>
-            <MapDirectionsComponent markerPositions={markersPositions} zoom={1} dragable = {false}></MapDirectionsComponent>
+            <MapDirectionsComponent markerPositions={markersPositions} zoom={1}></MapDirectionsComponent>
           </div>
           <CurrentRouteInfoBlock
             currentPointData={currentPointData}

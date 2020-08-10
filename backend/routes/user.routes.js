@@ -1,8 +1,39 @@
 const { Router } = require("express");
 const User = require("../models/User");
 const Route = require("../models/Route");
+const Point = require("../models/Point");
 
 const router = new Router();
+
+router.get("/saved/:userid", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userid);
+
+    const savedRoutes = await Promise.all(
+      user.saved_routes.map(async (routeId) => await Route.findById(routeId))
+    );
+
+    res.status(200).json(savedRoutes);
+
+  } catch (error) {
+    res.status(500).json({ message: 'Saved routes fault' + error });
+  }
+});
+
+router.get("/myroutes/:userid", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userid);
+
+    const myRoutes = await Promise.all(
+      user.user_routes.map(async (routeId) => await Route.findById(routeId))
+    );
+
+    res.status(200).json(myRoutes);
+
+  } catch (error) {
+    res.status(500).json({ message: 'My routes fault' + error });
+  }
+});
 
 router.post("/", async (req, res) => {
   try {
