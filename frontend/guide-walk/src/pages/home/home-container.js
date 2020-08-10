@@ -6,6 +6,9 @@ import {
   getCoordinatesStart,
   addSavedRouteStart,
   getAllRouteDataStart,
+  removeSavedRouteStart,
+  toggleRatingStart,
+  removeRouteStart,
 } from '../../core/redux/actions';
 import {
   userAuthDataSelector,
@@ -29,6 +32,9 @@ const mapDispatchToProps = {
   getCoordinatesStart,
   addSavedRouteStart,
   getAllRouteDataStart,
+  removeSavedRouteStart,
+  toggleRatingStart,
+  removeRouteStart,
 };
 
 export const HomeContainer = connect(mapStateToProps, mapDispatchToProps);
