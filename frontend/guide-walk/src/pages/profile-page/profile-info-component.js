@@ -72,3 +72,4 @@ export const ProfileInfoComponent = ({userAuthData}) => {
     </div>
   )
 };
+
