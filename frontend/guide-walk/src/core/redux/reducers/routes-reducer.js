@@ -35,7 +35,7 @@ const reducerMap = {
       addedRouteInfo: [],
     };
   },
-  [getAllRoutesStart]: (state, { payload }) => {
+  [getAllRoutesStart]: (state) => {
     return {
       ...state,
     };
