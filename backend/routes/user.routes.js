@@ -86,11 +86,11 @@ router.post("/add-saved", async (req, res) => {
 
 router.post("/delete-saved", async (req, res) => {
   try {
-    const { userId, routeId } = req.body;
+    const { userId, savedId } = req.body;
 
     const user = await User.findById(userId);
 
-    const index = user.saved_routes.indexOf(routeId);
+    const index = user.saved_routes.indexOf(savedId);
 
     if (index > -1) {
       user.saved_routes.splice(index, 1);

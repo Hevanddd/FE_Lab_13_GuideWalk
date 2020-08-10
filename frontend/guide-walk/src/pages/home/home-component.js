@@ -14,6 +14,8 @@ export const HomeComponent = ({
   addSavedRouteStart,
   getAllRouteDataStart,
   removeSavedRouteStart,
+  toggleRatingStart,
+  removeRouteStart,
 }) => {
   const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
   const userName = userDataAuth && userDataAuth.userName;
@@ -41,6 +43,15 @@ export const HomeComponent = ({
       ownerName,
     },
   };
+  const requestData = {
+    savedId: routesId,
+    userId: owner,
+  };
+  const requestData2 = {
+    routeId: routesId,
+    userId: owner,
+  };
+
   const handleGetUserData = () => {
     userName && getUserInfoDataStart(userName);
   };
@@ -51,10 +62,6 @@ export const HomeComponent = ({
     routesId && getCoordinatesStart(routesId);
   };
   const handleAddSavedRoute = () => {
-    const requestData = {
-      savedId: routesId,
-      userId: owner,
-    };
     routesId && addSavedRouteStart(requestData);
   };
 
@@ -63,11 +70,23 @@ export const HomeComponent = ({
   };
 
   const handleRemoveSavedRoute = () => {
-    const requestData = {
-      savedId: routesId,
+    routesId && removeSavedRouteStart(requestData);
+  };
+
+  const handleToggleRating = () => {
+    const requestRating = {
+      routeId: routesId,
       userId: owner,
     };
-    routesId && removeSavedRouteStart(requestData);
+    toggleRatingStart(requestRating);
+  };
+
+  const handleRemoveRoute = () => {
+    const requestRemoveRoute = {
+      routeId: routesId,
+      userId: owner,
+    };
+    removeRouteStart(requestRemoveRoute);
   };
 
   useEffect(() => {
@@ -81,6 +100,8 @@ export const HomeComponent = ({
       <button onClick={handleGetCoordinates}>Get coordinates of the route</button>
       <button onClick={handleAddSavedRoute}>Add saved route</button>
       <button onClick={handleRemoveSavedRoute}>Remove saved route</button>
+      <button onClick={handleToggleRating}>Toggle rating</button>
+      <button onClick={handleRemoveRoute}>Remove route</button>
       {routesId && <button onClick={handleAllRouteInfo}>All route info</button>}
       {!isAuthenticated && <button onClick={loginWithRedirect}>Login</button>}
       {isAuthenticated && <button onClick={logout}>Log out</button>}
