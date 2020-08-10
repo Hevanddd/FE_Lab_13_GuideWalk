@@ -2,11 +2,25 @@ import React from 'react';
 import classNames from 'classnames';
 import './my-and-saved-route-item.scss';
 
-export const MyAndSavedRouteItemComponent = ({ name, counter, routeId, userId, toggleRatingFunc }) => {
-
+export const MyAndSavedRouteItemComponent = ({
+  name,
+  counter,
+  routeId,
+  userId,
+  toggleRatingFunc,
+  setIsUpdateSaga,
+  isUpdateValue,
+  toggleSavedRouteStart,
+}) => {
+  const toggleData = { routeId, userId };
   const handleLikeButtonClick = () => {
-    const toggleRatingData = { routeId, userId };
-    routeId && userId && toggleRatingFunc(toggleRatingData);
+    routeId && userId && toggleRatingFunc(toggleData);
+    setIsUpdateSaga && setIsUpdateSaga(!isUpdateValue);
+  };
+
+  const handleSavedButton = () => {
+    routeId && userId && toggleSavedRouteStart(toggleData);
+    setIsUpdateSaga && setIsUpdateSaga(!isUpdateValue);
   };
 
   return (
@@ -24,7 +38,7 @@ export const MyAndSavedRouteItemComponent = ({ name, counter, routeId, userId, t
             />
           </button>
         </div>
-        <button className={classNames('route-item__info__saved-button')}>
+        <button className={classNames('route-item__info__saved-button')} onClick={handleSavedButton}>
           <img
             className={classNames('route-item__info__saved-button__img')}
             src={require('../../img/bookmark.svg')}

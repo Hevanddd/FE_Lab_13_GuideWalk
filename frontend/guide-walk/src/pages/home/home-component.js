@@ -21,7 +21,7 @@ export const HomeComponent = ({
   const userName = userDataAuth && userDataAuth.userName;
   const owner = userInfoData && userInfoData.id;
   const ownerName = userDataAuth && userDataAuth.userName;
-  // const routesId = allRoutes && allRoutes[44]._id;
+  const routesId = allRoutes && allRoutes[0]._id;
   const testDataRequest = {
     pointArray: [
       {
@@ -44,7 +44,7 @@ export const HomeComponent = ({
     },
   };
   const requestData = {
-    // savedId: routesId,
+    savedId: routesId,
     userId: owner,
   };
   const requestData2 = {
@@ -62,7 +62,7 @@ export const HomeComponent = ({
     // routesId && getCoordinatesStart(routesId);
   };
   const handleAddSavedRoute = () => {
-    // routesId && addSavedRouteStart(requestData);
+    routesId && addSavedRouteStart(requestData);
     userName && getUserInfoDataStart(userName);
   };
 

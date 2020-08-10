@@ -4,10 +4,8 @@ import {
   getUserInfoDataFail,
   getUserInfoDataSuccess,
   refreshUserDataAuth,
-  addSavedRouteStart,
-  addSavedRouteFail,
-  removeSavedRouteFail,
-  removeSavedRouteStart,
+  toggleSavedRouteStart,
+  toggleSavedRouteFail,
   toggleRatingFail,
   toggleRatingStart,
   getUserSavedRoutesDataStart,
@@ -54,25 +52,13 @@ const reducerMap = {
     };
   },
 
-  [addSavedRouteStart]: (state) => {
+  [toggleSavedRouteStart]: (state) => {
     return {
       ...state,
     };
   },
 
-  [addSavedRouteFail]: (state) => {
-    return {
-      ...state,
-    };
-  },
-
-  [removeSavedRouteStart]: (state) => {
-    return {
-      ...state,
-    };
-  },
-
-  [removeSavedRouteFail]: (state) => {
+  [toggleSavedRouteFail]: (state) => {
     return {
       ...state,
     };

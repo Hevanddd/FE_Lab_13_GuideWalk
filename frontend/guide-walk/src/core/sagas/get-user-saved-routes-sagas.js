@@ -15,6 +15,7 @@ function* callUserSavedRoutesData({ payload }) {
     const data = yield call(httpRequest, `/api/user/saved/${payload}`, 'GET');
     yield put(getUserSavedRoutesDataSuccess(data));
   } catch (e) {
+    console.log(e);
     yield call(handleErrorInSagas, getUserSavedRoutesDataFail);
   } finally {
     yield put(loadingStop());
