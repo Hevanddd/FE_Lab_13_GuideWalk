@@ -3,7 +3,7 @@ import { httpRequest } from '../../services';
 import { removeSavedRouteFail, removeSavedRouteStart, loadingStop, loadingStart } from '../redux/actions';
 import { handleErrorInSagas } from '../../services/helpers/handle-error-in-sagas';
 
-function* callRemoveSavedRouteData({ payload }) {
+function* callRemoveSavedRoute({ payload }) {
   try {
     yield put(loadingStart());
     yield call(httpRequest, `/api/user/delete-saved`, 'POST', payload);
@@ -14,6 +14,6 @@ function* callRemoveSavedRouteData({ payload }) {
   }
 }
 
-export function* removeSavedRouteData() {
-  yield takeEvery(removeSavedRouteStart, callRemoveSavedRouteData);
+export function* removeSavedRoute() {
+  yield takeEvery(removeSavedRouteStart, callRemoveSavedRoute);
 }
