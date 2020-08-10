@@ -6,7 +6,7 @@ import { handleErrorInSagas } from '../../services/helpers/handle-error-in-sagas
 function* callAddSavedRouteData({ payload }) {
   try {
     yield put(loadingStart());
-    yield call(httpRequest, `/api/user/addSaved`, 'POST', payload);
+    yield call(httpRequest, `/api/user/add-saved`, 'POST', payload);
   } catch (e) {
     yield call(handleErrorInSagas, addSavedRouteFail);
   } finally {

@@ -6,6 +6,8 @@ import {
   refreshUserDataAuth,
   addSavedRouteStart,
   addSavedRouteFail,
+  removeSavedRouteFail,
+  removeSavedRouteStart,
 } from '../actions';
 
 const initialState = {
@@ -47,7 +49,17 @@ const reducerMap = {
   [addSavedRouteFail]: (state) => {
     return {
       ...state,
-      savedRoutes: null,
+    };
+  },
+  [removeSavedRouteStart]: (state) => {
+    return {
+      ...state,
+    };
+  },
+
+  [removeSavedRouteFail]: (state) => {
+    return {
+      ...state,
     };
   },
 };

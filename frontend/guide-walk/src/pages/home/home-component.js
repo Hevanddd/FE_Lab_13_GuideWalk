@@ -13,22 +13,23 @@ export const HomeComponent = ({
   allRoutes,
   addSavedRouteStart,
   getAllRouteDataStart,
+  removeSavedRouteStart,
 }) => {
-  const [testData, setTestData] = useState();
   const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
   const userName = userDataAuth && userDataAuth.userName;
   const owner = userInfoData && userInfoData.id;
-  const routesId = allRoutes && allRoutes[4]._id;
+  const ownerName = userDataAuth && userDataAuth.userName;
+  const routesId = allRoutes && allRoutes[44]._id;
   const testDataRequest = {
     pointArray: [
       {
         title: 'Title',
-        location: { lng: 41.4312, lat: 10.213 },
+        location: { longitude: 41.4312, latitude: 10.213 },
         description: 'Description',
       },
       {
         title: 'Title2',
-        location: { lng: 40.42123423, lat: 45 },
+        location: { longitude: 40.42123423, latitude: 45 },
         description: 'Description2',
       },
     ],
@@ -37,6 +38,7 @@ export const HomeComponent = ({
       focus: 'Focus',
       description: 'NEW',
       owner,
+      ownerName,
     },
   };
   const handleGetUserData = () => {
@@ -60,6 +62,14 @@ export const HomeComponent = ({
     routesId && getAllRouteDataStart(routesId);
   };
 
+  const handleRemoveSavedRoute = () => {
+    const requestData = {
+      savedId: routesId,
+      userId: owner,
+    };
+    routesId && removeSavedRouteStart(requestData);
+  };
+
   useEffect(() => {
     getAllRoutesStart();
   }, []);
@@ -70,6 +80,7 @@ export const HomeComponent = ({
       {owner && <button onClick={handleAddedRouteData}>Add route to server</button>}
       <button onClick={handleGetCoordinates}>Get coordinates of the route</button>
       <button onClick={handleAddSavedRoute}>Add saved route</button>
+      <button onClick={handleRemoveSavedRoute}>Remove saved route</button>
       {routesId && <button onClick={handleAllRouteInfo}>All route info</button>}
       {!isAuthenticated && <button onClick={loginWithRedirect}>Login</button>}
       {isAuthenticated && <button onClick={logout}>Log out</button>}

@@ -6,7 +6,6 @@ import classnames from 'classnames';
 import styles from './header-component.module.scss';
 
 const HeaderComponent = ({ isLoading }) => {
-  console.log(isLoading);
   const history = useHistory();
 
   const [location, setLocation] = useState(history.location.pathname);

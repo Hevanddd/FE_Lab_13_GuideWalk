@@ -64,7 +64,7 @@ const reducerMap = {
       ...state
     }
   },
-  [getNextPointFail]: (state, {payload}) => {
+  [getNextPointFail]: (state) => {
     return {
       ...state,
       currentPoint: {},
