@@ -23,7 +23,7 @@ export const AppComponent = () => {
         <Route exact path='/edit-route' component={EditRoutePage} />
         <Route exact path='/direction-route' component={MapDirectionsComponent} />
         <Route exact path='/saved-routes' component={SavedRoutesPage} />
-        <Route exact path='/:title'
+        <Route exact path='/route/:title'
           render={({match}) => <PreviewRoutePage title={match.params.title} />} 
         />
         <Redirect to='/' />

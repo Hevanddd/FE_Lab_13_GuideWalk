@@ -1,7 +1,6 @@
 import React from 'react';
 import CSSModules from 'react-css-modules';
 import Button from '@material-ui/core/Button';
-import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
 
 import { MapDrawComponent } from '../../ui/map-draw';
 
@@ -14,12 +13,12 @@ const PreviewRouteComponent = ({title}) => {
     pointArray: [
       {
         title: 'Title',
-        location: { lng: 41.4, lat: 10 },
+        location: { longitude: 24.026046775501584, latitude: 49.84491757693033 },
         description: 'Description',
       },
       {
         title: 'Title2',
-        location: { lng: 45.4, lat: 45 },
+        location: { longitude: 24.044624449241724, latitude: 49.82795824872929 },
         description: 'Description2',
       },
     ],
@@ -34,6 +33,9 @@ const PreviewRouteComponent = ({title}) => {
   };
 
   const {description, author, rating, date} = testDataRequest.routeInfo;
+  const {pointArray} = testDataRequest;
+  const firstPoint = pointArray[0].location;
+  const lastPoint = pointArray[pointArray.length-1].location;
 
   return (
     <>
@@ -61,7 +63,7 @@ const PreviewRouteComponent = ({title}) => {
           </div>
         </div>
       </div>
-      <MapDrawComponent />
+      <MapDrawComponent firstPoint={firstPoint} lastPoint={lastPoint} />
       
     </>
   );

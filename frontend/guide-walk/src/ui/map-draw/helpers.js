@@ -83,5 +83,5 @@ export const getRadiusFromLatLngInKm = (firstCoords, secondCoords) => {
     Math.cos(firstMarkerLatitude) * Math.cos(secondMarkerLatitude) * square(Math.sin(lng_dif / 2));
   const radius = (2 * r * Math.asin(Math.sqrt(a))) / 2;
 
-  return Math.ceil(radius);
+  return radius;
 };

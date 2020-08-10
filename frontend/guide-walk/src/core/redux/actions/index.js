@@ -7,3 +7,4 @@ export { getCoordinatesFail, getCoordinatesStart, getCoordinatesSuccess } from '
 export { addSavedRouteFail, addSavedRouteStart } from './add-saved-route-actions';
 export { getAllRouteDataFail, getAllRouteDataStart, getAllRouteDataSuccess } from './all-route-data-actions';
 export { loadingStart, loadingStop } from './common-actions';
+export { startRoute } from './preview-route-actions';

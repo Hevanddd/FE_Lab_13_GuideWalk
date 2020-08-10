@@ -5,14 +5,12 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import './map-draw.scss';
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_KEY;
-const data = { longitude: 24.004760978637364, latitude: 49.836812658441346 };
-const data2 = { longitude: 24.046989677368202, latitude: 49.840355437175816 };
 
-export const MapDrawComponent = () => {
+export const MapDrawComponent = ({firstPoint, lastPoint}) => {
   const mapWrapper = useRef();
   useEffect(() => {
-    const centerRadius = calculateCenterCircleWithTwoPoints(data, data2);
-    const radiusInKm = getRadiusFromLatLngInKm(data, data2);
+    const centerRadius = calculateCenterCircleWithTwoPoints(firstPoint, lastPoint);
+    const radiusInKm = getRadiusFromLatLngInKm(firstPoint, lastPoint);
     const map = new mapboxgl.Map({
       container: mapWrapper.current,
       style: 'mapbox://styles/mapbox/streets-v11',
