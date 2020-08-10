@@ -6,6 +6,10 @@ import {
   getAllRoutesStart,
   getAllRoutesFail,
   getAllRoutesSuccess,
+  setCurrentRoute,
+  getNextPointStart,
+  getNextPointFail,
+  getNextPointSuccess
 } from '../actions';
 
 const initialState = {
@@ -48,6 +52,33 @@ const reducerMap = {
       addedRouteInfo: null,
     };
   },
+  [setCurrentRoute]: (state, {payload}) => {
+    return {
+      ...state,
+      currentRoute: payload,
+      currentPointIndex: 0
+    }
+  },
+  [getNextPointStart]: (state) => {
+    return {
+      ...state
+    }
+  },
+  [getNextPointFail]: (state, {payload}) => {
+    return {
+      ...state,
+      currentPoint: {},
+    }
+  },
+  [getNextPointSuccess]: (state, {payload}) => {
+    return {
+      ...state,
+      currentPoint: {...payload},
+      currentPointIndex: state.currentPointIndex + 1,
+    }
+  },
+
+
 };
 
 export const userRoutesReducer = handleActions(reducerMap, initialState);

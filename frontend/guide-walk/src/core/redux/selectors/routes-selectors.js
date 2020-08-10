@@ -1,7 +1,11 @@
 import { createSelector } from 'reselect';
 import { ROUTES_KEY } from '../constants';
 
-const getData = (state) => state[ROUTES_KEY];
+const getRouteData = (state) => state[ROUTES_KEY];
 
-export const userRoutesSelector = createSelector(getData, (routes) => routes.addedRouteInfo);
-export const allRoutesSelector = createSelector(getData, (routes) => routes.allRoutes);
+export const userRoutesSelector = createSelector(getRouteData, (routes) => routes.addedRouteInfo);
+export const allRoutesSelector = createSelector(getRouteData, (routes) => routes.allRoutes);
+
+export const currentRouteSelector = createSelector(getRouteData, (routes) => routes.currentRoute);
+export const currentPointIndexSelector = createSelector(getRouteData, (routes) => routes.currentPointIndex);
+export const currentPointDataSelector = createSelector(getRouteData, (routes) => routes.currentPoint);
