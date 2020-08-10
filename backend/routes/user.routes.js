@@ -14,9 +14,8 @@ router.get("/saved/:userid", async (req, res) => {
     );
 
     res.status(200).json(savedRoutes);
-
   } catch (error) {
-    res.status(500).json({ message: 'Saved routes fault' + error });
+    res.status(500).json({ message: "Saved routes fault" + error });
   }
 });
 
@@ -29,9 +28,8 @@ router.get("/myroutes/:userid", async (req, res) => {
     );
 
     res.status(200).json(myRoutes);
-
   } catch (error) {
-    res.status(500).json({ message: 'My routes fault' + error });
+    res.status(500).json({ message: "My routes fault" + error });
   }
 });
 
@@ -62,6 +60,31 @@ router.post("/", async (req, res) => {
     }
   } catch (e) {
     res.status(500).json({ message: e });
+  }
+});
+
+router.post("/toggle-saved", async (req, res) => {
+  try {
+    const { savedId, userId } = req.body;
+
+    const user = await User.findById(userId);
+
+    if (!user.saved_routes.includes(savedId)) {
+      user.saved_routes.push(savedId);
+      await user.save();
+      res.status(201).json({ message: "Route saved" });
+    } else {
+      const index = user.saved_routes.indexOf(savedId);
+
+      user.saved_routes.splice(index, 1);
+
+      await user.save();
+      res.status(200).json({ message: "Route succesfully removed from saved" });
+    }
+  } catch (e) {
+    res
+      .status(500)
+      .json({ message: "Something is going wrong. Try it again." });
   }
 });
 
