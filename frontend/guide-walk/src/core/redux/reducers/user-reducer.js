@@ -6,6 +6,10 @@ import {
   refreshUserDataAuth,
   addSavedRouteStart,
   addSavedRouteFail,
+  removeSavedRouteFail,
+  removeSavedRouteStart,
+  toggleRatingFail,
+  toggleRatingStart,
 } from '../actions';
 
 const initialState = {
@@ -19,18 +23,21 @@ const reducerMap = {
       ...state,
     };
   },
+
   [getUserInfoDataSuccess]: (state, { payload }) => {
     return {
       ...state,
       userInfoData: payload,
     };
   },
+
   [getUserInfoDataFail]: (state) => {
     return {
       ...state,
       userInfoData: [],
     };
   },
+
   [refreshUserDataAuth]: (state, { payload }) => {
     const userName = payload[`https://username`];
     return {
@@ -38,6 +45,7 @@ const reducerMap = {
       userDataAuth: { ...payload, userName },
     };
   },
+
   [addSavedRouteStart]: (state) => {
     return {
       ...state,
@@ -47,7 +55,30 @@ const reducerMap = {
   [addSavedRouteFail]: (state) => {
     return {
       ...state,
-      savedRoutes: null,
+    };
+  },
+
+  [removeSavedRouteStart]: (state) => {
+    return {
+      ...state,
+    };
+  },
+
+  [removeSavedRouteFail]: (state) => {
+    return {
+      ...state,
+    };
+  },
+
+  [toggleRatingStart]: (state) => {
+    return {
+      ...state,
+    };
+  },
+
+  [toggleRatingFail]: (state) => {
+    return {
+      ...state,
     };
   },
 };
