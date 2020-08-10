@@ -26,7 +26,7 @@ router.get("/preview/:id", async (req, res) => {
       return pointInfo.location;
     });
 
-    Promise.all(coordinatesArray).then((coordinatesArrayValue) =>
+    await Promise.all(coordinatesArray).then((coordinatesArrayValue) =>
       res.json({ route, coordinatesArrayValue })
     );
   } catch (e) {

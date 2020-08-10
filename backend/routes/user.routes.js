@@ -72,15 +72,17 @@ router.post("/toggle-saved", async (req, res) => {
     if (!user.saved_routes.includes(savedId)) {
       user.saved_routes.push(savedId);
       await user.save();
-      res.status(201).json({ message: "Route saved" });
-    } else {
-      const index = user.saved_routes.indexOf(savedId);
-
-      user.saved_routes.splice(index, 1);
-
-      await user.save();
-      res.status(200).json({ message: "Route succesfully removed from saved" });
+      return res.status(201).json({ message: "Route saved" });
     }
+
+    const index = user.saved_routes.indexOf(savedId);
+    user.saved_routes.splice(index, 1);
+    
+    await user.save();
+
+    return res
+      .status(200)
+      .json({ message: "Route succesfully removed from saved" });
   } catch (e) {
     res
       .status(500)
@@ -91,6 +93,7 @@ router.post("/toggle-saved", async (req, res) => {
 router.post("/add-saved", async (req, res) => {
   try {
     const { savedId, userId } = req.body;
+    console.log(req.body);
 
     const user = await User.findById(userId);
 
