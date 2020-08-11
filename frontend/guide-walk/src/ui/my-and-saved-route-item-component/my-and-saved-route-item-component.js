@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
+import { useHistory } from 'react-router';
 import './my-and-saved-route-item.scss';
 
 export const MyAndSavedRouteItemComponent = ({
@@ -12,6 +13,7 @@ export const MyAndSavedRouteItemComponent = ({
   userRateIds,
   getUserSavedRoutesDataStart,
 }) => {
+  const history = useHistory();
   const isLiked = userRateIds && userRateIds.includes(userId);
   const toggleData = { routeId, userId };
 
@@ -21,6 +23,11 @@ export const MyAndSavedRouteItemComponent = ({
 
   const handleSavedButton = () => {
     routeId && userId && toggleSavedRouteStart({ toggleData, userId });
+  };
+
+  const handleArrowButton = () => {
+    const url = routeId && `/route?${routeId}`;
+    history.push(url);
   };
 
   return (
@@ -58,7 +65,7 @@ export const MyAndSavedRouteItemComponent = ({
             alt='save'
           />
         </button>
-        <button className={classNames('route-item__info__arrow-button')}>
+        <button className={classNames('route-item__info__arrow-button')} onClick={handleArrowButton}>
           <img
             className={classNames('route-item__info__arrow-button__img')}
             src={require('../../img/up-arrow.svg')}

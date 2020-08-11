@@ -30,15 +30,14 @@ const HeaderComponent = ({ isLoading }) => {
 
   return (
     <header>
-      {isProfilePage ||
-        (isHomePage && (
-          <div styleName='logo'>
-            <span>Guide</span>
-            <div styleName={logoClass}></div>
-            <span>Walk</span>
-          </div>
-        ))}
-      {!isProfilePage && !isHomePage && (
+      {isHomePage && (
+        <div styleName='logo'>
+          <span>Guide</span>
+          <div styleName={logoClass}></div>
+          <span>Walk</span>
+        </div>
+      )}
+      {!isHomePage && (
         <div styleName='header-text'>
           <h2>{locationName}</h2>
           <button styleName='header-text__btn' onClick={goToPreviousPath}></button>
