@@ -35,43 +35,41 @@ export const MyAndSavedRouteItemComponent = ({
       <img src={require('../../img/Lviv.jpg')} alt='Lviv' className={classNames('route-item__img')} />
       <div className={classNames('route-item__info')}>
         <p className={classNames('route-item__info__name')}>{name}</p>
-        <div className={classNames('route-item__info__like-button__wrapper')}>
-          <p>{counter}</p>
-          <button className={classNames('route-item__info__like-button')} onClick={handleLikeButtonClick}>
-            {!isLiked && (
-              <img
-                className={classNames('route-item__info__like-button__img')}
-                src={require('../../img/like.svg')}
-                alt='like'
-                width={30}
-                height={35}
-              />
-            )}
-            {isLiked && (
-              <img
-                className={classNames('route-item__info__like-button__img')}
-                src={require('../../img/black-like.svg')}
-                alt='like'
-                width={30}
-                height={35}
-              />
-            )}
+        <div className={classNames('route-item__info__social')}>
+          <div className={classNames('route-item__info__like-button__wrapper')}>
+            <p>{counter}</p>
+            <button className={classNames('route-item__info__like-button')} onClick={handleLikeButtonClick}>
+              {!isLiked && (
+                <img
+                  className={classNames('route-item__info__like-button__img')}
+                  src={require('../../img/like.svg')}
+                  alt='like'
+                />
+              )}
+              {isLiked && (
+                <img
+                  className={classNames('route-item__info__like-button__img')}
+                  src={require('../../img/black-like.svg')}
+                  alt='like'
+                />
+              )}
+            </button>
+          </div>
+          <button className={classNames('route-item__info__saved-button')} onClick={handleSavedButton}>
+            <img
+              className={classNames('route-item__info__saved-button__img')}
+              src={require('../../img/bookmark-saved.svg')}
+              alt='save'
+            />
+          </button>
+          <button className={classNames('route-item__info__arrow-button')} onClick={handleArrowButton}>
+            <img
+              className={classNames('route-item__info__arrow-button__img')}
+              src={require('../../img/up-arrow.svg')}
+              alt='arrow'
+            />
           </button>
         </div>
-        <button className={classNames('route-item__info__saved-button')} onClick={handleSavedButton}>
-          <img
-            className={classNames('route-item__info__saved-button__img')}
-            src={require('../../img/bookmark-saved.svg')}
-            alt='save'
-          />
-        </button>
-        <button className={classNames('route-item__info__arrow-button')} onClick={handleArrowButton}>
-          <img
-            className={classNames('route-item__info__arrow-button__img')}
-            src={require('../../img/up-arrow.svg')}
-            alt='arrow'
-          />
-        </button>
       </div>
     </div>
   );
