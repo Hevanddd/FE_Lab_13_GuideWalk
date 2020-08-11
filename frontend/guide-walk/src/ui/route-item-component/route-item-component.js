@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import './route-item.scss';
 
 export const RouteItemComponent = ({ data }) => {
-  console.log(data);
   return (
     <div className={classNames('route')}>
       <div className={classNames('route__title')}>Hi</div>

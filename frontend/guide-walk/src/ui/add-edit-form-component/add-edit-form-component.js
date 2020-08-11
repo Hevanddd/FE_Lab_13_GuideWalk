@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
@@ -98,7 +99,7 @@ const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataSta
           variant='outlined'
         />
 
-        { errors.title && <p styleName='error'> Enter title of your route </p> }
+        {errors.title && <p styleName='error'> Enter title of your route </p>}
 
         <TextField
           name='focus'
@@ -130,7 +131,7 @@ const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataSta
           rules={{ required: true }}
         />
 
-        { errors.description && <p styleName='error'> Enter description about your route</p> }
+        {errors.description && <p styleName='error'> Enter description about your route</p>}
 
         <ul styleName='form__pointsList'>
           {points &&

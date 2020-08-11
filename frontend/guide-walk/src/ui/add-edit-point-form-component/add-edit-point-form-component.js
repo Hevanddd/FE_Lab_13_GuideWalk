@@ -17,8 +17,8 @@ const AddEditPointFormComponent = ({ savePoint, editedPoint, titles }) => {
   const initialCoords = editedPoint && editedPoint.location;
 
   const [coordinates, setCoordinates] = useState(initialCoords);
-  
-  const submitPoint = (point) => {
+
+    const submitPoint = (point) => {
     point.location = coordinates;
     if (editedPoint) {
       const isEdited = true;
