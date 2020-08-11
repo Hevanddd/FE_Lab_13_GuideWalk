@@ -13,7 +13,7 @@ export const CurrentRouteComponent = ({
 
   useEffect(() => {
     //TODO: This action should be invoked when user clicks "Start route", now it's just test case
-    setCurrentRoute('5f28420de5f2f124240041c3');
+    setCurrentRoute('5f319aa34e182d2e1852a547');
   }, []);
 
   useEffect(() => {
@@ -26,18 +26,19 @@ export const CurrentRouteComponent = ({
   useEffect(() => {
     if (currentPointData) {
       //on first point state is not defined so we need this check
+      console.log(currentPointData);
       if (!markersPositions) {
         setMarkersPositions({
           //TODO: Set start marker to user geolocation in moment of invocation Start Route
-          startMarkerPositions: [49.842957, 26.041111],
-          finishMarkerPositions: [currentPointData.location.lng, currentPointData.location.lat],
+          startMarkerPositions: [24.0224041633556, 49.83974574113253],
+          finishMarkerPositions: [currentPointData.location.longitude, currentPointData.location.latitude],
         });
       }
       //on next points we have start marker as previous point and finish marker as next point
       else {
         setMarkersPositions({
           startMarkerPositions: [markersPositions.finishMarkerPositions[0], markersPositions.finishMarkerPositions[1]],
-          finishMarkerPositions: [currentPointData.location.lng, currentPointData.location.lat],
+          finishMarkerPositions: [currentPointData.location.longitude, currentPointData.location.latitude],
         });
       }
     }
@@ -52,13 +53,13 @@ export const CurrentRouteComponent = ({
       alert('You have succesfully finished this route');
     }
   };
-
+  
   return (
     <div>
       {markersPositions ? (
         <div>
           <div style = {{position: 'relative', height: '50vh', margin: '30px'}}>
-            <MapDirectionsComponent markerPositions={markersPositions} zoom={1} dragable = {false}></MapDirectionsComponent>
+            <MapDirectionsComponent markerPositions={markersPositions} zoom={15}></MapDirectionsComponent>
           </div>
           <CurrentRouteInfoBlock
             currentPointData={currentPointData}
