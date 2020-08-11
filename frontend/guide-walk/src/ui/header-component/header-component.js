@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import CSSModules from 'react-css-modules';
 import classnames from 'classnames';
-
+import { useHistory } from 'react-router-dom';
 import styles from './header-component.module.scss';
 
 const HeaderComponent = ({ isLoading }) => {
@@ -32,15 +31,14 @@ const HeaderComponent = ({ isLoading }) => {
 
   return (
     <header>
-      {isProfilePage ||
-        (isHomePage && (
-          <div styleName='logo'>
-            <span>Guide</span>
-            <div styleName={logoClass}></div>
-            <span>Walk</span>
-          </div>
-        ))}
-      {!isProfilePage && !isHomePage && (
+      {isHomePage && (
+        <div styleName='logo'>
+          <span>Guide</span>
+          <div styleName={logoClass}></div>
+          <span>Walk</span>
+        </div>
+      )}
+      {!isHomePage && (
         <div styleName='header-text'>
           <h2>{locationName}</h2>
           <button styleName='header-text__btn' onClick={goToPreviousPath}></button>

@@ -1,33 +1,44 @@
-import React, { useState } from 'react';
-import { MapDirectionsComponent } from '../../ui/map-direction';
+import React, { useEffect } from 'react';
+import classNames from 'classnames';
+import { MyAndSavedRouteItemComponent } from '../../ui';
+import './saved-route.scss';
 
-export const SavedRoutesComponent = () => {
-  let startLatitude = 49.842957;
-  let startLongitude = 24.031111;
-  let finishLatitude = 49.8053;
-  let finishLongitude = 24.0021;
+export const SavedRoutesComponent = ({
+  userSavedRoutesData,
+  userRoutesData,
+  userInfoDate,
+  getUserSavedRoutesDataStart,
+  getUserRoutesDataStart,
+  toggleRatingStart,
+  toggleSavedRouteStart,
+}) => {
+  const userId = userInfoDate && userInfoDate.id;
 
-  const markerPositions = {
-    startMarkerPositions: [startLongitude, startLatitude],
-    finishMarkerPositions: [finishLongitude, finishLatitude],
-  };
+  useEffect(() => {
+    userId && getUserSavedRoutesDataStart(userId);
+  }, [userId, getUserSavedRoutesDataStart]);
 
-  const [markersPositions, setMarkersPositions] = useState(markerPositions);
-
-  const handleOnClick = () => {
-    startLongitude = finishLongitude;
-    startLatitude = finishLatitude;
-    finishLongitude = 24.026;
-    finishLatitude = 49.765;
-    setMarkersPositions({
-      startMarkerPositions: [startLongitude, startLatitude],
-      finishMarkerPositions: [finishLongitude, finishLatitude],
-    });
-  };
   return (
-    <div>
-      <MapDirectionsComponent markerPositions={markersPositions} zoom={15} />
-      <button onClick={handleOnClick}>Set next markers</button>
+    <div className={classNames('saved-route__wrapper')}>
+      {userSavedRoutesData &&
+        userSavedRoutesData.map((route) => {
+          const { rating, name, _id, userRateIds } = route;
+
+          return (
+            <MyAndSavedRouteItemComponent
+              name={name}
+              counter={rating}
+              routeId={_id}
+              userId={userId && userId}
+              toggleRatingFunc={toggleRatingStart}
+              toggleSavedRouteStart={toggleSavedRouteStart}
+              userRateIds={userRateIds}
+              getUserSavedRoutesDataStart={getUserSavedRoutesDataStart}
+              key={_id}
+            />
+          );
+        })}
+      {!userSavedRoutesData && <div className={classNames('saved-route__empty')}>You have not saved any routes</div>}
     </div>
   );
 };
