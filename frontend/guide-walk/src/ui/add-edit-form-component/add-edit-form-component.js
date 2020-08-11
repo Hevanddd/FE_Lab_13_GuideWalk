@@ -7,12 +7,14 @@ import AddEditPointFormComponent from './../add-edit-point-form-component';
 import PointComponent from '../point-component/point-component';
 import { useForm, Controller } from 'react-hook-form';
 import CSSModules from 'react-css-modules';
+import { useHistory } from 'react-router';
 
 import styles from './add-edit-form.module.scss';
 
 const routeFocuses = ['Fun', 'SightSeeing', 'Quest'];
 
-const AddEditFormComponent = ({ userInfoDate, getAddedRouteDataStart }) => {
+const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataStart }) => {
+
   const data = [
     {
       title: 'Lviv',
@@ -26,26 +28,35 @@ const AddEditFormComponent = ({ userInfoDate, getAddedRouteDataStart }) => {
     },
   ];
 
+  const history = useHistory();
   const { register, handleSubmit, control, errors } = useForm();
 
   const [addPointForm, setAddPointForm] = useState(false);
   const [points, setPoints] = useState(data);
   const [editedPoint, setEditedPoint] = useState(false);
+  const [isEmptyList, setIsEmptyList] = useState(false);
   
   const titles = points.map(el => el.title);
 
   const clearPointForm = () => {
     setEditedPoint(false);
     setAddPointForm(false);
+    setIsEmptyList(false);
   };
 
   const saveRoute = (route) => {
-    route.owner = userInfoDate && userInfoDate.id;
-    const result = {
-      pointArray: points,
-      routeInfo: route,
-    };
-    getAddedRouteDataStart(result);
+    if(!points[0]){
+      setIsEmptyList(true);
+    } else{
+      route.owner = userInfoDate && userInfoDate.id;
+      route.ownerName = userDataAuth && userDataAuth.userName;
+      const result = {
+        pointArray: points,
+        routeInfo: route,
+      };
+      getAddedRouteDataStart(result);
+      history.push('/');
+    }
   };
 
   const savePoint = (point, isEdited) => {
@@ -139,6 +150,8 @@ const AddEditFormComponent = ({ userInfoDate, getAddedRouteDataStart }) => {
             <span>Add new point</span>
           </li>
         </ul>
+
+        { isEmptyList && <p styleName='error'> You should enter at least one point.</p> }
 
         {addPointForm && <AddEditPointFormComponent savePoint={savePoint} editedPoint={editedPoint} titles={titles}/>}
 

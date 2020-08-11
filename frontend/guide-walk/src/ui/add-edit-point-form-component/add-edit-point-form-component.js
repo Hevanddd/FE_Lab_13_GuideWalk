@@ -8,7 +8,7 @@ import { useForm, Controller } from 'react-hook-form';
 import styles from './add-edit-point-form.module.scss';
 
 
-const AddEditPointFormComponent = ({ savePoint, editedPoint, titles}) => {
+const AddEditPointFormComponent = ({ savePoint, editedPoint, titles }) => {
   const { register, handleSubmit, control, setValue, errors} = useForm();
 
 
