@@ -8,7 +8,6 @@ import AddEditPointFormComponent from './../add-edit-point-form-component';
 import PointComponent from '../point-component/point-component';
 import { useForm, Controller } from 'react-hook-form';
 import CSSModules from 'react-css-modules';
-import { useHistory } from 'react-router';
 
 import styles from './add-edit-form.module.scss';
 
