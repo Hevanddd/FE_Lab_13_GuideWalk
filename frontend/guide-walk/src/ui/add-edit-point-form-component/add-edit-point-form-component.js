@@ -8,7 +8,7 @@ import { useForm, Controller } from 'react-hook-form';
 import styles from './add-edit-point-form.module.scss';
 
 
-const AddEditPointFormComponent = ({ savePoint, editedPoint, titles}) => {
+const AddEditPointFormComponent = ({ savePoint, editedPoint, titles }) => {
   const { register, handleSubmit, control, setValue, errors} = useForm();
 
 
@@ -17,8 +17,8 @@ const AddEditPointFormComponent = ({ savePoint, editedPoint, titles}) => {
   const initialCoords = editedPoint && editedPoint.location;
 
   const [coordinates, setCoordinates] = useState(initialCoords);
-  
-  const submitPoint = (point) => {
+
+    const submitPoint = (point) => {
     point.location = coordinates;
     if (editedPoint) {
       const isEdited = true;

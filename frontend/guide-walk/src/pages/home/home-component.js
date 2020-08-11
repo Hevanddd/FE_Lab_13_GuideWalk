@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MapComponent } from '../../ui/map-component/map-component';
 import { useAuth0 } from '@auth0/auth0-react';
-import { getAddedRouteDataStart, getAllRouteDataStart } from '../../core/redux/actions';
-
+import { useHistory } from 'react-router';
 export const HomeComponent = ({
   getUserInfoDataStart,
   userDataAuth,
@@ -15,13 +14,16 @@ export const HomeComponent = ({
   getAllRouteDataStart,
   removeSavedRouteStart,
   toggleRatingStart,
-  removeRouteStart
+  removeRouteStart,
+  toggleSavedRouteStart,
 }) => {
+
+  const history = useHistory();
   const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
   const userName = userDataAuth && userDataAuth.userName;
   const owner = userInfoData && userInfoData.id;
   const ownerName = userDataAuth && userDataAuth.userName;
-  const routesId = allRoutes && allRoutes[3]._id;
+  const routesId = allRoutes && allRoutes[7]._id;
   const testDataRequest = {
     pointArray: [
       {
@@ -44,11 +46,11 @@ export const HomeComponent = ({
     },
   };
   const requestData = {
-    savedId: routesId,
+    routeId: routesId,
     userId: owner,
   };
   const requestData2 = {
-    routeId: routesId,
+    // routeId: routesId,
     userId: owner,
   };
 
@@ -59,23 +61,25 @@ export const HomeComponent = ({
     userInfoData && getAddedRouteDataStart(testDataRequest);
   };
   const handleGetCoordinates = () => {
-    routesId && getCoordinatesStart(routesId);
+    // routesId && getCoordinatesStart(routesId);
   };
   const handleAddSavedRoute = () => {
-    routesId && addSavedRouteStart(requestData);
+    // routesId && addSavedRouteStart(requestData);
+    routesId && toggleSavedRouteStart({ toggleData: requestData });
+    // userName && getUserInfoDataStart(userName);
   };
 
   const handleAllRouteInfo = () => {
-    routesId && getAllRouteDataStart(routesId);
+    // routesId && getAllRouteDataStart(routesId);
   };
 
   const handleRemoveSavedRoute = () => {
-    routesId && removeSavedRouteStart(requestData);
+    // routesId && removeSavedRouteStart(requestData);
   };
 
   const handleToggleRating = () => {
     const requestRating = {
-      routeId: routesId,
+      // routeId: routesId,
       userId: owner,
     };
     toggleRatingStart(requestRating);
@@ -83,15 +87,19 @@ export const HomeComponent = ({
 
   const handleRemoveRoute = () => {
     const requestRemoveRoute = {
-      routeId: routesId,
+      // routeId: routesId,
       userId: owner,
     };
     removeRouteStart(requestRemoveRoute);
   };
 
+  const handlePreviewRoute = () => {
+    history.push('/route');
+  };
+
+
   useEffect(() => {
     getAllRoutesStart();
-    setCurrentRoute('5f319aa34e182d2e1852a547')
   }, []);
 
   return (
@@ -103,7 +111,7 @@ export const HomeComponent = ({
       <button onClick={handleRemoveSavedRoute}>Remove saved route</button>
       <button onClick={handleToggleRating}>Toggle rating</button>
       <button onClick={handleRemoveRoute}>Remove route</button>
-      {routesId && <button onClick={handleAllRouteInfo}>All route info</button>}
+      {/*{routesId && <button onClick={handleAllRouteInfo}>All route info</button>}*/}
       {!isAuthenticated && <button onClick={loginWithRedirect}>Login</button>}
       {isAuthenticated && <button onClick={logout}>Log out</button>}
       <MapComponent width={'100vw'} height={'50vh'} zoom={15} />

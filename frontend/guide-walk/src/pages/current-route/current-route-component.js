@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { MapDirectionsComponent } from '../../ui/map-direction/map-directions';
-import { CurrentRouteInfoBlock } from '../../ui/current-route-info-block/current-route-info-block';
+import React, { useState, useEffect } from 'react';
+import { MapDirectionsComponent, CurrentRouteInfoBlock } from '../../ui';
 
 export const CurrentRouteComponent = ({
   currentRoute,
