@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
@@ -12,7 +13,8 @@ import styles from './add-edit-form.module.scss';
 
 const routeFocuses = ['Fun', 'SightSeeing', 'Quest'];
 
-const AddEditFormComponent = ({ userInfoDate, getAddedRouteDataStart }) => {
+const AddEditFormComponent = ({ userInfoDate, getAddedRouteDataStart, userAuthData }) => {
+  const history = useHistory();
   const data = [
     {
       title: 'Lviv',
@@ -31,8 +33,8 @@ const AddEditFormComponent = ({ userInfoDate, getAddedRouteDataStart }) => {
   const [addPointForm, setAddPointForm] = useState(false);
   const [points, setPoints] = useState(data);
   const [editedPoint, setEditedPoint] = useState(false);
-  
-  const titles = points.map(el => el.title);
+
+  const titles = points.map((el) => el.title);
 
   const clearPointForm = () => {
     setEditedPoint(false);
@@ -41,11 +43,13 @@ const AddEditFormComponent = ({ userInfoDate, getAddedRouteDataStart }) => {
 
   const saveRoute = (route) => {
     route.owner = userInfoDate && userInfoDate.id;
+    route.ownerName = userAuthData && userAuthData.userName;
     const result = {
       pointArray: points,
       routeInfo: route,
     };
     getAddedRouteDataStart(result);
+    history.push('/');
   };
 
   const savePoint = (point, isEdited) => {
@@ -87,7 +91,7 @@ const AddEditFormComponent = ({ userInfoDate, getAddedRouteDataStart }) => {
           variant='outlined'
         />
 
-        { errors.title && <p styleName='error'> Enter title of your route </p> }
+        {errors.title && <p styleName='error'> Enter title of your route </p>}
 
         <TextField
           name='focus'
@@ -119,7 +123,7 @@ const AddEditFormComponent = ({ userInfoDate, getAddedRouteDataStart }) => {
           rules={{ required: true }}
         />
 
-        { errors.description && <p styleName='error'> Enter description about your route</p> }
+        {errors.description && <p styleName='error'> Enter description about your route</p>}
 
         <ul styleName='form__pointsList'>
           {points &&
@@ -140,7 +144,7 @@ const AddEditFormComponent = ({ userInfoDate, getAddedRouteDataStart }) => {
           </li>
         </ul>
 
-        {addPointForm && <AddEditPointFormComponent savePoint={savePoint} editedPoint={editedPoint} titles={titles}/>}
+        {addPointForm && <AddEditPointFormComponent savePoint={savePoint} editedPoint={editedPoint} titles={titles} />}
 
         <Button styleName='form__btn' type='submit' color='primary' variant='contained'>
           Save Route
