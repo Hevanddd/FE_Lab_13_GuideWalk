@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MapComponent } from '../../ui/map-component/map-component';
 import { useAuth0 } from '@auth0/auth0-react';
-import { getAddedRouteDataStart, getAllRouteDataStart } from '../../core/redux/actions';
-
+import { useHistory } from 'react-router';
 export const HomeComponent = ({
   getUserInfoDataStart,
   userDataAuth,
@@ -13,22 +12,28 @@ export const HomeComponent = ({
   allRoutes,
   addSavedRouteStart,
   getAllRouteDataStart,
+  removeSavedRouteStart,
+  toggleRatingStart,
+  removeRouteStart,
+  toggleSavedRouteStart,
 }) => {
-  const [testData, setTestData] = useState();
+
+  const history = useHistory();
   const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
   const userName = userDataAuth && userDataAuth.userName;
   const owner = userInfoData && userInfoData.id;
-  const routesId = allRoutes && allRoutes[4]._id;
+  const ownerName = userDataAuth && userDataAuth.userName;
+  const routesId = allRoutes && allRoutes[7]._id;
   const testDataRequest = {
     pointArray: [
       {
         title: 'Title',
-        location: { lng: 41.4312, lat: 10.213 },
+        location: { longitude: 41.4312, latitude: 10.213 },
         description: 'Description',
       },
       {
         title: 'Title2',
-        location: { lng: 40.42123423, lat: 45 },
+        location: { longitude: 40.42123423, latitude: 45 },
         description: 'Description2',
       },
     ],
@@ -37,8 +42,18 @@ export const HomeComponent = ({
       focus: 'Focus',
       description: 'NEW',
       owner,
+      ownerName,
     },
   };
+  const requestData = {
+    routeId: routesId,
+    userId: owner,
+  };
+  const requestData2 = {
+    // routeId: routesId,
+    userId: owner,
+  };
+
   const handleGetUserData = () => {
     userName && getUserInfoDataStart(userName);
   };
@@ -46,19 +61,42 @@ export const HomeComponent = ({
     userInfoData && getAddedRouteDataStart(testDataRequest);
   };
   const handleGetCoordinates = () => {
-    routesId && getCoordinatesStart(routesId);
+    // routesId && getCoordinatesStart(routesId);
   };
   const handleAddSavedRoute = () => {
-    const requestData = {
-      savedId: routesId,
-      userId: owner,
-    };
-    routesId && addSavedRouteStart(requestData);
+    // routesId && addSavedRouteStart(requestData);
+    routesId && toggleSavedRouteStart({ toggleData: requestData });
+    // userName && getUserInfoDataStart(userName);
   };
 
   const handleAllRouteInfo = () => {
-    routesId && getAllRouteDataStart(routesId);
+    // routesId && getAllRouteDataStart(routesId);
   };
+
+  const handleRemoveSavedRoute = () => {
+    // routesId && removeSavedRouteStart(requestData);
+  };
+
+  const handleToggleRating = () => {
+    const requestRating = {
+      // routeId: routesId,
+      userId: owner,
+    };
+    toggleRatingStart(requestRating);
+  };
+
+  const handleRemoveRoute = () => {
+    const requestRemoveRoute = {
+      // routeId: routesId,
+      userId: owner,
+    };
+    removeRouteStart(requestRemoveRoute);
+  };
+
+  const handlePreviewRoute = () => {
+    history.push('/route');
+  };
+
 
   useEffect(() => {
     getAllRoutesStart();
@@ -70,7 +108,10 @@ export const HomeComponent = ({
       {owner && <button onClick={handleAddedRouteData}>Add route to server</button>}
       <button onClick={handleGetCoordinates}>Get coordinates of the route</button>
       <button onClick={handleAddSavedRoute}>Add saved route</button>
-      {routesId && <button onClick={handleAllRouteInfo}>All route info</button>}
+      <button onClick={handleRemoveSavedRoute}>Remove saved route</button>
+      <button onClick={handleToggleRating}>Toggle rating</button>
+      <button onClick={handleRemoveRoute}>Remove route</button>
+      {/*{routesId && <button onClick={handleAllRouteInfo}>All route info</button>}*/}
       {!isAuthenticated && <button onClick={loginWithRedirect}>Login</button>}
       {isAuthenticated && <button onClick={logout}>Log out</button>}
       <MapComponent width={'100vw'} height={'50vh'} zoom={15} />

@@ -9,7 +9,7 @@ const router = new Router();
 router.get("/", async (req, res) => {
   try {
     //TODO: Add lazy loading
-    const routes = await Route.find({}).limit(10);
+    const routes = await Route.find({}).limit(50);
     res.status(201).json(routes);
   } catch (e) {
     return res.status(500).json({ message: "Getting routes fault " + e });
