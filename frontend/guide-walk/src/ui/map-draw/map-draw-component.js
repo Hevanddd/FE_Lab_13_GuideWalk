@@ -32,11 +32,7 @@ export const MapDrawComponent = ({firstPoint, lastPoint}) => {
         },
       });
     });
-
-    map.on('click', function (e) {
-      console.log(e.lngLat);
-    });
-  }, []);
+  }, [firstPoint, lastPoint]);
 
   return <div id='draw' ref={mapWrapper} className='mapWrapper' />;
 };

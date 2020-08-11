@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import CSSModules from 'react-css-modules';
 import Button from '@material-ui/core/Button';
 
@@ -7,13 +7,15 @@ import { MapDrawComponent } from '../../ui/map-draw';
 import styles from './preview.module.scss';
 
 
-const PreviewRouteComponent = ({title}) => {
-
-  const testDataRequest = {
-    pointArray: [
+const PreviewRouteComponent = ({routeId, getAllRouteDataStart, routeData, setCurrentRoute, currentRoute}) => {
+  
+  const testRoute = '5f31585248f0c89eff4d2c9a';
+  
+  const defaultRoute = {
+    points: [
       {
         title: 'Title',
-        location: { longitude: 24.026046775501584, latitude: 49.84491757693033 },
+        location: { longitude: 20.026046775501584, latitude: 55.84491757693033 },
         description: 'Description',
       },
       {
@@ -22,34 +24,65 @@ const PreviewRouteComponent = ({title}) => {
         description: 'Description2',
       },
     ],
-    routeInfo: {
-      title: 'Title',
+    route: {
+      name: 'Route',
       focus: 'Focus',
       description: 'This is wonderful route that will give you pleasure of visiting outstanding places.',
-      author: 'Igor Mandziak',
+      ownerName: 'Igor Mandziak',
       rating: 22,
-      date: '22.07.2020'
+      creation_date: new Date()
     },
   };
 
-  const {description, author, rating, date} = testDataRequest.routeInfo;
-  const {pointArray} = testDataRequest;
-  const firstPoint = pointArray[0].location;
-  const lastPoint = pointArray[pointArray.length-1].location;
+  const [route, setRoute] = useState(defaultRoute);
+
+  useEffect(() => {
+    getAllRouteDataStart(testRoute);
+    ;
+  }, []);
+  
+  useEffect(() => {
+    if(routeData){
+      setRoute(routeData);
+    }
+  }, [routeData]);
+
+  function formatDate(date) {
+    const dateObj = new Date(date);
+
+    let dd = dateObj.getDate();
+    if (dd < 10) dd = '0' + dd;
+
+    let mm = dateObj.getMonth() + 1;
+    if (mm < 10) mm = '0' + mm;
+
+    let yy = dateObj.getFullYear() % 100;
+    if (yy < 10) yy = '0' + yy;
+
+    return dd + '.' + mm + '.' + yy;
+  }
+
+  const {name, description, author, rating, creation_date, ownerName} = route.route;
+  const date = formatDate(creation_date);
+  const {points} = route;
+  const firstPoint = points[0].location;
+  const lastPoint = points[points.length-1].location;
+
+  const errorMessage = <p styleName='preview__error'>Firstly, you should finish your started route.</p>;
 
   return (
     <>
       <div styleName='preview'>
+        <p styleName='preview__name'>{name}</p>
         <p styleName='preview__description'>{description}</p>
-        <Button styleName='preview__btn' type='button' color='primary' variant='contained' 
-        // onClick={startRoute}
-        >
+        {currentRoute && errorMessage}
+        <Button styleName='preview__btn' type='button' color='primary' variant='contained' disabled = {!!currentRoute} onClick={() => setCurrentRoute(testRoute)}>
           Start This Route
         </Button>
         <div styleName='preview__wrapper'>
           <div>
             <p>Author</p>
-            <span>{author}</span>
+            <span>{ownerName}</span>
           </div>
           <div>
             <p>Rating</p>
@@ -64,7 +97,6 @@ const PreviewRouteComponent = ({title}) => {
         </div>
       </div>
       <MapDrawComponent firstPoint={firstPoint} lastPoint={lastPoint} />
-      
     </>
   );
 };

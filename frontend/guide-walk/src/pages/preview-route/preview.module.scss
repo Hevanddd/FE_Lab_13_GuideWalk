@@ -3,10 +3,14 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    min-height: 40vh;
+    height: 40vh;
+    max-height: 40vh;
+    &__name{
+        font-weight: bold;
+    }
     &__description{
         width: 80%;
-        min-height: 180px;
+        height: 140px;
     }
     &__wrapper{
         display: flex;
@@ -35,5 +39,10 @@
 
     button.preview__btn{
         background-color: #457B9D;
+    }
+
+    &__error{
+        font-size: 15px;
+        color: red;
     }
 }

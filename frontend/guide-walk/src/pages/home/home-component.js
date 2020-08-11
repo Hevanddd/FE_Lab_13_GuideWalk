@@ -21,7 +21,7 @@ export const HomeComponent = ({
   const userName = userDataAuth && userDataAuth.userName;
   const owner = userInfoData && userInfoData.id;
   const ownerName = userDataAuth && userDataAuth.userName;
-  const routesId = allRoutes && allRoutes[44]._id;
+  const routesId = allRoutes && allRoutes[1]._id;
   const testDataRequest = {
     pointArray: [
       {
