@@ -13,3 +13,4 @@ export const TopRoutesComponent = ({allRoutes, getAllRoutesStart}) => {
         </div>
     )
 }
+
