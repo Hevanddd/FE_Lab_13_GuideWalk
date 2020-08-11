@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MapComponent } from '../../ui/map-component/map-component';
 import { useAuth0 } from '@auth0/auth0-react';
-
+import { useHistory } from 'react-router';
 export const HomeComponent = ({
   getUserInfoDataStart,
   userDataAuth,
@@ -17,11 +17,13 @@ export const HomeComponent = ({
   removeRouteStart,
   toggleSavedRouteStart,
 }) => {
+
+  const history = useHistory();
   const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
   const userName = userDataAuth && userDataAuth.userName;
   const owner = userInfoData && userInfoData.id;
   const ownerName = userDataAuth && userDataAuth.userName;
-  const routesId = allRoutes && allRoutes[4]._id;
+  const routesId = allRoutes && allRoutes[7]._id;
   const testDataRequest = {
     pointArray: [
       {
@@ -90,6 +92,11 @@ export const HomeComponent = ({
     };
     removeRouteStart(requestRemoveRoute);
   };
+
+  const handlePreviewRoute = () => {
+    history.push('/route');
+  };
+
 
   useEffect(() => {
     getAllRoutesStart();

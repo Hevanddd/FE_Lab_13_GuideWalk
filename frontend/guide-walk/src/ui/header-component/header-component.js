@@ -13,16 +13,18 @@ const HeaderComponent = ({ isLoading }) => {
     history.goBack();
   };
 
+  
+  const isProfilePage = location === '/profile';
+  const isHomePage = location === '/';
+  const isRoutePage = location === '/routes';
+  const locationName = location.replace(/\//, '').replace(/-/g, ' ');
+  
   useEffect(() => {
     return history.listen((location) => {
       setLocation(location.pathname);
     });
   }, [history]);
-
-  const isProfilePage = location === '/profile';
-  const isHomePage = location === '/';
-  const locationName = location.replace(/\//, '').replace(/-/g, ' ');
-
+  
   const logoClass = classnames('logo__img', {
     'logo__img--loading': isLoading,
   });

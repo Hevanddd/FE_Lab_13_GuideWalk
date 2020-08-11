@@ -9,6 +9,7 @@ import {
   EditRoutePage,
   SavedRoutesPage,
   MyRoutesPage,
+  PreviewRoutePage
 } from './pages';
 import { Loader, MapDirectionsComponent, Header, RouteListPage, NavigationComponent } from './ui';
 import 'react-toastify/dist/ReactToastify.css';
@@ -28,8 +29,9 @@ export const AppComponent = () => {
         <Route path='/profile-info' component={ProfilePage} />
         <Route path='/saved-routes' component={SavedRoutesPage} />
         <Route path='/my-routes' component={MyRoutesPage} />
+        <Route path='/route' component={PreviewRoutePage} />
 
-        {/*<Redirect to='/' />*/}
+        <Redirect to='/' />
       </Switch>
       <Loader />
       <NavigationComponent />
