@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MapDirectionsComponent } from '../../ui/map-direction/map-directions';
-import { CurrentRouteInfoBlock } from '../../ui/current-route-info-block/current-route-info-block';
+import { MapDirectionsComponent, CurrentRouteInfoBlock } from '../../ui';
 
 export const CurrentRouteComponent = ({
   currentRoute,
@@ -58,7 +57,7 @@ export const CurrentRouteComponent = ({
     <div>
       {markersPositions ? (
         <div>
-          <div style = {{position: 'relative', height: '50vh', margin: '30px'}}>
+          <div style={{ position: 'relative', height: '50vh', margin: '30px' }}>
             <MapDirectionsComponent markerPositions={markersPositions} zoom={15}></MapDirectionsComponent>
           </div>
           <CurrentRouteInfoBlock
