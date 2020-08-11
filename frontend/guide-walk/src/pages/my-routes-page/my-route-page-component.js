@@ -1,28 +1,29 @@
 import React, { useEffect } from 'react';
-import classNames from 'classnames';
 import { MyAndSavedRouteItemComponent } from '../../ui';
-import './saved-route.scss';
+import classNames from 'classnames';
+import './my-route.scss';
 
-export const SavedRoutesComponent = ({
-  userSavedRoutesData,
+export const MyRoutesPageComponent = ({
   userInfoDate,
-  getUserSavedRoutesDataStart,
+  getUserRoutesDataStart,
   toggleRatingStart,
   toggleSavedRouteStart,
+  userRoutesData,
+  userAuthData,
   userSavedRoadsIdList,
 }) => {
   const userId = userInfoDate && userInfoDate.id;
+  const userName = userAuthData && userAuthData.userName;
 
   useEffect(() => {
-    userId && getUserSavedRoutesDataStart(userId);
-  }, [userId, getUserSavedRoutesDataStart]);
+    userId && getUserRoutesDataStart(userId);
+  }, [userId]);
 
   return (
-    <div className={classNames('saved-route__wrapper')}>
-      {userSavedRoutesData &&
-        userSavedRoutesData.map((route) => {
-          const { rating, name, _id, userRateIds } = route;
-
+    <div className={classNames('my-routes__wrapper')}>
+      {userRoutesData &&
+        userRoutesData.map((route) => {
+          const { name, _id, rating, userRateIds } = route;
           return (
             <MyAndSavedRouteItemComponent
               name={name}
@@ -32,13 +33,13 @@ export const SavedRoutesComponent = ({
               toggleRatingFunc={toggleRatingStart}
               toggleSavedRouteStart={toggleSavedRouteStart}
               userRateIds={userRateIds}
-              getUserSavedRoutesDataStart={getUserSavedRoutesDataStart}
               userSavedRoadsIdList={userSavedRoadsIdList}
+              userName={userName}
               key={_id}
             />
           );
         })}
-      {!userSavedRoutesData && <div className={classNames('saved-route__empty')}>You have not saved any routes</div>}
+      {!userRoutesData && <div className={classNames('my-routes__empty')}>You have not created any routes</div>}
     </div>
   );
 };

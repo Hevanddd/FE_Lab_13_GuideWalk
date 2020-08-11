@@ -1,20 +1,22 @@
 import { connect } from 'react-redux';
 import {
-  userSavedRoutesDataSelector,
   userInfoDateSelector,
+  userRoutesDataSelector,
+  userAuthDataSelector,
   userSavedRoadsIdListSelector,
 } from '../../core/redux/selectors';
-import { getUserSavedRoutesDataStart, toggleRatingStart, toggleSavedRouteStart } from '../../core/redux/actions';
+import { getUserRoutesDataStart, toggleRatingStart, toggleSavedRouteStart } from '../../core/redux/actions';
 
 const mapStateToProps = (state) => ({
-  userSavedRoutesData: userSavedRoutesDataSelector(state),
   userInfoDate: userInfoDateSelector(state),
+  userRoutesData: userRoutesDataSelector(state),
+  userAuthData: userAuthDataSelector(state),
   userSavedRoadsIdList: userSavedRoadsIdListSelector(state),
 });
 const mapDispatchToProps = {
-  getUserSavedRoutesDataStart,
+  getUserRoutesDataStart,
   toggleRatingStart,
   toggleSavedRouteStart,
 };
 
-export const SavedRoutesContainer = connect(mapStateToProps, mapDispatchToProps);
+export const MyRoutesPageContainer = connect(mapStateToProps, mapDispatchToProps);

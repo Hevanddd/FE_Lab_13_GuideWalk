@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
-import { useHistory } from 'react-router';
+import { withRouter } from 'react-router';
 import './my-and-saved-route-item.scss';
 
-export const MyAndSavedRouteItemComponent = ({
+const MyAndSavedRouteItem = ({
   name,
   counter,
   routeId,
@@ -11,18 +11,24 @@ export const MyAndSavedRouteItemComponent = ({
   toggleRatingFunc,
   toggleSavedRouteStart,
   userRateIds,
-  getUserSavedRoutesDataStart,
+  history,
+  location,
+  userSavedRoadsIdList,
+  userName,
 }) => {
-  const history = useHistory();
-  const isLiked = userRateIds && userRateIds.includes(userId);
+  const isSavedRoutePage = location.pathname === '/saved-routes';
+  const isMyRoutesPage = location.pathname === '/my-routes';
+  const isSaved = userSavedRoadsIdList && routeId && userSavedRoadsIdList.includes(routeId);
+  const isLiked = userRateIds && userId && userRateIds.includes(userId);
   const toggleData = { routeId, userId };
+  const requestData = { toggleData, userId, isSavedRoutePage, isMyRoutesPage, userName };
 
   const handleLikeButtonClick = () => {
-    routeId && userId && toggleRatingFunc({ toggleData, userId });
+    routeId && userId && toggleRatingFunc(requestData);
   };
 
   const handleSavedButton = () => {
-    routeId && userId && toggleSavedRouteStart({ toggleData, userId });
+    routeId && userId && toggleSavedRouteStart(requestData);
   };
 
   const handleArrowButton = () => {
@@ -56,11 +62,20 @@ export const MyAndSavedRouteItemComponent = ({
             </button>
           </div>
           <button className={classNames('route-item__info__saved-button')} onClick={handleSavedButton}>
-            <img
-              className={classNames('route-item__info__saved-button__img')}
-              src={require('../../img/bookmark-saved.svg')}
-              alt='save'
-            />
+            {isSaved && (
+              <img
+                className={classNames('route-item__info__saved-button__img')}
+                src={require('../../img/bookmark-saved.svg')}
+                alt='save'
+              />
+            )}
+            {!isSaved && (
+              <img
+                className={classNames('route-item__info__saved-button__img')}
+                src={require('../../img/bookmark.svg')}
+                alt='save'
+              />
+            )}
           </button>
           <button className={classNames('route-item__info__arrow-button')} onClick={handleArrowButton}>
             <img
@@ -74,3 +89,5 @@ export const MyAndSavedRouteItemComponent = ({
     </div>
   );
 };
+
+export const MyAndSavedRouteItemComponent = withRouter(MyAndSavedRouteItem);
