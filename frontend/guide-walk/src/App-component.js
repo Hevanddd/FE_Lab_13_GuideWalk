@@ -7,6 +7,7 @@ import { ProfilePage } from './pages';
 import { AddRoutePage } from './pages';
 import { EditRoutePage } from './pages';
 import { SavedRoutesPage } from './pages';
+import { TopRoutesPage } from './pages'
 
 import { RouteListPage } from './ui/map-component';
 import { NavigationComponent } from './ui/navigation-component';
@@ -29,6 +30,7 @@ export const AppComponent = () => {
         <Route exact path='/direction-route' component={MapDirectionsComponent} />
         <Route path='/profile-info' component={ProfilePage} />
         <Route exact path='/saved-routes' component={SavedRoutesPage} />
+        <Route exact path='/top-routes' component={TopRoutesPage} />
         <Redirect to='/' />
       </Switch>
       <NavigationComponent />
