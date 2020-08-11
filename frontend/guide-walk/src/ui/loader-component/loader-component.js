@@ -17,9 +17,5 @@ export const LoaderComponent = ({ isLoading }) => {
     justify-content: center;
     display: flex;
   `;
-  return (
-    <div className={classNames('loader-wrapper')}>
-      <SyncLoader css={override} size={15} color={'#457B9D'} loading={isLoading} />;
-    </div>
-  );
+  return <SyncLoader css={override} size={15} color={'#457B9D'} loading={isLoading} />;
 };

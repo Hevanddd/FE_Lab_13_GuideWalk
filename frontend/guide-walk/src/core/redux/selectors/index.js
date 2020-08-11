@@ -3,6 +3,7 @@ export {
   userInfoDateSelector,
   userSavedRoutesDataSelector,
   userRoutesDataSelector,
+  userSavedRoadsIdListSelector,
 } from './user-selectors';
 export {
   userRoutesSelector,
