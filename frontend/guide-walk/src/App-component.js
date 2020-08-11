@@ -1,19 +1,9 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-
-import { HomePage } from './pages';
-import { ProfilePage } from './pages';
-import { AddRoutePage } from './pages';
-import { EditRoutePage } from './pages';
-import { SavedRoutesPage } from './pages';
-
-import { RouteListPage } from './ui/map-component';
-import { NavigationComponent } from './ui/navigation-component';
-import { Header } from './ui/header-component';
-import { MapDirectionsComponent } from './ui/map-direction';
+import { HomePage, CurrentRoutePage, ProfilePage, AddRoutePage, EditRoutePage, SavedRoutesPage } from './pages';
+import { Loader, MapDirectionsComponent, Header, RouteListPage, NavigationComponent } from './ui';
 import 'react-toastify/dist/ReactToastify.css';
-import { CurrentRoutePage } from './pages/current-route';
 
 export const AppComponent = () => {
   return (
@@ -31,6 +21,7 @@ export const AppComponent = () => {
         <Route exact path='/saved-routes' component={SavedRoutesPage} />
         {/*<Redirect to='/' />*/}
       </Switch>
+      <Loader />
       <NavigationComponent />
     </>
   );

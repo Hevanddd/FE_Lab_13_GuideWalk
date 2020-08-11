@@ -37,7 +37,7 @@ export const NavigationComponent = () => {
     history.listen((location) => {
       setValue(location.pathname.replace(/\//, ''));
     })
-  }, [history.location.pathname]);
+  }, [history]);
 
 
   const handleChange = (event, newValue) => {

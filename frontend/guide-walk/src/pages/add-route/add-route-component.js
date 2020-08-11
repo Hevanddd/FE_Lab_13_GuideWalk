@@ -1,14 +1,13 @@
 import React from 'react';
 import AddEditFormComponent from '../../ui/add-edit-form-component';
 
-export const AddRouteComponent = ({ userInfoDate, getAddedRouteDataStart, userAuthData }) => {
+export const AddRouteComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataStart }) => {
   return (
     <div>
-      <AddEditFormComponent
-        userInfoDate={userInfoDate}
-        getAddedRouteDataStart={getAddedRouteDataStart}
-        userAuthData={userAuthData}
-      />
+        < AddEditFormComponent 
+          userInfoDate = { userInfoDate }
+          userDataAuth = { userDataAuth }
+          getAddedRouteDataStart ={ getAddedRouteDataStart} />
     </div>
   );
 };
