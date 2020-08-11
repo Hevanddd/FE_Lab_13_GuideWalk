@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import classNames from 'classnames';
-import { MyAndSavedRouteItemComponent } from '../../ui/my-and-saved-route-item-component';
+import { MyAndSavedRouteItemComponent } from '../../ui';
 import './saved-route.scss';
 
 export const SavedRoutesComponent = ({
