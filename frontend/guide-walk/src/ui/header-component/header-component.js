@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import CSSModules from 'react-css-modules';
 import classnames from 'classnames';
-
+import { useHistory } from 'react-router-dom';
 import styles from './header-component.module.scss';
 
 const HeaderComponent = ({ isLoading }) => {

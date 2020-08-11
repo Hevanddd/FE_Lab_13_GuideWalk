@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { MapComponent } from '../../ui/map-component/map-component';
 import { useAuth0 } from '@auth0/auth0-react';
-import { getAddedRouteDataStart, getAllRouteDataStart } from '../../core/redux/actions';
 
 export const HomeComponent = ({
   getUserInfoDataStart,
@@ -22,7 +21,7 @@ export const HomeComponent = ({
   const userName = userDataAuth && userDataAuth.userName;
   const owner = userInfoData && userInfoData.id;
   const ownerName = userDataAuth && userDataAuth.userName;
-  const routesId = allRoutes && allRoutes[0]._id;
+  const routesId = allRoutes && allRoutes[4]._id;
   const testDataRequest = {
     pointArray: [
       {
