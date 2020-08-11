@@ -38,6 +38,7 @@ export const SavedRoutesComponent = ({
             />
           );
         })}
+      {!userSavedRoutesData && <div className={classNames('saved-route__empty')}>You have not saved any routes</div>}
     </div>
   );
 };
