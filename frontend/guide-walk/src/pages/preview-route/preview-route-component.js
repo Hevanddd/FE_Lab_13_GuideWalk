@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import CSSModules from 'react-css-modules';
 import Button from '@material-ui/core/Button';
-
+import { withRouter } from 'react-router';
+import { formatDate } from './helpers';
 import { MapDrawComponent } from '../../ui/map-draw';
 
 import styles from './preview.module.scss';
 
-
-const PreviewRouteComponent = ({routeId, getAllRouteDataStart, routeData, setCurrentRoute, currentRoute}) => {
-  
+const PreviewRouteComponent = ({getAllRouteDataStart, routeData, setCurrentRoute, currentRoute, location}) => {
+    
   const testRoute = '5f31585248f0c89eff4d2c9a';
-  
+
+
   const defaultRoute = {
     points: [
       {
@@ -38,7 +39,6 @@ const PreviewRouteComponent = ({routeId, getAllRouteDataStart, routeData, setCur
 
   useEffect(() => {
     getAllRouteDataStart(testRoute);
-    ;
   }, []);
   
   useEffect(() => {
@@ -47,26 +47,11 @@ const PreviewRouteComponent = ({routeId, getAllRouteDataStart, routeData, setCur
     }
   }, [routeData]);
 
-  function formatDate(date) {
-    const dateObj = new Date(date);
-
-    let dd = dateObj.getDate();
-    if (dd < 10) dd = '0' + dd;
-
-    let mm = dateObj.getMonth() + 1;
-    if (mm < 10) mm = '0' + mm;
-
-    let yy = dateObj.getFullYear() % 100;
-    if (yy < 10) yy = '0' + yy;
-
-    return dd + '.' + mm + '.' + yy;
-  }
-
   const {name, description, author, rating, creation_date, ownerName} = route.route;
   const date = formatDate(creation_date);
   const {points} = route;
-  const firstPoint = points[0].location;
-  const lastPoint = points[points.length-1].location;
+  const firstPoint = points && points[0].location;
+  const lastPoint = points && points[points.length-1].location;
 
   const errorMessage = <p styleName='preview__error'>Firstly, you should finish your started route.</p>;
 
@@ -96,9 +81,11 @@ const PreviewRouteComponent = ({routeId, getAllRouteDataStart, routeData, setCur
           </div>
         </div>
       </div>
-      <MapDrawComponent firstPoint={firstPoint} lastPoint={lastPoint} />
+      <MapDrawComponent styleName='map' firstPoint={firstPoint} lastPoint={lastPoint} />
     </>
   );
 };
+
+const PreviewRoute = withRouter(PreviewRouteComponent);
 
 export default CSSModules(PreviewRouteComponent, styles);

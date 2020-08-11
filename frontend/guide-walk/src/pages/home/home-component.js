@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { MapComponent } from '../../ui/map-component/map-component';
 import { useAuth0 } from '@auth0/auth0-react';
 import { getAddedRouteDataStart, getAllRouteDataStart } from '../../core/redux/actions';
+import {useHistory} from 'react-router-dom';
 
 export const HomeComponent = ({
   getUserInfoDataStart,
@@ -17,6 +18,8 @@ export const HomeComponent = ({
   toggleRatingStart,
   removeRouteStart,
 }) => {
+
+  const history = useHistory();
   const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
   const userName = userDataAuth && userDataAuth.userName;
   const owner = userInfoData && userInfoData.id;
@@ -89,6 +92,11 @@ export const HomeComponent = ({
     removeRouteStart(requestRemoveRoute);
   };
 
+  const handlePreviewRoute = () => {
+    history.push('/route');
+  };
+
+
   useEffect(() => {
     getAllRoutesStart();
   }, []);
@@ -102,6 +110,7 @@ export const HomeComponent = ({
       <button onClick={handleRemoveSavedRoute}>Remove saved route</button>
       <button onClick={handleToggleRating}>Toggle rating</button>
       <button onClick={handleRemoveRoute}>Remove route</button>
+      <button onClick={handlePreviewRoute}>Preview route</button>
       {routesId && <button onClick={handleAllRouteInfo}>All route info</button>}
       {!isAuthenticated && <button onClick={loginWithRedirect}>Login</button>}
       {isAuthenticated && <button onClick={logout}>Log out</button>}
