@@ -29,7 +29,7 @@ export const AppComponent = () => {
         <Route exact path='/direction-route' component={MapDirectionsComponent} />
         <Route path='/profile-info' component={ProfilePage} />
         <Route exact path='/saved-routes' component={SavedRoutesPage} />
-        <Redirect to='/' />
+        {/*<Redirect to='/' />*/}
       </Switch>
       <NavigationComponent />
     </>

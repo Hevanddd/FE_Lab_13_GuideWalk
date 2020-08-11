@@ -53,7 +53,7 @@ export const CurrentRouteComponent = ({
       alert('You have succesfully finished this route');
     }
   };
-  
+
   return (
     <div>
       {markersPositions ? (
