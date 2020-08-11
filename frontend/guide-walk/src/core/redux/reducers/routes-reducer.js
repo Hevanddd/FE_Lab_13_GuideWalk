@@ -7,6 +7,7 @@ import {
   getAllRoutesFail,
   getAllRoutesSuccess,
   setCurrentRoute,
+  setCurrentPoint,
   getNextPointStart,
   getNextPointFail,
   getNextPointSuccess,
@@ -64,7 +65,13 @@ const reducerMap = {
     return {
       ...state,
       currentRoute: payload,
-      currentPointIndex: 0,
+    };
+  },
+
+  [setCurrentPoint]: (state, { payload }) => {
+    return {
+      ...state,
+      currentPoint: {...payload},
     };
   },
 
@@ -84,8 +91,7 @@ const reducerMap = {
   [getNextPointSuccess]: (state, { payload }) => {
     return {
       ...state,
-      currentPoint: { ...payload },
-      currentPointIndex: state.currentPointIndex + 1,
+      currentPoint: {...payload.pointData, pointIndex: payload.pointIndex + 1 },
     };
   },
 
