@@ -85,7 +85,7 @@ const reducerMap = {
   [getUserSavedRoutesDataSuccess]: (state, { payload }) => {
     return {
       ...state,
-      userSavedRouteData: payload,
+      userSavedRouteData: payload.length > 0 ? payload : null,
     };
   },
 
@@ -105,7 +105,7 @@ const reducerMap = {
   [getUserRoutesDataSuccess]: (state, { payload }) => {
     return {
       ...state,
-      userRoutesData: payload,
+      userRoutesData: payload.length > 0 ? payload : null,
     };
   },
 

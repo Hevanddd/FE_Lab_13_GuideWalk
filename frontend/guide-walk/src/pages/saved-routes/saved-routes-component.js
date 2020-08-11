@@ -13,17 +13,16 @@ export const SavedRoutesComponent = ({
   toggleSavedRouteStart,
 }) => {
   const userId = userInfoDate && userInfoDate.id;
-  const [isUpdateSaga, setIsUpdateSaga] = useState();
 
   useEffect(() => {
     userId && getUserSavedRoutesDataStart(userId);
-  }, [userId, isUpdateSaga]);
+  }, [userId, getUserSavedRoutesDataStart]);
 
   return (
     <div className={classNames('saved-route__wrapper')}>
       {userSavedRoutesData &&
         userSavedRoutesData.map((route) => {
-          const { rating, name, _id } = route;
+          const { rating, name, _id, userRateIds } = route;
 
           return (
             <MyAndSavedRouteItemComponent
@@ -32,9 +31,9 @@ export const SavedRoutesComponent = ({
               routeId={_id}
               userId={userId && userId}
               toggleRatingFunc={toggleRatingStart}
-              setIsUpdateSaga={setIsUpdateSaga}
-              isUpdateValue={isUpdateSaga}
               toggleSavedRouteStart={toggleSavedRouteStart}
+              userRateIds={userRateIds}
+              getUserSavedRoutesDataStart={getUserSavedRoutesDataStart}
               key={_id}
             />
           );

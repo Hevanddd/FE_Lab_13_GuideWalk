@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classNames from 'classnames';
 import './my-and-saved-route-item.scss';
 
@@ -8,19 +8,19 @@ export const MyAndSavedRouteItemComponent = ({
   routeId,
   userId,
   toggleRatingFunc,
-  setIsUpdateSaga,
-  isUpdateValue,
   toggleSavedRouteStart,
+  userRateIds,
+  getUserSavedRoutesDataStart,
 }) => {
+  const isLiked = userRateIds && userRateIds.includes(userId);
   const toggleData = { routeId, userId };
+
   const handleLikeButtonClick = () => {
-    routeId && userId && toggleRatingFunc(toggleData);
-    setIsUpdateSaga && setIsUpdateSaga(!isUpdateValue);
+    routeId && userId && toggleRatingFunc({ toggleData, userId });
   };
 
   const handleSavedButton = () => {
-    routeId && userId && toggleSavedRouteStart(toggleData);
-    setIsUpdateSaga && setIsUpdateSaga(!isUpdateValue);
+    routeId && userId && toggleSavedRouteStart({ toggleData, userId });
   };
 
   return (
@@ -31,17 +31,30 @@ export const MyAndSavedRouteItemComponent = ({
         <div className={classNames('route-item__info__like-button__wrapper')}>
           <p>{counter}</p>
           <button className={classNames('route-item__info__like-button')} onClick={handleLikeButtonClick}>
-            <img
-              className={classNames('route-item__info__like-button__img')}
-              src={require('../../img/like.svg')}
-              alt='like'
-            />
+            {!isLiked && (
+              <img
+                className={classNames('route-item__info__like-button__img')}
+                src={require('../../img/like.svg')}
+                alt='like'
+                width={30}
+                height={35}
+              />
+            )}
+            {isLiked && (
+              <img
+                className={classNames('route-item__info__like-button__img')}
+                src={require('../../img/black-like.svg')}
+                alt='like'
+                width={30}
+                height={35}
+              />
+            )}
           </button>
         </div>
         <button className={classNames('route-item__info__saved-button')} onClick={handleSavedButton}>
           <img
             className={classNames('route-item__info__saved-button__img')}
-            src={require('../../img/bookmark.svg')}
+            src={require('../../img/bookmark-saved.svg')}
             alt='save'
           />
         </button>

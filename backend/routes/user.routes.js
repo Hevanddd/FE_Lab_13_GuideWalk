@@ -65,65 +65,27 @@ router.post("/", async (req, res) => {
 
 router.post("/toggle-saved", async (req, res) => {
   try {
-    const { savedId, userId } = req.body;
+    const { routeId, userId } = req.body;
 
     const user = await User.findById(userId);
 
-    if (!user.saved_routes.includes(savedId)) {
-      user.saved_routes.push(savedId);
+    if (!user.saved_routes.includes(routeId)) {
+      user.saved_routes.push(routeId);
       await user.save();
-      res.status(201).json({ message: "Route saved" });
-    } else {
-      const index = user.saved_routes.indexOf(savedId);
-
-      user.saved_routes.splice(index, 1);
-
-      await user.save();
-      res.status(200).json({ message: "Route succesfully removed from saved" });
+      return res.status(201).json({ message: "Route saved" });
     }
-  } catch (e) {
-    res
-      .status(500)
-      .json({ message: "Something is going wrong. Try it again." });
-  }
-});
+    const index = user.saved_routes.indexOf(routeId);
 
-router.post("/add-saved", async (req, res) => {
-  try {
-    const { savedId, userId } = req.body;
-
-    const user = await User.findById(userId);
-
-    if (!user.saved_routes.includes(savedId)) {
-      user.saved_routes.push(savedId);
-      await user.save();
-      res.status(201).json({ message: "Route saved" });
-    }
-    res.status(208).json({ message: "Route is already in featured" });
-  } catch (e) {
-    res
-      .status(500)
-      .json({ message: "Something is going wrong. Try it again." });
-  }
-});
-
-router.post("/delete-saved", async (req, res) => {
-  try {
-    const { userId, savedId } = req.body;
-
-    const user = await User.findById(userId);
-
-    const index = user.saved_routes.indexOf(savedId);
-
-    if (index > -1) {
-      user.saved_routes.splice(index, 1);
-    }
+    user.saved_routes.splice(index, 1);
 
     await user.save();
-
-    res.status(200).json({ message: "Route succesfully removed from saved" });
-  } catch (error) {
-    res.status(500).json({ message: "Deleting saved route error: " + error });
+    return res
+      .status(200)
+      .json({ message: "Route succesfully removed from saved" });
+  } catch (e) {
+    res
+      .status(500)
+      .json({ message: "Something is going wrong. Try it again." });
   }
 });
 

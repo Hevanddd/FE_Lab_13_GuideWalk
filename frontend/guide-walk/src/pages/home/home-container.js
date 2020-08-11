@@ -29,10 +29,10 @@ const mapDispatchToProps = {
   getUserInfoDataStart,
   getAllRoutesStart,
   getCoordinatesStart,
-  addSavedRouteStart: toggleSavedRouteStart,
   getAllRouteDataStart,
   toggleRatingStart,
   removeRouteStart,
+  toggleSavedRouteStart,
 };
 
 export const HomeContainer = connect(mapStateToProps, mapDispatchToProps);
