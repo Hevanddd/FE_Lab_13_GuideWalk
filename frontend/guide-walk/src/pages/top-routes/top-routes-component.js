@@ -35,5 +35,5 @@ const TopRoutes = ({allRoutes, getAllRoutesStart, history}) => {
   )
 }
 
-export const TopRoutesComponent = withRouter(TopRoutes)
+export const TopRoutesComponent = withRouter(TopRoutes);
 
