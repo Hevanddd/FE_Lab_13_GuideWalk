@@ -1,16 +1,39 @@
 import React, { useEffect } from 'react'
-import TopRoutesItem from './top-routes-item-component'
+import { withRouter } from "react-router";
+import {TopRoutesItemComponent} from '../../ui/top-item-component';
 
-export const TopRoutesComponent = ({allRoutes, getAllRoutesStart}) => {
-    useEffect(() => {
-        //TODO: This action should be invoked when user clicks "Start route", now it's just test case
-        getAllRoutesStart();
-      }, []);
+import './top-routes-component.scss'
 
-    return (
-        <div>
-          {allRoutes && <TopRoutesItem routes={allRoutes}/>}
-        </div>
-    )
+const TopRoutes = ({allRoutes, getAllRoutesStart, history}) => {
+
+  useEffect(() => {
+      getAllRoutesStart();
+    }, []);
+
+    const handleMyRoutesButton = () => {
+      const url = '/my-routes';
+      history.push(url);
+    }
+
+  return (
+    <div className='top-routes__wrapper'>
+      <button onClick={handleMyRoutesButton}>My routes</button>
+      {allRoutes &&
+      allRoutes.map((route) => {
+        const { name, _id, rating, } = route;
+
+        return (
+          <TopRoutesItemComponent
+            name={name}
+            rating={rating}
+            routeId={_id}
+            key={_id}
+          />
+        );
+      })}
+    </div>
+  )
 }
+
+export const TopRoutesComponent = withRouter(TopRoutes)
 
