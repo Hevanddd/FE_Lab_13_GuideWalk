@@ -1,32 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { MapDirectionsComponent } from '../../ui/map-direction/map-directions';
 import { CurrentRouteInfoBlock } from '../../ui/current-route-info-block/current-route-info-block';
 
 export const CurrentRouteComponent = ({
   currentRoute,
-  currentPointIndex,
   currentPointData,
   getNextPointStart,
   setCurrentRoute,
+  setCurrentPoint,
 }) => {
   const [markersPositions, setMarkersPositions] = useState();
 
+  //we need localStorage to get current data after page reloading or closing
   useEffect(() => {
-    //TODO: This action should be invoked when user clicks "Start route", now it's just test case
-    setCurrentRoute('5f319aa34e182d2e1852a547');
+    //if currentRoute is defined by default it means user changed route, so there is no need to get data from localStor
+    if (currentRoute) {
+      localStorage.setItem('currentRoute', currentRoute);
+      getNextPointStart({ routeId: currentRoute, pointIndex: 0 });
+    }
+
+    if (!currentRoute) {
+      const routeIdStorage = localStorage.getItem('currentRoute');
+
+      if (!routeIdStorage) {
+        return;
+      }
+
+      setCurrentRoute(routeIdStorage);
+      const dataFromStor = JSON.parse(localStorage.getItem('currentPointData'));
+
+      //data from storage is not obligatory,
+      //if there is no data in storage, but we have route - user closed/reloaded page on first point,
+      //so we can send new request for first point
+      if (Object.keys(dataFromStor).length !== 0) {
+        setCurrentPoint(dataFromStor.currentPointData);
+      } else {
+        getNextPointStart({ routeId: routeIdStorage, pointIndex: 0 });
+      }
+    }
   }, []);
 
   useEffect(() => {
-    //TODO: Here we can take if statement away
-    if (currentRoute) {
-      getNextPointStart({ routeId: currentRoute, pointIndex: 0 });
-    }
-  }, [currentRoute]);
 
-  useEffect(() => {
-    if (currentPointData) {
+    if (currentPointData && Object.keys(currentPointData).length !== 0) {
+      localStorage.setItem('currentPointData', JSON.stringify({ currentPointData }));
       //on first point state is not defined so we need this check
-      console.log(currentPointData);
       if (!markersPositions) {
         setMarkersPositions({
           //TODO: Set start marker to user geolocation in moment of invocation Start Route
@@ -46,19 +64,24 @@ export const CurrentRouteComponent = ({
 
   const handleNextRoute = () => {
     if (currentPointData.pointsLeft) {
-      getNextPointStart({ routeId: currentRoute, pointIndex: currentPointIndex });
+      getNextPointStart({ routeId: currentRoute, pointIndex: currentPointData.pointIndex });
     }
     //TODO: Make window to show after route finished
     else {
       alert('You have succesfully finished this route');
+      localStorage.clear();
+      setCurrentRoute(null);
+      setCurrentPoint(null);
+      setMarkersPositions(null);
     }
   };
-  
+
   return (
     <div>
-      {markersPositions ? (
+      {!currentRoute && <h1>Choose any route first</h1>}
+      {markersPositions && (
         <div>
-          <div style = {{position: 'relative', height: '50vh', margin: '30px'}}>
+          <div style={{ position: 'relative', height: '50vh', margin: '30px' }}>
             <MapDirectionsComponent markerPositions={markersPositions} zoom={15}></MapDirectionsComponent>
           </div>
           <CurrentRouteInfoBlock
@@ -66,8 +89,6 @@ export const CurrentRouteComponent = ({
             handleNextRoute={handleNextRoute}
           ></CurrentRouteInfoBlock>
         </div>
-      ) : (
-        <h1>You didn't choose any route</h1>
       )}
     </div>
   );

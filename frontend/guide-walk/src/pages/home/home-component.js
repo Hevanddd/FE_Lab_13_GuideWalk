@@ -15,13 +15,13 @@ export const HomeComponent = ({
   getAllRouteDataStart,
   removeSavedRouteStart,
   toggleRatingStart,
-  removeRouteStart,
+  removeRouteStart
 }) => {
   const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
   const userName = userDataAuth && userDataAuth.userName;
   const owner = userInfoData && userInfoData.id;
   const ownerName = userDataAuth && userDataAuth.userName;
-  const routesId = allRoutes && allRoutes[44]._id;
+  const routesId = allRoutes && allRoutes[3]._id;
   const testDataRequest = {
     pointArray: [
       {
@@ -91,6 +91,7 @@ export const HomeComponent = ({
 
   useEffect(() => {
     getAllRoutesStart();
+    setCurrentRoute('5f319aa34e182d2e1852a547')
   }, []);
 
   return (
