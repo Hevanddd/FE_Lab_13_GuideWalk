@@ -7,9 +7,11 @@ import { MapDrawComponent } from '../../ui/map-draw';
 
 import styles from './preview.module.scss';
 
-const PreviewRouteComponent = ({getAllRouteDataStart, routeData, setCurrentRoute, currentRoute}) => {
+const PreviewRouteComponent = ({ getAllRouteDataStart, routeData, setCurrentRoute, currentRoute, userInfoDate, removeRouteStart }) => {
   const history = useHistory();
   const routeId = history.location.search.replace(/\?/, '');
+  
+  const [isUserOwner, setIsUserOwner] = useState(false);
   const [route, setRoute] = useState(false);
 
   useEffect(() => {
@@ -17,35 +19,77 @@ const PreviewRouteComponent = ({getAllRouteDataStart, routeData, setCurrentRoute
   }, [getAllRouteDataStart, routeId]);
   
   useEffect(() => {
-    if(routeData){
-      setRoute(routeData);
-    }
-  }, [routeData]);
-  
-  const handleOnClick = () => {
+    routeData && setRoute(routeData);
+    userInfoDate && userInfoDate.user_routes.includes(routeId) && setIsUserOwner(true);
+  }, [routeData, routeId, userInfoDate]);
+
+  const deleteRoute = () => {
+    removeRouteStart({userId: userInfoDate.id , routeId});
+    history.push('/');
+  };
+
+  const startRoute = () => {
     setCurrentRoute(routeId);
     history.push('/current-route');
   };
 
-  const {name, description, rating, creation_date, ownerName} = route && route.route;
+  const editRoute = () => {
+    console.log('Edit');
+  };
+
+  const { name, description, rating, creation_date, ownerName } = route && route.route;
   const date = formatDate(creation_date);
-  const {points} = route;
+  const { points } = route;
   const firstPoint = points && points[0].location;
-  const lastPoint = points && points[points.length-1].location;
+  const lastPoint = points && points[points.length - 1].location;
 
   const errorMessage = <p styleName='preview__error'>Firstly, you should finish your started route.</p>;
 
   return (
-      <>
-      {route &&
+    <>
+      {route && (
         <>
           <div styleName='preview'>
             <p styleName='preview__name'>{name}</p>
             <p styleName='preview__description'>{description}</p>
+
             {currentRoute && errorMessage}
-            <Button styleName='preview__btn' type='button' color='primary' variant='contained' disabled = {!!currentRoute} onClick={handleOnClick}>
-              Start This Route
-            </Button>
+            <div styleName='preview__buttons'>
+              {isUserOwner && (
+                <Button
+                  styleName='preview__btn'
+                  type='button'
+                  color='primary'
+                  variant='contained'
+                  disabled={!!currentRoute}
+                  onClick={editRoute}
+                >
+                  Edit
+                </Button>
+              )}
+              <Button
+                styleName='preview__btn'
+                type='button'
+                color='primary'
+                variant='contained'
+                disabled={!!currentRoute}
+                onClick={startRoute}
+              >
+                Start
+              </Button>
+              {isUserOwner && (
+                <Button
+                  styleName='preview__btn'
+                  type='button'
+                  color='primary'
+                  variant='contained'
+                  disabled={!!currentRoute}
+                  onClick={deleteRoute}
+                >
+                  Delete
+                </Button>
+              )}
+            </div>
             <div styleName='preview__wrapper'>
               <div>
                 <p>Author</p>
@@ -53,9 +97,7 @@ const PreviewRouteComponent = ({getAllRouteDataStart, routeData, setCurrentRoute
               </div>
               <div>
                 <p>Rating</p>
-                <span styleName='preview__rating'>
-                  {rating}
-                </span>
+                <span styleName='preview__rating'>{rating}</span>
               </div>
               <div>
                 <p>Date</p>
@@ -65,7 +107,7 @@ const PreviewRouteComponent = ({getAllRouteDataStart, routeData, setCurrentRoute
           </div>
           <MapDrawComponent styleName='map' firstPoint={firstPoint} lastPoint={lastPoint} />
         </>
-      }
+      )}
     </>
   );
 };
