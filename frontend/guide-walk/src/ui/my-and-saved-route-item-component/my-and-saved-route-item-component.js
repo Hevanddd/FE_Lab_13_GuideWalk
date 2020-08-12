@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import { withRouter } from 'react-router';
 import './my-and-saved-route-item.scss';
@@ -8,27 +8,30 @@ const MyAndSavedRouteItem = ({
   counter,
   routeId,
   userId,
-  toggleRatingFunc,
-  toggleSavedRouteStart,
   userRateIds,
   history,
   location,
   userSavedRoadsIdList,
   userName,
+  getToggleSavedRouteInSavedRoutesPageStart,
+  getToggleSavedRouteInMyRoutesPageStart,
+  getToggleRatingRouteInSavedRoutesPageStart,
+  getToggleRatingRouteInMyRoutesPageStart,
 }) => {
   const isSavedRoutePage = location.pathname === '/saved-routes';
   const isMyRoutesPage = location.pathname === '/my-routes';
   const isSaved = userSavedRoadsIdList && routeId && userSavedRoadsIdList.includes(routeId);
   const isLiked = userRateIds && userId && userRateIds.includes(userId);
   const toggleData = { routeId, userId };
-  const requestData = { toggleData, userId, isSavedRoutePage, isMyRoutesPage, userName };
 
   const handleLikeButtonClick = () => {
-    routeId && userId && toggleRatingFunc(requestData);
+    isSavedRoutePage && getToggleRatingRouteInSavedRoutesPageStart(toggleData);
+    isMyRoutesPage && getToggleRatingRouteInMyRoutesPageStart(toggleData);
   };
 
   const handleSavedButton = () => {
-    routeId && userId && toggleSavedRouteStart(requestData);
+    isSavedRoutePage && getToggleSavedRouteInSavedRoutesPageStart(toggleData);
+    isMyRoutesPage && getToggleSavedRouteInMyRoutesPageStart({ routeId, userId, userName });
   };
 
   const handleArrowButton = () => {

@@ -14,6 +14,12 @@ import {
   getUserRoutesDataSuccess,
   getUserRoutesDataStart,
   getUserRoutesDataFail,
+  getToggleSavedRouteInSavedRoutesPageStart,
+  getToggleSavedRouteInMyRoutesPageStart,
+  getToggleSavedRouteInTopRoutesPageStart,
+  getToggleRatingRouteInMyRoutesPageStart,
+  getToggleRatingRouteInSavedRoutesPageStart,
+  getToggleRatingRouteInTopRoutesPageStart,
 } from '../actions';
 
 const initialState = {
@@ -113,6 +119,42 @@ const reducerMap = {
     return {
       ...state,
       userRoutesData: null,
+    };
+  },
+
+  [getToggleSavedRouteInSavedRoutesPageStart]: (state) => {
+    return {
+      ...state,
+    };
+  },
+
+  [getToggleSavedRouteInMyRoutesPageStart]: (state) => {
+    return {
+      ...state,
+    };
+  },
+
+  [getToggleSavedRouteInTopRoutesPageStart]: (state) => {
+    return {
+      ...state,
+    };
+  },
+
+  [getToggleRatingRouteInMyRoutesPageStart]: (state) => {
+    return {
+      ...state,
+    };
+  },
+
+  [getToggleRatingRouteInSavedRoutesPageStart]: (state) => {
+    return {
+      ...state,
+    };
+  },
+
+  [getToggleRatingRouteInTopRoutesPageStart]: (state) => {
+    return {
+      ...state,
     };
   },
 };

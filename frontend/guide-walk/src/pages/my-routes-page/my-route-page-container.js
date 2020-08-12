@@ -5,7 +5,11 @@ import {
   userAuthDataSelector,
   userSavedRoadsIdListSelector,
 } from '../../core/redux/selectors';
-import { getUserRoutesDataStart, toggleRatingStart, toggleSavedRouteStart } from '../../core/redux/actions';
+import {
+  getUserRoutesDataStart,
+  getToggleSavedRouteInMyRoutesPageStart,
+  getToggleRatingRouteInMyRoutesPageStart,
+} from '../../core/redux/actions';
 
 const mapStateToProps = (state) => ({
   userInfoDate: userInfoDateSelector(state),
@@ -15,8 +19,8 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = {
   getUserRoutesDataStart,
-  toggleRatingStart,
-  toggleSavedRouteStart,
+  getToggleSavedRouteInMyRoutesPageStart,
+  getToggleRatingRouteInMyRoutesPageStart,
 };
 
 export const MyRoutesPageContainer = connect(mapStateToProps, mapDispatchToProps);

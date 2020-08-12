@@ -2,14 +2,18 @@ import React, { useEffect } from 'react';
 import classNames from 'classnames';
 import { MyAndSavedRouteItemComponent } from '../../ui';
 import './saved-route.scss';
+import {
+  getToggleRatingRouteInSavedRoutesPageStart,
+  getToggleSavedRouteInSavedRoutesPageStart,
+} from '../../core/redux/actions';
 
 export const SavedRoutesComponent = ({
   userSavedRoutesData,
   userInfoDate,
   getUserSavedRoutesDataStart,
-  toggleRatingStart,
-  toggleSavedRouteStart,
   userSavedRoadsIdList,
+  getToggleSavedRouteInSavedRoutesPageStart,
+  getToggleRatingRouteInSavedRoutesPageStart,
 }) => {
   const userId = userInfoDate && userInfoDate.id;
 
@@ -29,11 +33,11 @@ export const SavedRoutesComponent = ({
               counter={rating}
               routeId={_id}
               userId={userId && userId}
-              toggleRatingFunc={toggleRatingStart}
-              toggleSavedRouteStart={toggleSavedRouteStart}
               userRateIds={userRateIds}
               getUserSavedRoutesDataStart={getUserSavedRoutesDataStart}
               userSavedRoadsIdList={userSavedRoadsIdList}
+              getToggleSavedRouteInSavedRoutesPageStart={getToggleSavedRouteInSavedRoutesPageStart}
+              getToggleRatingRouteInSavedRoutesPageStart={getToggleRatingRouteInSavedRoutesPageStart}
               key={_id}
             />
           );
