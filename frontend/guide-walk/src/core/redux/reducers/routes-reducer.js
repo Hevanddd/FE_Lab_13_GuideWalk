@@ -50,7 +50,7 @@ const reducerMap = {
   [getAllRoutesSuccess]: (state, { payload }) => {
     return {
       ...state,
-      allRoutes: { ...payload },
+      allRoutes: [...payload ],
     };
   },
 

@@ -1,0 +1,119 @@
+.top-route-item {
+    &__wrapper {
+        width: 90%;
+        min-height: 350px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 auto;
+        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.75);
+        border-radius: 10px;
+        margin-bottom: 25px;
+        overflow: hidden;
+    }
+
+    &__img {
+        border-radius: 10px;
+        max-width: 100%;
+        width: 100%;
+        transform: scale(1.1, 1.1);
+        object-fit: cover;
+        height: 70%;
+        margin-bottom: 5px;
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        justify-content: space-around;
+        padding-top: 10px;
+
+        &__social {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+          }
+
+        &__name {
+            font-size: 22px;
+            font-weight: 500;
+            margin: 5px 0 0 8px;
+
+            @media screen and (max-width: 768px) {
+            margin-bottom: 2px;
+            }
+        }
+
+        &__saved-button {
+            height: 30px;
+            background-color: white;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 0;
+      
+            &__img {
+              width: 30px;
+              height: 30px;
+      
+              @media screen and (max-width: 768px) {
+                width: 25px;
+                height: 25px;
+              }
+            }
+        }
+
+        &__arrow-button {
+            height: 30px;
+            background-color: white;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            transform: rotate(90deg);
+            padding: 0;
+      
+            &__img {
+              width: 30px;
+              height: 30px;
+      
+              @media screen and (max-width: 768px) {
+                width: 28px;
+                height: 28px;
+              }
+            }
+        }
+       
+
+        &__like-button {
+            height: 50px;
+            background-color: white;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 0;
+            margin-left: 8px;
+
+            &__img {
+                width: 30px;
+                height: 30px;
+        
+                @media screen and (max-width: 768px) {
+                  width: 25px;
+                  height: 25px;
+                }
+            }
+
+            &__wrapper {
+                display: flex;
+                flex-direction: row;
+            }
+        }
+
+        
+    }
+   
+}
