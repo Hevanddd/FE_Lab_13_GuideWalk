@@ -16,7 +16,7 @@ const PORT = process.env.PORT || config.get("port") || 5000;
 
 async function start() {
   try {
-    await mongoose.connect(process.env.MONGODB_URI || config.get("mongoUri"), {
+    await mongoose.connect('mongodb+srv://misha:mRnqceZdK10tA7nE@cluster0.oouvy.azure.mongodb.net/app_mock?retryWrites=true&w=majority', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
