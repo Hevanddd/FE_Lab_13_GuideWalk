@@ -8,3 +8,4 @@ export { MyAndSavedRouteItemComponent } from './my-and-saved-route-item-componen
 export { MapAddEditPoint } from './map-add-edit-point';
 export { CurrentRouteInfoBlock } from './current-route-info-block';
 export { RouteItemComponent } from './route-item-component';
+export { LoginComponent } from './login-component';
