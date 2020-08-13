@@ -1,6 +1,7 @@
 import { all, fork } from 'redux-saga/effects';
 import * as homeSagas from './user-saga';
 import * as addRouteSagas from './add-route-sagas';
+import * as editRouteSagas from './edit-route-sagas';
 import * as allRoutesSagas from './get-all-routes-sagas';
 import * as getCoordinatesSagas from './get-coordinates-sagas';
 import * as allRouteDataSagas from './all-route-data-sagas';
@@ -22,6 +23,7 @@ export function* rootSagas() {
     [
       ...Object.values(homeSagas),
       ...Object.values(addRouteSagas),
+      ...Object.values(editRouteSagas),
       ...Object.values(allRoutesSagas),
       ...Object.values(getCoordinatesSagas),
       ...Object.values(allRouteDataSagas),
