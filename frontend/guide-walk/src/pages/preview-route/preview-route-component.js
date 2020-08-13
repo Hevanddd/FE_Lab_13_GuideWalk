@@ -35,6 +35,8 @@ const PreviewRouteComponent = ({ getAllRouteDataStart, routeData, setCurrentRout
 
   const editRoute = () => {
     console.log('Edit');
+    const url = routeId && `/edit-route?${routeId}`;
+    history.push(url);
   };
 
   const { name, description, rating, creation_date, ownerName } = route && route.route;

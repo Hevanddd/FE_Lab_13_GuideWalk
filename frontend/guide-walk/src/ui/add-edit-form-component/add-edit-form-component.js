@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -13,19 +13,33 @@ import styles from './add-edit-form.module.scss';
 
 const routeFocuses = ['Fun', 'SightSeeing', 'Quest'];
 
-const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataStart }) => {
+const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataStart, editedRoute }) => {
 
-  const data = [];
-
+  const [route, setRoute] = useState(false);
+  
   const history = useHistory();
-  const { register, handleSubmit, control, errors } = useForm();
-
-  const [addPointForm, setAddPointForm] = useState(false);
-  const [points, setPoints] = useState(data);
+  const { register, handleSubmit, control, errors, setValue } = useForm();
+  
+  const [addPointForm, setAddPointForm] = useState(false); 
+  const [points, setPoints] = useState([]);
   const [editedPoint, setEditedPoint] = useState(false);
   const [isEmptyList, setIsEmptyList] = useState(false);
   
-  const titles = points.map(el => el.title);
+
+  useEffect(() => {
+    editedRoute && setRoute(editedRoute);
+  }, [editedRoute]);
+  
+  useEffect(() => {
+    route && setPoints(route.points);
+    if(route){
+      setValue('title', route.route.name);
+      setValue('focus', route.route.focus);
+      setValue('description', route.route.description);
+    }
+  }, [route]);
+
+  const names = points.map(el => el.name);
 
   const clearPointForm = () => {
     setEditedPoint(false);
@@ -50,7 +64,7 @@ const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataSta
 
   const savePoint = (point, isEdited) => {
     if (isEdited) {
-      const index = points.findIndex((el) => el.title === editedPoint.title);
+      const index = points.findIndex((el) => el.name === editedPoint.name);
       const copiedPoints = [...points];
       copiedPoints.splice(index, 1, point);
 
@@ -85,6 +99,7 @@ const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataSta
           label='Route Name'
           placeholder='The Best Route'
           variant='outlined'
+          InputLabelProps={{ shrink: true }}
         />
 
         {errors.title && <p styleName='error'> Enter title of your route </p>}
@@ -116,6 +131,7 @@ const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataSta
           rows={4}
           placeholder='Enter description'
           variant='outlined'
+          InputLabelProps={{ shrink: true }}
           rules={{ required: true }}
         />
 
@@ -123,8 +139,8 @@ const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataSta
 
         <ul styleName='form__pointsList'>
           {points &&
-            points.map((point) => {
-              return <PointComponent key={point.title} point={point} deletePoint={deletePoint} editPoint={editPoint} />;
+            points.map((point, index) => {
+              return <PointComponent key={point.name} point={point} deletePoint={deletePoint} editPoint={editPoint} />;
             })}
           <li>
             <IconButton
@@ -142,7 +158,7 @@ const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataSta
 
         { isEmptyList && <p styleName='error'> You should enter at least one point.</p> }
 
-        {addPointForm && <AddEditPointFormComponent savePoint={savePoint} editedPoint={editedPoint} titles={titles}/>}
+        {addPointForm && <AddEditPointFormComponent savePoint={savePoint} editedPoint={editedPoint} names={names}/>}
 
         <Button styleName='form__btn' type='submit' color='primary' variant='contained'>
           Save Route

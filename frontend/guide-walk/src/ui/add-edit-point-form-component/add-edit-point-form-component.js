@@ -8,11 +8,11 @@ import { useForm, Controller } from 'react-hook-form';
 import styles from './add-edit-point-form.module.scss';
 
 
-const AddEditPointFormComponent = ({ savePoint, editedPoint, titles }) => {
+const AddEditPointFormComponent = ({ savePoint, editedPoint, names }) => {
   const { register, handleSubmit, control, setValue, errors} = useForm();
 
 
-  const title = editedPoint ? editedPoint.title : '';
+  const name = editedPoint ? editedPoint.name : '';
   const description = editedPoint ? editedPoint.description : '';
   const initialCoords = editedPoint && editedPoint.location;
 
@@ -29,10 +29,10 @@ const AddEditPointFormComponent = ({ savePoint, editedPoint, titles }) => {
   };
 
   useEffect(() => {
-    setValue('title', title);
+    setValue('title', name);
     setValue('description', description);
 
-  }, [title, description, setValue]);
+  }, [name, description, setValue]);
 
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const AddEditPointFormComponent = ({ savePoint, editedPoint, titles }) => {
           validate: {
             occupied: (value) => {
               let isOccupied;
-              titles.forEach(el => {
+              names.forEach(el => {
                 if (value === el){
                   isOccupied = false;
                 }
@@ -58,7 +58,7 @@ const AddEditPointFormComponent = ({ savePoint, editedPoint, titles }) => {
           }
         })}
 
-        name='title'
+        name='name' 
         label='Point Name'
         placeholder={'Enter title'}
         variant='outlined'
