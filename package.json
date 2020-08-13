@@ -6,10 +6,11 @@
   "scripts": {
     "start": "node index.js",
     "server": "nodemon index.js --open",
-    "client": "cd frontend/guide-walk && npm start",
-    "build" : "cd frontend/guide-walk && npm build",
+    "client": "npm run start --prefix frontend/guide-walk",
+    "build" : "npm run start --prefix frontend/guide-walk",
     "install-client": "cd frontend/guide-walk && npm i",
-    "heroku-postbuild": "npm run install-client && npm run build"
+    "heroku-postbuild": "npm run install-client && npm run build",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "",
   "license": "ISC",

@@ -12,15 +12,12 @@ app.use("/api/user", require("./routes/user.routes"));
 const PORT = process.env.PORT || config.get("port") || 5000;
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('frontend/guide-walk/build'));
-
-  app.get('*',(req, res) => {
-    res.sendFile(path.resolve(__dirname,  'frontend', 'guide-walk', 'build', 'index.html'))
-  })
+  app.use(path.join(__dirname, 'frontend/guide-walk/build'));
 }
+
 async function start() {
   try {
-    await mongoose.connect(process.env.MONGODB_URI, {
+    await mongoose.connect(process.env.MONGODB_URI || config.get("mongoUri") || 5000 , {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
