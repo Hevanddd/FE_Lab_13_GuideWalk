@@ -16,10 +16,14 @@ const PORT = process.env.PORT || config.get("port") || 5000;
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/guide-walk/build'));
+
+  app.get('*',(req, res) => {
+    res.sendFile(path.resolve(__dirname,  'frontend', 'guide-walk', 'build', 'index.html'))
+  })
 }
 async function start() {
   try {
-    await mongoose.connect('mongodb+srv://misha:mRnqceZdK10tA7nE@cluster0.oouvy.azure.mongodb.net/app_mock?retryWrites=true&w=majority', {
+    await mongoose.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,

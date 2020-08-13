@@ -45,7 +45,7 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "proxy": "https://guidewalk.herokuapp.com/",
+  "proxy": "http://localhost:5000/",
   "browserslist": {
     "production": [
       ">0.2%",
