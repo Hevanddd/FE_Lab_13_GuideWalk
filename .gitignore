@@ -11,6 +11,9 @@
 # production
 /build
 
+#to deploy only backend
+/guide-walk
+
 # misc
 .DS_Store
 .env.local
