@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "server": "nodemon index.js --open"
+    "server": "nodemon index.js --open",
+    "client": "cd frontend/guide-walk && npm start",
+    "build" : "cd frontend/guide-walk && npm build",
+    "install-client": "cd frontend/guide-walk && npm i",
+    "heroku-postbuild": "npm run install-client && npm run build"
   },
   "author": "",
   "license": "ISC",

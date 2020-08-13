@@ -14,6 +14,9 @@ app.use("/api/user", require("./routes/user.routes"));
 
 const PORT = process.env.PORT || config.get("port") || 5000;
 
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('frontend/guide-walk/build'));
+}
 async function start() {
   try {
     await mongoose.connect('mongodb+srv://misha:mRnqceZdK10tA7nE@cluster0.oouvy.azure.mongodb.net/app_mock?retryWrites=true&w=majority', {
