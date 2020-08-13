@@ -25,7 +25,7 @@ const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataSta
   const [editedPoint, setEditedPoint] = useState(false);
   const [isEmptyList, setIsEmptyList] = useState(false);
   
-  const titles = points.map(el => el.title);
+  const names = points.map(el => el.name);
 
   const clearPointForm = () => {
     setEditedPoint(false);
@@ -50,7 +50,7 @@ const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataSta
 
   const savePoint = (point, isEdited) => {
     if (isEdited) {
-      const index = points.findIndex((el) => el.title === editedPoint.title);
+      const index = points.findIndex((el) => el.name === editedPoint.name);
       const copiedPoints = [...points];
       copiedPoints.splice(index, 1, point);
 
@@ -62,14 +62,14 @@ const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataSta
     }
   };
 
-  const editPoint = (title) => {
-    const editedPoint = points.find((el) => el.title === title);
+  const editPoint = (name) => {
+    const editedPoint = points.find((el) => el.name === name);
     setEditedPoint(editedPoint);
     setAddPointForm(true);
   };
 
-  const deletePoint = (title) => {
-    const index = points.findIndex((el) => el.title === title);
+  const deletePoint = (name) => {
+    const index = points.findIndex((el) => el.name === name);
     const copiedPoints = [...points];
     copiedPoints.splice(index, 1);
     setPoints(copiedPoints);
@@ -80,14 +80,14 @@ const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataSta
     <>
       <form styleName='form' onSubmit={handleSubmit((data) => saveRoute(data))}>
         <TextField
-          name='title'
+          name='name'
           inputRef={register({ required: true })}
           label='Route Name'
           placeholder='The Best Route'
           variant='outlined'
         />
 
-        {errors.title && <p styleName='error'> Enter title of your route </p>}
+        {errors.name && <p styleName='error'> Enter title of your route </p>}
 
         <TextField
           name='focus'
@@ -124,7 +124,7 @@ const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataSta
         <ul styleName='form__pointsList'>
           {points &&
             points.map((point) => {
-              return <PointComponent key={point.title} point={point} deletePoint={deletePoint} editPoint={editPoint} />;
+              return <PointComponent key={point.name} point={point} deletePoint={deletePoint} editPoint={editPoint} />;
             })}
           <li>
             <IconButton
@@ -140,9 +140,9 @@ const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataSta
           </li>
         </ul>
 
-        { isEmptyList && <p styleName='error'> You should enter at least one point.</p> }
+        { isEmptyList && <p styleName='error'> You should enter at least two point.</p> }
 
-        {addPointForm && <AddEditPointFormComponent savePoint={savePoint} editedPoint={editedPoint} titles={titles}/>}
+        {addPointForm && <AddEditPointFormComponent savePoint={savePoint} editedPoint={editedPoint} names={names}/>}
 
         <Button styleName='form__btn' type='submit' color='primary' variant='contained'>
           Save Route

@@ -7,16 +7,16 @@ import CSSModules from 'react-css-modules';
 import styles from './point.module.scss';
 
 const PointComponent = ({ point, deletePoint, editPoint }) => {
-  const { title } = point;
+  const { name } = point;
   return (
     <li>
-      <IconButton aria-label='delete' onClick={() => deletePoint(title)}>
+      <IconButton aria-label='delete' onClick={() => deletePoint(name)}>
         <DeleteOutlineOutlinedIcon />
       </IconButton>
-      <IconButton styleName='edit-btn' aria-label='edit' onClick={() => editPoint(title)}>
+      <IconButton styleName='edit-btn' aria-label='edit' onClick={() => editPoint(name)}>
         <EditOutlinedIcon />
       </IconButton>
-      <span>{title}</span>
+      <span>{name}</span>
     </li>
   );
 };
