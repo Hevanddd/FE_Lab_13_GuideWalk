@@ -1,9 +1,0 @@
-{
-  "build": {
-    "env": {
-      "REACT_APP_MAPBOX_TOKEN": "pk.eyJ1IjoicmFtb24wNDkiLCJhIjoiY2tkMGFwNDU3MHJzZzMwbjdkdHk1MzdkMiJ9.DOJLm4TXmxZNquZTCwBcMg",
-      "REACT_APP_AUTH0_DOMAIN": "dev-2rsn9ety.eu.auth0.com",
-      "REACT_APP_AUTH0_CLIENT_ID": "Egyi4ihDL6wem3vyyJLJo2DEuT8345hk"
-    }
-  }
-}

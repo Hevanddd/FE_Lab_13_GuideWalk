@@ -6,6 +6,9 @@ const app = express();
 app.use(express.json({ extended: true }));
 
 
+app.use("/api/route", require("./routes/route.routes"));
+app.use("/api/user", require("./routes/user.routes"));
+
 const PORT = process.env.PORT || config.get("port") || 5000;
 
 app.use(express.static("frontend/guide-walk/build"));
@@ -13,9 +16,6 @@ app.use(express.static("frontend/guide-walk/build"));
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/frontend/guide-walk/build', 'index.html'))
 })
-
-app.use("/api/route", require("./routes/route.routes"));
-app.use("/api/user", require("./routes/user.routes"));
 
 async function start() {
   try {
