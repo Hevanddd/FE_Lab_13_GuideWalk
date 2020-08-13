@@ -1,9 +1,26 @@
 import { connect } from 'react-redux';
-import {allRoutesSelector} from '../../core/redux/selectors'
-import {getAllRoutesStart} from '../../core/redux/actions/get-all-routes-actions'
+import {
+  allRoutesSelector,
+  userInfoDateSelector,
+  userAuthDataSelector,
+  userSavedRoadsIdListSelector,
+} from '../../core/redux/selectors';
+import {
+  getAllRoutesStart,
+  getToggleSavedRouteInTopRoutesPageStart,
+  getToggleRatingRouteInTopRoutesPageStart,
+} from '../../core/redux/actions';
 
-
-const mapStateToProps = (state) => ({ allRoutes: allRoutesSelector(state)});
-const mapDispatchToProps = {getAllRoutesStart};
+const mapStateToProps = (state) => ({
+  allRoutes: allRoutesSelector(state),
+  userInfoDate: userInfoDateSelector(state),
+  userAuthData: userAuthDataSelector(state),
+  userSavedRoadsIdList: userSavedRoadsIdListSelector(state),
+});
+const mapDispatchToProps = {
+  getAllRoutesStart,
+  getToggleSavedRouteInTopRoutesPageStart,
+  getToggleRatingRouteInTopRoutesPageStart,
+};
 
 export const TopRoutesContainer = connect(mapStateToProps, mapDispatchToProps);

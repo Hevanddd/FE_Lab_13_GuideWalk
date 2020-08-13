@@ -40,7 +40,6 @@ export const CurrentRouteComponent = ({
   }, []);
 
   useEffect(() => {
-
     if (currentPointData && Object.keys(currentPointData).length !== 0) {
       localStorage.setItem('currentPointData', JSON.stringify({ currentPointData }));
       //on first point state is not defined so we need this check
@@ -81,12 +80,9 @@ export const CurrentRouteComponent = ({
       {markersPositions && (
         <div>
           <div style={{ position: 'relative', height: '50vh', margin: '30px' }}>
-            <MapDirectionsComponent markerPositions={markersPositions} zoom={15}></MapDirectionsComponent>
+            <MapDirectionsComponent markerPositions={markersPositions} zoom={15} />
           </div>
-          <CurrentRouteInfoBlock
-            currentPointData={currentPointData}
-            handleNextRoute={handleNextRoute}
-          ></CurrentRouteInfoBlock>
+          <CurrentRouteInfoBlock currentPointData={currentPointData} handleNextRoute={handleNextRoute} />
         </div>
       )}
     </div>

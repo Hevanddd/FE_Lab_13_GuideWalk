@@ -17,6 +17,7 @@
         border-radius: 10px;
         max-width: 100%;
         width: 100%;
+        min-height: 70%;
         transform: scale(1.1, 1.1);
         object-fit: cover;
         height: 70%;
@@ -30,6 +31,10 @@
         width: 100%;
         justify-content: space-around;
         padding-top: 10px;
+
+        @media screen and (min-width: 768px) {
+          margin-top: 15px;
+          }
 
         &__social {
             width: 100%;

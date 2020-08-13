@@ -15,18 +15,7 @@ const routeFocuses = ['Fun', 'SightSeeing', 'Quest'];
 
 const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataStart }) => {
 
-  const data = [
-    {
-      title: 'Lviv',
-      location: { latitude: 48.841696966703736, longitude: 24.031492762018463 },
-      description: 'Very good route',
-    },
-    {
-      title: 'Kyiv',
-      location: { latitude: 47.841696966703736, longitude: 24.031492762018463 },
-      description: 'Very good route',
-    },
-  ];
+  const data = [];
 
   const history = useHistory();
   const { register, handleSubmit, control, errors } = useForm();
@@ -45,7 +34,7 @@ const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataSta
   };
 
   const saveRoute = (route) => {
-    if(!points[0]){
+    if(points.length < 2){
       setIsEmptyList(true);
     } else{
       route.owner = userInfoDate && userInfoDate.id;

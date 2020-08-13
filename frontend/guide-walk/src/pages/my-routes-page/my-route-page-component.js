@@ -6,11 +6,11 @@ import './my-route.scss';
 export const MyRoutesPageComponent = ({
   userInfoDate,
   getUserRoutesDataStart,
-  toggleRatingStart,
-  toggleSavedRouteStart,
   userRoutesData,
   userAuthData,
   userSavedRoadsIdList,
+  getToggleSavedRouteInMyRoutesPageStart,
+  getToggleRatingRouteInMyRoutesPageStart,
 }) => {
   const userId = userInfoDate && userInfoDate.id;
   const userName = userAuthData && userAuthData.userName;
@@ -30,11 +30,11 @@ export const MyRoutesPageComponent = ({
               counter={rating}
               routeId={_id}
               userId={userId && userId}
-              toggleRatingFunc={toggleRatingStart}
-              toggleSavedRouteStart={toggleSavedRouteStart}
               userRateIds={userRateIds}
               userSavedRoadsIdList={userSavedRoadsIdList}
               userName={userName}
+              getToggleSavedRouteInMyRoutesPageStart={getToggleSavedRouteInMyRoutesPageStart}
+              getToggleRatingRouteInMyRoutesPageStart={getToggleRatingRouteInMyRoutesPageStart}
               key={_id}
             />
           );

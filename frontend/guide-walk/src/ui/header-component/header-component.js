@@ -13,10 +13,7 @@ const HeaderComponent = ({ isLoading }) => {
     history.goBack();
   };
 
-  
-  const isProfilePage = location === '/profile';
   const isHomePage = location === '/';
-  const isRoutePage = location === '/routes';
   const locationName = location.replace(/\//, '').replace(/-/g, ' ');
   
   useEffect(() => {
