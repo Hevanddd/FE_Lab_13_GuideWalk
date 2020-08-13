@@ -8,9 +8,13 @@ const router = new Router();
 
 router.get("/", async (req, res) => {
   try {
-    //TODO: Add lazy loading
-    const routes = await Route.find({}).limit(50);
-    res.status(201).json(routes);
+    const { size = 10, page = 0 } = req.query;
+    console.log(size + ' ' + page );
+    const querySize = size * (page + 1);
+    const routesCollection = await Route.find({}).limit(querySize);
+
+    res.status(201).json(routesCollection.slice(size * page));
+
   } catch (e) {
     return res.status(500).json({ message: "Getting routes fault " + e });
   }
@@ -129,7 +133,6 @@ router.post("/edit", async (req, res) => {
     await route.save();
 
     res.status(200).json(route);
-
   } catch (e) {
     return res.status(500).json({ message: "Something is going wrong." });
   }
