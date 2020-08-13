@@ -44,7 +44,7 @@ router.post("/create", async (req, res) => {
     const pointIndexes = await Promise.all(
       pointArray.map(async (point) => {
         const pointToDB = new Point({
-          name: point.title,
+          name: point.name,
           location: point.location,
           description: point.description,
         });
@@ -55,7 +55,7 @@ router.post("/create", async (req, res) => {
     );
 
     const route = await Route.create({
-      name: routeInfo.title,
+      name: routeInfo.name,
       focus: routeInfo.focus,
       description: routeInfo.description,
       points: pointIndexes,
@@ -97,22 +97,39 @@ router.get("/edit/:id", async (req, res) => {
 
 router.post("/edit", async (req, res) => {
   try {
-    const { routeInfo, editedPoints } = req.body;
+    const { pointArray, routeInfo } = req.body;
+
+    const pointIndexes = await Promise.all(
+      pointArray.map(async (pointFromForm) => {
+        if (pointFromForm.id) {
+          const point = Point.findById(pointFromForm.id);
+          point.name = point.name;
+          point.location = point.location;
+          point.description = point.description;
+          await point.save();
+          return pointFromForm.id;
+        }
+        //if user added new point
+        const pointNew = new Point({
+          name: pointFromForm.name,
+          location: pointFromForm.location,
+          description: pointFromForm.description,
+        });
+        await pointNew.save();
+        return pointNew._id;
+      })
+    );
 
     const route = await Route.findById(routeInfo.id);
-
-    //can we check changes on front-end?
-
-    //firstly we are checking if route 'text' data is the same
-    if (JSON.stringify(route) !== JSON.stringify(routeInfo)) {
-      route.name = routeInfo.title;
-      route.focus = routeInfo.focus;
-      route.description = routeInfo.description;
-    }
-
-    //secondly we are checking if there are any newly created points (they came without id property)
+    route.name = routeInfo.name;
+    route.focus = routeInfo.focus;
+    route.description = routeInfo.description;
+    route.points = pointIndexes;
 
     await route.save();
+
+    res.status(200).json(route);
+
   } catch (e) {
     return res.status(500).json({ message: "Something is going wrong." });
   }
