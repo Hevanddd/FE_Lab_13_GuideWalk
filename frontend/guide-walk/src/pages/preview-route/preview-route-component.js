@@ -7,7 +7,7 @@ import { MapDrawComponent } from '../../ui/map-draw';
 
 import styles from './preview.module.scss';
 
-const PreviewRouteComponent = ({getAllRouteDataStart, routeData, setCurrentRoute, currentRoute}) => {
+const PreviewRouteComponent = ({ getAllRouteDataStart, routeData, setCurrentRoute, currentRoute }) => {
   const history = useHistory();
   const routeId = history.location.search.replace(/\?/, '');
   const [route, setRoute] = useState(false);
