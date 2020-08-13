@@ -22,6 +22,9 @@ export {
   getAddedRouteDataSuccess,
   removeRouteFail,
   removeRouteStart,
+  editRouteStart,
+  editRouteSuccess,
+  editRouteFail,
 } from './routes-actions';
 export { getAllRoutesStart, getAllRoutesFail, getAllRoutesSuccess } from './get-all-routes-actions';
 export {
