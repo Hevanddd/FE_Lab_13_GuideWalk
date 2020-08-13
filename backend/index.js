@@ -5,7 +5,7 @@ const config = require("config");
 const app = express();
 app.use(express.json({ extended: true }));
 
-app.get("", async (req, res) => {
+app.get("/", async (req, res) => {
   res.json({ message: "im here" });
 });
 
