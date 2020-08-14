@@ -4,7 +4,6 @@
     align-items: center;
     text-align: center;
     height: 37vh;
-    // max-height: 50%;
     p{
         margin-block-start: 0.5em;
         margin-block-end: 0.5em;
@@ -16,6 +15,18 @@
         width: 80%;
         flex-grow: 1;
     }
+
+    &__buttons{
+        width: 70%;
+        display: flex;
+        justify-content: space-between;
+        justify-content: center;
+        button{
+            width: 30%;
+            margin: 0 10px;
+        }
+    }
+
     &__wrapper{
         display: flex;
         flex-direction: row;

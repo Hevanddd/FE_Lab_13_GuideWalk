@@ -23,6 +23,7 @@ const TopRoutes = ({
 
   useEffect(() => {
     getAllRoutesStart();
+    //eslint-disable-next-line
   }, []);
 
   return (
