@@ -45,8 +45,6 @@ export const CurrentRouteComponent = ({
       //on first point state is not defined so we need this check
       if (!markersPositions) {
         setMarkersPositions({
-          //TODO: Set start marker to user geolocation in moment of invocation Start Route
-          startMarkerPositions: [24.0224041633556, 49.83974574113253],
           finishMarkerPositions: [currentPointData.location.longitude, currentPointData.location.latitude],
         });
       }
