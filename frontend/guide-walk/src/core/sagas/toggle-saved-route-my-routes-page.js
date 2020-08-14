@@ -2,7 +2,6 @@ import { takeEvery, call, put } from 'redux-saga/effects';
 import { httpRequest } from '../../services';
 import {
   toggleSavedRouteFail,
-  getUserInfoDataStart,
   getToggleSavedRouteInMyRoutesPageStart,
   toggleSavedRouteSuccess,
 } from '../redux/actions';

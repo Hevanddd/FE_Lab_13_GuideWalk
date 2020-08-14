@@ -39,6 +39,9 @@ const MyAndSavedRouteItem = ({
     history.push(url);
   };
 
+  const urlImgSave = isSaved ? require('../../img/bookmark-saved.svg') : require('../../img/bookmark.svg');
+  const urlImgLike = isLiked ? require('../../img/black-like.svg') : require('../../img/like.svg');
+
   return (
     <div className={classNames('route-item__wrapper')}>
       <img src={require('../../img/Lviv.jpg')} alt='Lviv' className={classNames('route-item__img')} />
@@ -48,37 +51,11 @@ const MyAndSavedRouteItem = ({
           <div className={classNames('route-item__info__like-button__wrapper')}>
             <p>{counter}</p>
             <button className={classNames('route-item__info__like-button')} onClick={handleLikeButtonClick}>
-              {!isLiked && (
-                <img
-                  className={classNames('route-item__info__like-button__img')}
-                  src={require('../../img/like.svg')}
-                  alt='like'
-                />
-              )}
-              {isLiked && (
-                <img
-                  className={classNames('route-item__info__like-button__img')}
-                  src={require('../../img/black-like.svg')}
-                  alt='like'
-                />
-              )}
+              <img className={classNames('route-item__info__like-button__img')} src={urlImgLike} alt='like' />
             </button>
           </div>
           <button className={classNames('route-item__info__saved-button')} onClick={handleSavedButton}>
-            {isSaved && (
-              <img
-                className={classNames('route-item__info__saved-button__img')}
-                src={require('../../img/bookmark-saved.svg')}
-                alt='save'
-              />
-            )}
-            {!isSaved && (
-              <img
-                className={classNames('route-item__info__saved-button__img')}
-                src={require('../../img/bookmark.svg')}
-                alt='save'
-              />
-            )}
+            <img className={classNames('route-item__info__saved-button__img')} src={urlImgSave} alt='save' />
           </button>
           <button className={classNames('route-item__info__arrow-button')} onClick={handleArrowButton}>
             <img

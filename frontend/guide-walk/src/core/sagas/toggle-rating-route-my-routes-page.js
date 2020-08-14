@@ -3,7 +3,6 @@ import { httpRequest } from '../../services';
 import {
   toggleRatingFail,
   getToggleRatingRouteInMyRoutesPageStart,
-  getUserRoutesDataStart,
   getToggleRatingRouteInMyRoutesPageSuccess,
 } from '../redux/actions';
 import { handleErrorInSagas } from '../../services/helpers/handle-error-in-sagas';
