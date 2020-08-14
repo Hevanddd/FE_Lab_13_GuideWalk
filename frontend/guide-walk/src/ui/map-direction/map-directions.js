@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions';
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -10,6 +10,7 @@ mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_KEY;
 export const MapDirectionsComponent = ({ markerPositions, zoom }) => {
   const { startMarkerPositions, finishMarkerPositions } = markerPositions;
   const mapWrapper = useRef();
+  const [geolocatePosition, setGeolocatePosition] = useState();
 
   useEffect(() => {
     const map = new mapboxgl.Map({
@@ -31,6 +32,20 @@ export const MapDirectionsComponent = ({ markerPositions, zoom }) => {
       },
       []
     );
+
+    const geolocate = new mapboxgl.GeolocateControl({
+      positionOptions: {
+        enableHighAccuracy: true,
+      },
+      trackUserLocation: true,
+    });
+
+    map.addControl(geolocate);
+    geolocate.on('geolocate', function (data) {
+      const latitude = data.coords.latitude;
+      const longitude = data.coords.longitude;
+      setGeolocatePosition({ latitude, longitude });
+    });
 
     map.addControl(directions, 'top-left');
 
