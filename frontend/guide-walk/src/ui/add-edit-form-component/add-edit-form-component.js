@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
@@ -14,21 +13,18 @@ import styles from './add-edit-form.module.scss';
 const routeFocuses = ['Fun', 'SightSeeing', 'Quest'];
 
 const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataStart, editedRoute, editRouteStart }) => {
-
   const [route, setRoute] = useState(false);
-  
-  const history = useHistory();
+
   const { register, handleSubmit, control, errors, setValue } = useForm();
-  
-  const [addPointForm, setAddPointForm] = useState(false); 
+
+  const [addPointForm, setAddPointForm] = useState(false);
   const [points, setPoints] = useState([]);
   const [editedPoint, setEditedPoint] = useState(false);
   const [isEmptyList, setIsEmptyList] = useState(false);
-
-  useEffect(() => {
+useEffect(() => {
     editedRoute && setRoute(editedRoute);
   }, [editedRoute]);
-  
+
   useEffect(() => {
     route && setPoints(route.points);
     if(route){
@@ -38,7 +34,7 @@ const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataSta
     }
   }, [route, setValue]);
 
-  const names = points.map(el => el.name);
+  const names = points.map((el) => el.name);
 
   const clearPointForm = () => {
     setEditedPoint(false);
@@ -47,9 +43,9 @@ const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataSta
   };
 
   const saveRoute = (data) => {
-    if(points.length < 2){
+    if (points.length < 2) {
       setIsEmptyList(true);
-    } else{
+    } else {
       data.owner = userInfoDate && userInfoDate.id;
       data.ownerName = userDataAuth && userDataAuth.userName;
       data.id = route && route.route._id;
@@ -62,7 +58,6 @@ const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataSta
       } else{
         getAddedRouteDataStart(result);
       }
-      history.push('/');
     }
   };
 
@@ -160,9 +155,9 @@ const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataSta
           </li>
         </ul>
 
-        { isEmptyList && <p styleName='error'> You should enter at least two point.</p> }
+        {isEmptyList && <p styleName='error'> You should enter at least two point.</p>}
 
-        {addPointForm && <AddEditPointFormComponent savePoint={savePoint} editedPoint={editedPoint} names={names}/>}
+        {addPointForm && <AddEditPointFormComponent savePoint={savePoint} editedPoint={editedPoint} names={names} />}
 
         <Button styleName='form__btn' type='submit' color='primary' variant='contained'>
           Save Route

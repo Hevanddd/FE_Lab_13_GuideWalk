@@ -1,5 +1,6 @@
 import { takeEvery, put, call } from 'redux-saga/effects';
 import { httpRequest } from '../../services';
+import { push } from 'react-router-redux';
 import { toast } from 'react-toastify';
 import {
   getAddedRouteDataStart,
@@ -16,6 +17,7 @@ function* callAddedRouteData({ payload }) {
     const data = yield call(httpRequest, `/api/route/create`, 'POST', payload);
     yield put(getAddedRouteDataSuccess(data));
     yield call(toast.success, 'Route successfully added!', { autoClose: 2000 });
+    yield put(push('/'));
   } catch (e) {
     yield call(handleErrorInSagas, getAddedRouteDataFail);
   } finally {
