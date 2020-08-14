@@ -11,12 +11,13 @@ export const MapDirectionsComponent = ({ markerPositions, zoom }) => {
   const { startMarkerPositions, finishMarkerPositions } = markerPositions;
   const mapWrapper = useRef();
   const [geolocatePosition, setGeolocatePosition] = useState();
+  const [isFirstPointWithGeolocate, setIsFirstPointWithGeolocate] = useState(true);
 
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: mapWrapper.current,
       style: 'mapbox://styles/mapbox/streets-v11',
-      center: startMarkerPositions,
+      center: startMarkerPositions || geolocatePosition,
       zoom,
     });
     const directions = new MapboxDirections(
@@ -44,18 +45,26 @@ export const MapDirectionsComponent = ({ markerPositions, zoom }) => {
     geolocate.on('geolocate', function (data) {
       const latitude = data.coords.latitude;
       const longitude = data.coords.longitude;
-      setGeolocatePosition({ latitude, longitude });
+      setGeolocatePosition([longitude, latitude]);
+      setIsFirstPointWithGeolocate(false);
     });
 
     map.addControl(directions, 'top-left');
 
-    map.on('load', function () {
-      directions.setOrigin(startMarkerPositions);
-      directions.setWaypoint(0, startMarkerPositions);
+    map.on('load', () => {
+      if (!startMarkerPositions) {
+        geolocate.trigger();
+        geolocatePosition && directions.setOrigin(geolocatePosition);
+        geolocatePosition && directions.setWaypoint(0, geolocatePosition);
+      } else {
+        directions.setOrigin(startMarkerPositions);
+        directions.setWaypoint(0, startMarkerPositions);
+      }
       directions.setWaypoint(1, finishMarkerPositions);
       directions.setDestination(finishMarkerPositions);
     });
-  }, [markerPositions]);
+    //eslint-disable-next-line
+  }, [markerPositions, isFirstPointWithGeolocate]);
 
   return <div id='app' ref={mapWrapper} className='mapWrapper' />;
 };
