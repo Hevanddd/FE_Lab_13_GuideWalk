@@ -58,7 +58,6 @@ useEffect(() => {
       } else{
         getAddedRouteDataStart(result);
       }
-      history.push('/');
     }
   };
 
