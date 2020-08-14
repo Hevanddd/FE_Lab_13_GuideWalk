@@ -37,6 +37,7 @@ export const CurrentRouteComponent = ({
         getNextPointStart({ routeId: routeIdStorage, pointIndex: 0 });
       }
     }
+    //eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -56,6 +57,7 @@ export const CurrentRouteComponent = ({
         });
       }
     }
+    //eslint-disable-next-line
   }, [currentPointData]);
 
   const handleNextRoute = () => {

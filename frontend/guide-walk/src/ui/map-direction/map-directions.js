@@ -63,6 +63,7 @@ export const MapDirectionsComponent = ({ markerPositions, zoom }) => {
       directions.setWaypoint(1, finishMarkerPositions);
       directions.setDestination(finishMarkerPositions);
     });
+    //eslint-disable-next-line
   }, [markerPositions, isFirstPointWithGeolocate]);
 
   return <div id='app' ref={mapWrapper} className='mapWrapper' />;

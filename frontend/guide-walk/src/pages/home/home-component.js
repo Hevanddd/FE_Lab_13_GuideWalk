@@ -1,25 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { MapComponent } from '../../ui/map-component/map-component';
 import { useAuth0 } from '@auth0/auth0-react';
-import { useHistory } from 'react-router';
 export const HomeComponent = ({
   getUserInfoDataStart,
   userDataAuth,
   userInfoData,
   getAddedRouteDataStart,
   getAllRoutesStart,
-  getCoordinatesStart,
   allRoutes,
-  addSavedRouteStart,
-  getAllRouteDataStart,
-  removeSavedRouteStart,
   toggleRatingStart,
   removeRouteStart,
   toggleSavedRouteStart,
 }) => {
-
-  const history = useHistory();
-  const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
+  const { loginWithRedirect, isAuthenticated, logout } = useAuth0();
   const userName = userDataAuth && userDataAuth.userName;
   const owner = userInfoData && userInfoData.id;
   const ownerName = userDataAuth && userDataAuth.userName;
@@ -49,10 +42,6 @@ export const HomeComponent = ({
     routeId: routesId,
     userId: owner,
   };
-  const requestData2 = {
-    // routeId: routesId,
-    userId: owner,
-  };
 
   const handleGetUserData = () => {
     userName && getUserInfoDataStart(userName);
@@ -67,10 +56,6 @@ export const HomeComponent = ({
     // routesId && addSavedRouteStart(requestData);
     routesId && toggleSavedRouteStart({ toggleData: requestData });
     // userName && getUserInfoDataStart(userName);
-  };
-
-  const handleAllRouteInfo = () => {
-    // routesId && getAllRouteDataStart(routesId);
   };
 
   const handleRemoveSavedRoute = () => {
@@ -93,13 +78,9 @@ export const HomeComponent = ({
     removeRouteStart(requestRemoveRoute);
   };
 
-  const handlePreviewRoute = () => {
-    history.push('/route');
-  };
-
-
   useEffect(() => {
     getAllRoutesStart();
+    //eslint-disable-next-line
   }, []);
 
   return (

@@ -2,10 +2,6 @@ import React, { useEffect } from 'react';
 import classNames from 'classnames';
 import { MyAndSavedRouteItemComponent } from '../../ui';
 import './saved-route.scss';
-import {
-  getToggleRatingRouteInSavedRoutesPageStart,
-  getToggleSavedRouteInSavedRoutesPageStart,
-} from '../../core/redux/actions';
 
 export const SavedRoutesComponent = ({
   userSavedRoutesData,
