@@ -12,7 +12,6 @@ import styles from './add-edit-point-form.module.scss';
 const AddEditPointFormComponent = ({ savePoint, editedPoint, names }) => {
   const { register, handleSubmit, control, setValue, errors} = useForm();
 
-
   const name = editedPoint ? editedPoint.name : '';
   const description = editedPoint ? editedPoint.description : '';
   const initialCoords = editedPoint ? editedPoint.location : VIEWPORT;
@@ -58,8 +57,7 @@ const AddEditPointFormComponent = ({ savePoint, editedPoint, names }) => {
             }
           }
         })}
-
-        name='name'
+        name='name' 
         label='Point Name'
         placeholder={'Enter title'}
         variant='outlined'
