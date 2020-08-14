@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import AddEditFormComponent from '../../ui/add-edit-form-component';
 
 
-export const EditRouteComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataStart, getAllRouteDataStart, routeData }) => {
+export const EditRouteComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataStart, getAllRouteDataStart, routeData, editRouteStart }) => {
   const history = useHistory();
   const routeId = history.location.search.replace(/\?/, '');
 
@@ -12,7 +12,7 @@ export const EditRouteComponent = ({ userInfoDate, userDataAuth, getAddedRouteDa
 
   useEffect(() => {
     getAllRouteDataStart(routeId);
-  }, []);
+  }, [getAllRouteDataStart, routeId]);
 
   useEffect(() => {
     routeData && setRoute(routeData);
@@ -28,6 +28,7 @@ export const EditRouteComponent = ({ userInfoDate, userDataAuth, getAddedRouteDa
             userDataAuth={userDataAuth}
             getAddedRouteDataStart={getAddedRouteDataStart}
             editedRoute={route}
+            editRouteStart={editRouteStart}
           />
         </div>
       }

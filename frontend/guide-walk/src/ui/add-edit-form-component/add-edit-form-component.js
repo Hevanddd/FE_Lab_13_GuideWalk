@@ -13,7 +13,7 @@ import styles from './add-edit-form.module.scss';
 
 const routeFocuses = ['Fun', 'SightSeeing', 'Quest'];
 
-const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataStart, editedRoute }) => {
+const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataStart, editedRoute, editRouteStart }) => {
 
   const [route, setRoute] = useState(false);
   
@@ -24,7 +24,6 @@ const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataSta
   const [points, setPoints] = useState([]);
   const [editedPoint, setEditedPoint] = useState(false);
   const [isEmptyList, setIsEmptyList] = useState(false);
-  
 
   useEffect(() => {
     editedRoute && setRoute(editedRoute);
@@ -33,11 +32,11 @@ const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataSta
   useEffect(() => {
     route && setPoints(route.points);
     if(route){
-      setValue('title', route.route.name);
+      setValue('name', route.route.name);
       setValue('focus', route.route.focus);
       setValue('description', route.route.description);
     }
-  }, [route]);
+  }, [route, setValue]);
 
   const names = points.map(el => el.name);
 
@@ -47,17 +46,22 @@ const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataSta
     setIsEmptyList(false);
   };
 
-  const saveRoute = (route) => {
+  const saveRoute = (data) => {
     if(points.length < 2){
       setIsEmptyList(true);
     } else{
-      route.owner = userInfoDate && userInfoDate.id;
-      route.ownerName = userDataAuth && userDataAuth.userName;
+      data.owner = userInfoDate && userInfoDate.id;
+      data.ownerName = userDataAuth && userDataAuth.userName;
+      data.id = route && route.route._id;
       const result = {
         pointArray: points,
-        routeInfo: route,
+        routeInfo: data,
       };
-      getAddedRouteDataStart(result);
+      if(editedRoute){
+        editRouteStart(result);
+      } else{
+        getAddedRouteDataStart(result);
+      }
       history.push('/');
     }
   };
@@ -76,14 +80,14 @@ const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataSta
     }
   };
 
-  const editPoint = (title) => {
-    const editedPoint = points.find((el) => el.title === title);
+  const editPoint = (name) => {
+    const editedPoint = points.find((el) => el.name === name);
     setEditedPoint(editedPoint);
     setAddPointForm(true);
   };
 
-  const deletePoint = (title) => {
-    const index = points.findIndex((el) => el.title === title);
+  const deletePoint = (name) => {
+    const index = points.findIndex((el) => el.name === name);
     const copiedPoints = [...points];
     copiedPoints.splice(index, 1);
     setPoints(copiedPoints);
@@ -94,7 +98,7 @@ const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataSta
     <>
       <form styleName='form' onSubmit={handleSubmit((data) => saveRoute(data))}>
         <TextField
-          name='title'
+          name='name'
           inputRef={register({ required: true })}
           label='Route Name'
           placeholder='The Best Route'
@@ -102,7 +106,7 @@ const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataSta
           InputLabelProps={{ shrink: true }}
         />
 
-        {errors.title && <p styleName='error'> Enter title of your route </p>}
+        {errors.name && <p styleName='error'> Enter title of your route </p>}
 
         <TextField
           name='focus'
@@ -139,7 +143,7 @@ const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataSta
 
         <ul styleName='form__pointsList'>
           {points &&
-            points.map((point, index) => {
+            points.map((point) => {
               return <PointComponent key={point.name} point={point} deletePoint={deletePoint} editPoint={editPoint} />;
             })}
           <li>
@@ -156,7 +160,7 @@ const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataSta
           </li>
         </ul>
 
-        { isEmptyList && <p styleName='error'> You should enter at least one point.</p> }
+        { isEmptyList && <p styleName='error'> You should enter at least two point.</p> }
 
         {addPointForm && <AddEditPointFormComponent savePoint={savePoint} editedPoint={editedPoint} names={names}/>}
 
