@@ -16,7 +16,7 @@ const PointComponent = ({ point, deletePoint, editPoint }) => {
       <IconButton styleName='edit-btn' aria-label='edit' onClick={() => editPoint(name)}>
         <EditOutlinedIcon />
       </IconButton>
-      <span>{name}</span>
+      <span>{ name }</span>
     </li>
   );
 };

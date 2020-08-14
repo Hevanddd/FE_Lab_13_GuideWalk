@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
@@ -12,15 +12,27 @@ import styles from './add-edit-form.module.scss';
 
 const routeFocuses = ['Fun', 'SightSeeing', 'Quest'];
 
-const AddEditForm = ({ userInfoDate, userDataAuth, getAddedRouteDataStart }) => {
-  const data = [];
+const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataStart, editedRoute, editRouteStart }) => {
+  const [route, setRoute] = useState(false);
 
-  const { register, handleSubmit, control, errors } = useForm();
+  const { register, handleSubmit, control, errors, setValue } = useForm();
 
   const [addPointForm, setAddPointForm] = useState(false);
-  const [points, setPoints] = useState(data);
+  const [points, setPoints] = useState([]);
   const [editedPoint, setEditedPoint] = useState(false);
   const [isEmptyList, setIsEmptyList] = useState(false);
+useEffect(() => {
+    editedRoute && setRoute(editedRoute);
+  }, [editedRoute]);
+
+  useEffect(() => {
+    route && setPoints(route.points);
+    if(route){
+      setValue('name', route.route.name);
+      setValue('focus', route.route.focus);
+      setValue('description', route.route.description);
+    }
+  }, [route, setValue]);
 
   const names = points.map((el) => el.name);
 
@@ -30,17 +42,23 @@ const AddEditForm = ({ userInfoDate, userDataAuth, getAddedRouteDataStart }) => 
     setIsEmptyList(false);
   };
 
-  const saveRoute = (route) => {
+  const saveRoute = (data) => {
     if (points.length < 2) {
       setIsEmptyList(true);
     } else {
-      route.owner = userInfoDate && userInfoDate.id;
-      route.ownerName = userDataAuth && userDataAuth.userName;
+      data.owner = userInfoDate && userInfoDate.id;
+      data.ownerName = userDataAuth && userDataAuth.userName;
+      data.id = route && route.route._id;
       const result = {
         pointArray: points,
-        routeInfo: route,
+        routeInfo: data,
       };
-      getAddedRouteDataStart(result);
+      if(editedRoute){
+        editRouteStart(result);
+      } else{
+        getAddedRouteDataStart(result);
+      }
+      history.push('/');
     }
   };
 
@@ -81,6 +99,7 @@ const AddEditForm = ({ userInfoDate, userDataAuth, getAddedRouteDataStart }) => 
           label='Route Name'
           placeholder='The Best Route'
           variant='outlined'
+          InputLabelProps={{ shrink: true }}
         />
 
         {errors.name && <p styleName='error'> Enter title of your route </p>}
@@ -112,6 +131,7 @@ const AddEditForm = ({ userInfoDate, userDataAuth, getAddedRouteDataStart }) => 
           rows={4}
           placeholder='Enter description'
           variant='outlined'
+          InputLabelProps={{ shrink: true }}
           rules={{ required: true }}
         />
 
@@ -148,4 +168,4 @@ const AddEditForm = ({ userInfoDate, userDataAuth, getAddedRouteDataStart }) => 
   );
 };
 
-export default CSSModules(AddEditForm, styles);
+export default CSSModules(AddEditFormComponent, styles);
