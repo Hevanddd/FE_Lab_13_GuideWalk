@@ -1,0 +1,16 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+
+  &__button {
+    width: 50%;
+    height: 50px;
+    background-color: #457b9d;
+    margin-top: 20px;
+    margin-bottom: 70px;
+  }
+}

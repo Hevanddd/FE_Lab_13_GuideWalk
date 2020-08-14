@@ -93,17 +93,32 @@ router.post("/delete-route", async (req, res) => {
   try {
     const { userId, routeId } = req.body;
 
-    const user = await User.findById(userId);
-
+    //deleting route from collection
     await Route.findByIdAndDelete(routeId);
+    //deleting route from userOwner user_routes
 
-    const index = user.user_routes.indexOf(routeId);
+    const userOwner = await User.findById(userId);
+
+    const index = userOwner.user_routes.indexOf(routeId);
 
     if (index > -1) {
-      user.user_routes.splice(index, 1);
+      userOwner.user_routes.splice(index, 1);
     }
 
-    await user.save();
+    await userOwner.save();
+
+    //deleting route from saved routes of users who saved it
+    const usersSavers = await User.find({ saved_routes: routeId });
+    await Promise.all(
+      usersSavers.map(async (userSaver) => {
+        const indexSaved = userSaver.saved_routes.indexOf(routeId);
+
+        if (indexSaved > -1) {
+          userSaver.saved_routes.splice(indexSaved, 1);
+        }
+        await userSaver.save();
+      })
+    );
 
     res.status(200).json({ message: "Route succesfully deleted" });
   } catch (error) {

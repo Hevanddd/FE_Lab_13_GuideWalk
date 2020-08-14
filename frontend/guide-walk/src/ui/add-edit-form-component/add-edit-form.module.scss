@@ -7,6 +7,12 @@
         width: 80%;
         list-style-type: none;
     }
+    &__input{
+        width: 80%;
+    }
+    input{
+        text-align: left;
+    }
 }
 
 button.form__btn{
@@ -17,7 +23,6 @@ button.form__btn{
 }
 
 .form > div{
-    width: 80%;
     margin-top: 20px;
 }
 

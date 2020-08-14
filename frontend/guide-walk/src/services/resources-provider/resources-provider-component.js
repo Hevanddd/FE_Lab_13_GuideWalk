@@ -1,13 +1,15 @@
+import React from 'react';
 import { useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
+import { LoginComponent } from '../../ui';
 
 export const ResourcesProviderComponent = ({ children, refreshUserDataAuth, getUserInfoDataStart }) => {
-  const { user } = useAuth0();
+  const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const userName = user && user[`https://username`];
   useEffect(() => {
     user && refreshUserDataAuth(user);
     userName && getUserInfoDataStart(userName);
   });
 
-  return children;
+  return isAuthenticated ? children : <LoginComponent loginWithRedirect={loginWithRedirect} />;
 };

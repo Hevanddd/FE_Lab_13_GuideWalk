@@ -17,6 +17,7 @@ export const MyRoutesPageComponent = ({
 
   useEffect(() => {
     userId && getUserRoutesDataStart(userId);
+    //eslint-disable-next-line
   }, [userId]);
 
   return (

@@ -2,23 +2,16 @@ import { takeEvery, call, put } from 'redux-saga/effects';
 import { httpRequest } from '../../services';
 import {
   toggleSavedRouteFail,
-  loadingStop,
-  loadingStart,
-  getUserSavedRoutesDataStart,
-  getToggleSavedRouteInSavedRoutesPageStart,
-  getAllRoutesStart,
-  getUserInfoDataStart,
   getToggleSavedRouteInTopRoutesPageStart,
+  toggleSavedRouteSuccess,
 } from '../redux/actions';
 import { handleErrorInSagas } from '../../services/helpers/handle-error-in-sagas';
 
 function* callToggleSavedRouteDataInTopRoutesPage({ payload }) {
-  const { routeId, userId, userName } = payload;
+  const { routeId } = payload;
   try {
-    yield put(loadingStart());
-    yield call(httpRequest, `/api/user/toggle-saved`, 'POST', { routeId, userId });
-    yield put(getAllRoutesStart(userName));
-    yield put(getUserInfoDataStart(userName));
+    yield call(httpRequest, `/api/user/toggle-saved`, 'POST', payload);
+    yield put(toggleSavedRouteSuccess(routeId));
   } catch (e) {
     yield call(handleErrorInSagas, toggleSavedRouteFail);
   } finally {

@@ -7,16 +7,15 @@ const TopRoutes = ({
   allRoutes,
   getAllRoutesStart,
   userInfoDate,
-  userAuthData,
   userSavedRoadsIdList,
   getToggleSavedRouteInTopRoutesPageStart,
   getToggleRatingRouteInTopRoutesPageStart,
 }) => {
   const userId = userInfoDate && userInfoDate.id;
-  const userName = userAuthData && userAuthData.userName;
 
   useEffect(() => {
     getAllRoutesStart();
+    //eslint-disable-next-line
   }, []);
 
   return (
@@ -34,7 +33,6 @@ const TopRoutes = ({
               userId={userId}
               userSavedRoadsIdList={userSavedRoadsIdList}
               userRateIds={userRateIds}
-              userName={userName}
               getToggleSavedRouteInTopRoutesPageStart={getToggleSavedRouteInTopRoutesPageStart}
               getToggleRatingRouteInTopRoutesPageStart={getToggleRatingRouteInTopRoutesPageStart}
             />
