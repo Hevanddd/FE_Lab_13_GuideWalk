@@ -12,7 +12,6 @@ const TopRoutesItem = ({
   userId,
   userSavedRoadsIdList,
   userRateIds,
-  userName,
   getToggleSavedRouteInTopRoutesPageStart,
   getToggleRatingRouteInTopRoutesPageStart,
 }) => {
@@ -24,7 +23,7 @@ const TopRoutesItem = ({
   };
 
   const handleSavedButton = () => {
-    getToggleSavedRouteInTopRoutesPageStart({ routeId, userId, userName });
+    getToggleSavedRouteInTopRoutesPageStart({ routeId, userId });
   };
 
   const handleArrowButton = () => {

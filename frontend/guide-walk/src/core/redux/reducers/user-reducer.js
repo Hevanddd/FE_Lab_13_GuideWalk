@@ -20,13 +20,37 @@ import {
   getToggleRatingRouteInMyRoutesPageStart,
   getToggleRatingRouteInSavedRoutesPageStart,
   getToggleRatingRouteInTopRoutesPageStart,
+  getToggleSavedRouteInMyRoutesPageSuccess,
+  getToggleSavedRouteInSavedRoutesPageSuccess,
+  getToggleSavedRouteInTopRoutesPageSuccess,
+  getToggleRatingRouteInMyRoutesPageSuccess,
+  getToggleRatingRouteInSavedRoutesPageSuccess,
+  toggleSavedRouteSuccess,
 } from '../actions';
+import { filterRatingRoutes } from '../../../services/helpers';
 
 const initialState = {
   userInfoData: null,
   userDataAuth: null,
   userSavedRouteData: null,
   userRoutesData: null,
+};
+
+const filterInfoDataSavedRoutes = (userInfoData, routeId) => {
+  const { saved_routes } = userInfoData;
+  const isIncludes = saved_routes.includes(routeId);
+
+  if (isIncludes) {
+    const index = saved_routes.findIndex(({ _id }) => _id === routeId);
+
+    saved_routes.splice(index, 1);
+
+    return { ...userInfoData };
+  }
+
+  saved_routes.push(routeId);
+
+  return { ...userInfoData };
 };
 
 const reducerMap = {
@@ -61,6 +85,14 @@ const reducerMap = {
   [toggleSavedRouteStart]: (state) => {
     return {
       ...state,
+    };
+  },
+
+  [toggleSavedRouteSuccess]: (state, { payload }) => {
+    const userInfoData = state.userInfoData;
+    return {
+      ...state,
+      userInfoData: userInfoData && filterInfoDataSavedRoutes(userInfoData, payload),
     };
   },
 
@@ -140,17 +172,41 @@ const reducerMap = {
     };
   },
 
+  //My Routes Page
+
   [getToggleRatingRouteInMyRoutesPageStart]: (state) => {
     return {
       ...state,
     };
   },
 
+  [getToggleRatingRouteInMyRoutesPageSuccess]: (state, { payload }) => {
+    const userRoutesData = state.userRoutesData;
+    const { routeId, data } = payload;
+    return {
+      ...state,
+      userRoutesData: userRoutesData && filterRatingRoutes(userRoutesData, { routeId, ...data }),
+    };
+  },
+
+  //Saved Routes Page
+
   [getToggleRatingRouteInSavedRoutesPageStart]: (state) => {
     return {
       ...state,
     };
   },
+
+  [getToggleRatingRouteInSavedRoutesPageSuccess]: (state, { payload }) => {
+    const userSavedRoutesData = state.userSavedRouteData;
+    const { routeId, data } = payload;
+    return {
+      ...state,
+      userSavedRouteData: userSavedRoutesData && filterRatingRoutes(userSavedRoutesData, { routeId, ...data }),
+    };
+  },
+
+  //Top Routes Page
 
   [getToggleRatingRouteInTopRoutesPageStart]: (state) => {
     return {

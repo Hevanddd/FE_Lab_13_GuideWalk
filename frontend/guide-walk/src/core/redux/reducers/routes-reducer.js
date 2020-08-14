@@ -13,7 +13,9 @@ import {
   getNextPointSuccess,
   removeRouteFail,
   removeRouteStart,
+  getToggleRatingRouteInTopRoutesPageSuccess,
 } from '../actions';
+import { filterRatingRoutes } from '../../../services/helpers';
 
 const initialState = {
   addedRouteInfo: null,
@@ -50,7 +52,7 @@ const reducerMap = {
   [getAllRoutesSuccess]: (state, { payload }) => {
     return {
       ...state,
-      allRoutes: [...payload ],
+      allRoutes: [...payload],
     };
   },
 
@@ -71,7 +73,7 @@ const reducerMap = {
   [setCurrentPoint]: (state, { payload }) => {
     return {
       ...state,
-      currentPoint: {...payload},
+      currentPoint: { ...payload },
     };
   },
 
@@ -91,7 +93,7 @@ const reducerMap = {
   [getNextPointSuccess]: (state, { payload }) => {
     return {
       ...state,
-      currentPoint: {...payload.pointData, pointIndex: payload.pointIndex + 1 },
+      currentPoint: { ...payload.pointData, pointIndex: payload.pointIndex + 1 },
     };
   },
 
@@ -104,6 +106,15 @@ const reducerMap = {
   [removeRouteFail]: (state) => {
     return {
       ...state,
+    };
+  },
+
+  [getToggleRatingRouteInTopRoutesPageSuccess]: (state, { payload }) => {
+    const allRoutesData = state.allRoutes;
+    const { routeId, data } = payload;
+    return {
+      ...state,
+      allRoutes: allRoutesData && filterRatingRoutes(allRoutesData, { routeId, ...data }),
     };
   },
 };

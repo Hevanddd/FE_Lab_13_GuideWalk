@@ -8,13 +8,11 @@ const TopRoutes = ({
   getAllRoutesStart,
   history,
   userInfoDate,
-  userAuthData,
   userSavedRoadsIdList,
   getToggleSavedRouteInTopRoutesPageStart,
   getToggleRatingRouteInTopRoutesPageStart,
 }) => {
   const userId = userInfoDate && userInfoDate.id;
-  const userName = userAuthData && userAuthData.userName;
 
   const handleMyRoutesButton = () => {
     const url = '/my-routes';
@@ -42,7 +40,6 @@ const TopRoutes = ({
               userId={userId}
               userSavedRoadsIdList={userSavedRoadsIdList}
               userRateIds={userRateIds}
-              userName={userName}
               getToggleSavedRouteInTopRoutesPageStart={getToggleSavedRouteInTopRoutesPageStart}
               getToggleRatingRouteInTopRoutesPageStart={getToggleRatingRouteInTopRoutesPageStart}
             />

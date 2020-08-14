@@ -31,7 +31,7 @@ const MyAndSavedRouteItem = ({
 
   const handleSavedButton = () => {
     isSavedRoutePage && getToggleSavedRouteInSavedRoutesPageStart(toggleData);
-    isMyRoutesPage && getToggleSavedRouteInMyRoutesPageStart({ routeId, userId, userName });
+    isMyRoutesPage && getToggleSavedRouteInMyRoutesPageStart(toggleData);
   };
 
   const handleArrowButton = () => {
