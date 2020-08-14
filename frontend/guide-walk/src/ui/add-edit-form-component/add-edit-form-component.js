@@ -99,6 +99,7 @@ useEffect(() => {
           placeholder='The Best Route'
           variant='outlined'
           InputLabelProps={{ shrink: true }}
+          styleName='form__input'
         />
 
         {errors.name && <p styleName='error'> Enter title of your route </p>}
@@ -109,6 +110,7 @@ useEffect(() => {
           select
           label='Route Focus'
           placeholder='Route Focus'
+          styleName = 'form__input'
           SelectProps={{
             native: true,
           }}
@@ -129,6 +131,7 @@ useEffect(() => {
           multiline
           rows={4}
           placeholder='Enter description'
+          styleName = 'form__input'
           variant='outlined'
           InputLabelProps={{ shrink: true }}
           rules={{ required: true }}
