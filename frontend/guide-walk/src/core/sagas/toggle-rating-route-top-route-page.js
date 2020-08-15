@@ -14,8 +14,6 @@ function* callToggleRatingRouteInMyRoutesPage({ payload }) {
     yield put(getToggleRatingRouteInTopRoutesPageSuccess({ routeId, data }));
   } catch (e) {
     yield call(handleErrorInSagas, toggleRatingFail);
-  } finally {
-    yield put(loadingStop());
   }
 }
 

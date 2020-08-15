@@ -12,14 +12,13 @@ const MyAndSavedRouteItem = ({
   history,
   location,
   userSavedRoadsIdList,
-  userName,
   getToggleSavedRouteInSavedRoutesPageStart,
   getToggleSavedRouteInMyRoutesPageStart,
   getToggleRatingRouteInSavedRoutesPageStart,
   getToggleRatingRouteInMyRoutesPageStart,
 }) => {
   const isSavedRoutePage = location.pathname === '/saved-routes';
-  const isMyRoutesPage = location.pathname === '/my-routes';
+  const isMyRoutesPage = location.pathname === '/';
   const isSaved = userSavedRoadsIdList && routeId && userSavedRoadsIdList.includes(routeId);
   const isLiked = userRateIds && userId && userRateIds.includes(userId);
   const toggleData = { routeId, userId };

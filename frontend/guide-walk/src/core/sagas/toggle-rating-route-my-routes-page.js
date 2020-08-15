@@ -2,8 +2,6 @@ import { takeEvery, call, put } from 'redux-saga/effects';
 import { httpRequest } from '../../services';
 import {
   toggleRatingFail,
-  loadingStop,
-  loadingStart,
   getToggleRatingRouteInMyRoutesPageStart,
   getToggleRatingRouteInMyRoutesPageSuccess,
 } from '../redux/actions';
@@ -16,8 +14,6 @@ function* callToggleRatingRouteInMyRoutesPage({ payload }) {
     yield put(getToggleRatingRouteInMyRoutesPageSuccess({ routeId, data }));
   } catch (e) {
     yield call(handleErrorInSagas, toggleRatingFail);
-  } finally {
-    yield put(loadingStop());
   }
 }
 

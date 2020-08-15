@@ -14,8 +14,6 @@ function* callToggleSavedRouteDataInTopRoutesPage({ payload }) {
     yield put(toggleSavedRouteSuccess(routeId));
   } catch (e) {
     yield call(handleErrorInSagas, toggleSavedRouteFail);
-  } finally {
-    yield put(loadingStop());
   }
 }
 
