@@ -7,17 +7,21 @@ import './map-direction.scss';
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_KEY;
 
-export const MapDirectionsComponent = ({ markerPositions, zoom }) => {
+export const MapDirectionsComponent = ({ markerPositions, zoom, setGeolocationPositionToProps }) => {
   const { startMarkerPositions, finishMarkerPositions } = markerPositions;
   const mapWrapper = useRef();
-  const [geolocatePosition, setGeolocatePosition] = useState();
-  const [isFirstPointWithGeolocate, setIsFirstPointWithGeolocate] = useState(true);
+  const [geolocationPosition, setGeolocationPosition] = useState();
+  const [isFirstPointWithGeolocation, setIsFirstPointWithGeolocation] = useState(true);
+
+  useEffect(() => {
+    geolocationPosition && setGeolocationPositionToProps(geolocationPosition);
+  }, [geolocationPosition]);
 
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: mapWrapper.current,
       style: 'mapbox://styles/mapbox/streets-v11',
-      center: startMarkerPositions || geolocatePosition,
+      center: startMarkerPositions || geolocationPosition,
       zoom,
     });
     const directions = new MapboxDirections(
@@ -25,6 +29,7 @@ export const MapDirectionsComponent = ({ markerPositions, zoom }) => {
         accessToken: mapboxgl.accessToken,
         unit: 'metric',
         profile: 'mapbox/walking',
+        interactive: false,
         controls: {
           inputs: false,
           profileSwitcher: false,
@@ -45,8 +50,8 @@ export const MapDirectionsComponent = ({ markerPositions, zoom }) => {
     geolocate.on('geolocate', function (data) {
       const latitude = data.coords.latitude;
       const longitude = data.coords.longitude;
-      setGeolocatePosition([longitude, latitude]);
-      setIsFirstPointWithGeolocate(false);
+      setGeolocationPosition([longitude, latitude]);
+      setIsFirstPointWithGeolocation(false);
     });
 
     map.addControl(directions, 'top-left');
@@ -54,8 +59,8 @@ export const MapDirectionsComponent = ({ markerPositions, zoom }) => {
     map.on('load', () => {
       if (!startMarkerPositions) {
         geolocate.trigger();
-        geolocatePosition && directions.setOrigin(geolocatePosition);
-        geolocatePosition && directions.setWaypoint(0, geolocatePosition);
+        geolocationPosition && directions.setOrigin(geolocationPosition);
+        geolocationPosition && directions.setWaypoint(0, geolocationPosition);
       } else {
         directions.setOrigin(startMarkerPositions);
         directions.setWaypoint(0, startMarkerPositions);
@@ -64,7 +69,7 @@ export const MapDirectionsComponent = ({ markerPositions, zoom }) => {
       directions.setDestination(finishMarkerPositions);
     });
     //eslint-disable-next-line
-  }, [markerPositions, isFirstPointWithGeolocate]);
+  }, [markerPositions, isFirstPointWithGeolocation]);
 
   return <div id='app' ref={mapWrapper} className='mapWrapper' />;
 };

@@ -9,6 +9,7 @@ export const CurrentRouteComponent = ({
   setCurrentPoint,
 }) => {
   const [markersPositions, setMarkersPositions] = useState();
+  const [geolocationPosition, setGeolocationPosition] = useState();
 
   //we need localStorage to get current data after page reloading or closing
   useEffect(() => {
@@ -74,14 +75,24 @@ export const CurrentRouteComponent = ({
     }
   };
 
+  const handleCheckoutOnClick = () => {
+    const { finishMarkerPositions } = markersPositions;
+    console.log(finishMarkerPositions, geolocationPosition);
+  };
+
   return (
     <div>
       {!currentRoute && <h1>Choose any route first</h1>}
       {markersPositions && (
         <div>
           <div style={{ position: 'relative', height: '50vh', margin: '30px' }}>
-            <MapDirectionsComponent markerPositions={markersPositions} zoom={15} />
+            <MapDirectionsComponent
+              markerPositions={markersPositions}
+              setGeolocationPositionToProps={setGeolocationPosition}
+              zoom={15}
+            />
           </div>
+          <button onClick={handleCheckoutOnClick}>Checkout</button>
           <CurrentRouteInfoBlock currentPointData={currentPointData} handleNextRoute={handleNextRoute} />
         </div>
       )}
