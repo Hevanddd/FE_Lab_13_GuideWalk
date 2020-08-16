@@ -1,14 +1,12 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import { TopRoutesPage } from './pages';
 import {
   CurrentRoutePage,
   ProfilePage,
   AddRoutePage,
   EditRoutePage,
   SavedRoutesPage,
-  MyRoutesPage,
   PreviewRoutePage,
   HomePage,
   TabPage
@@ -29,9 +27,7 @@ export const AppComponent = () => {
         <Route path='/direction-route' component={MapDirectionsComponent} />
         <Route path='/profile-info' component={ProfilePage} />
         <Route exact path='/saved-routes' component={SavedRoutesPage} />
-        {/* <Route exact path='/top-routes' component={TopRoutesPage} /> */}
         <Route path='/saved-routes' component={SavedRoutesPage} />
-        {/* <Route path='/my-routes' component={MyRoutesPage} /> */}
         <Route path='/route' component={PreviewRoutePage} />
         <Route path='/home' component={HomePage} />
         <Route path='/routes' component={TabPage} />
