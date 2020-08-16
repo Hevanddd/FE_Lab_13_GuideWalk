@@ -1,0 +1,17 @@
+.map-directions {
+  position: relative;
+  height: 55vh;
+  margin: 30px 0;
+}
+
+.current-route {
+  &__wrapper {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  &__button {
+    margin-bottom: 80px;
+    display: flex;
+    justify-content: space-between;
+  }
+}

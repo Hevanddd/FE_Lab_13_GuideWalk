@@ -9,3 +9,4 @@ export { MapAddEditPoint } from './map-add-edit-point';
 export { CurrentRouteInfoBlock } from './current-route-info-block';
 export { RouteItemComponent } from './route-item-component';
 export { LoginComponent } from './login-component';
+export { AlertDialog } from './alert-dialog-component';
