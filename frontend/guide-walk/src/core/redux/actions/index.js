@@ -14,6 +14,12 @@ export {
   getToggleRatingRouteInMyRoutesPageStart,
   getToggleRatingRouteInSavedRoutesPageStart,
   getToggleRatingRouteInTopRoutesPageStart,
+  getToggleSavedRouteInMyRoutesPageSuccess,
+  getToggleSavedRouteInSavedRoutesPageSuccess,
+  getToggleSavedRouteInTopRoutesPageSuccess,
+  getToggleRatingRouteInMyRoutesPageSuccess,
+  getToggleRatingRouteInSavedRoutesPageSuccess,
+  getToggleRatingRouteInTopRoutesPageSuccess,
 } from './user-actions';
 export { refreshUserDataAuth } from './resources-provider-actions';
 export {
@@ -33,9 +39,10 @@ export {
   getNextPointStart,
   getNextPointFail,
   getNextPointSuccess,
+  setCurrentRouteMarkersPositions,
 } from './current-route-actions';
 export { getCoordinatesFail, getCoordinatesStart, getCoordinatesSuccess } from './get-coordinates-actions';
-export { toggleSavedRouteFail, toggleSavedRouteStart } from './add-remove-saved-route-actions';
+export { toggleSavedRouteFail, toggleSavedRouteStart, toggleSavedRouteSuccess } from './add-remove-saved-route-actions';
 export { getAllRouteDataFail, getAllRouteDataStart, getAllRouteDataSuccess } from './all-route-data-actions';
 export { loadingStart, loadingStop } from './common-actions';
 export { toggleRatingFail, toggleRatingStart } from './toggle-rating-actions';

@@ -3,15 +3,15 @@ import { httpRequest } from '../../services';
 import {
   toggleRatingFail,
   getToggleRatingRouteInMyRoutesPageStart,
-  getUserRoutesDataStart,
+  getToggleRatingRouteInMyRoutesPageSuccess,
 } from '../redux/actions';
 import { handleErrorInSagas } from '../../services/helpers/handle-error-in-sagas';
 
 function* callToggleRatingRouteInMyRoutesPage({ payload }) {
-  const { userId } = payload;
+  const { routeId } = payload;
   try {
-    yield call(httpRequest, `/api/route/rate`, 'POST', payload);
-    yield put(getUserRoutesDataStart(userId));
+    const data = yield call(httpRequest, `/api/route/rate`, 'POST', payload);
+    yield put(getToggleRatingRouteInMyRoutesPageSuccess({ routeId, data }));
   } catch (e) {
     yield call(handleErrorInSagas, toggleRatingFail);
   }

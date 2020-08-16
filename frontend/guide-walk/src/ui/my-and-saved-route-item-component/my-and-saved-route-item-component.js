@@ -12,14 +12,13 @@ const MyAndSavedRouteItem = ({
   history,
   location,
   userSavedRoadsIdList,
-  userName,
   getToggleSavedRouteInSavedRoutesPageStart,
   getToggleSavedRouteInMyRoutesPageStart,
   getToggleRatingRouteInSavedRoutesPageStart,
   getToggleRatingRouteInMyRoutesPageStart,
 }) => {
   const isSavedRoutePage = location.pathname === '/saved-routes';
-  const isMyRoutesPage = location.pathname === '/my-routes';
+  const isMyRoutesPage = location.pathname === '/';
   const isSaved = userSavedRoadsIdList && routeId && userSavedRoadsIdList.includes(routeId);
   const isLiked = userRateIds && userId && userRateIds.includes(userId);
   const toggleData = { routeId, userId };
@@ -31,13 +30,16 @@ const MyAndSavedRouteItem = ({
 
   const handleSavedButton = () => {
     isSavedRoutePage && getToggleSavedRouteInSavedRoutesPageStart(toggleData);
-    isMyRoutesPage && getToggleSavedRouteInMyRoutesPageStart({ routeId, userId, userName });
+    isMyRoutesPage && getToggleSavedRouteInMyRoutesPageStart(toggleData);
   };
 
   const handleArrowButton = () => {
     const url = routeId && `/route?${routeId}`;
     history.push(url);
   };
+
+  const urlImgSave = isSaved ? require('../../img/bookmark-saved.svg') : require('../../img/bookmark.svg');
+  const urlImgLike = isLiked ? require('../../img/black-like.svg') : require('../../img/like.svg');
 
   return (
     <div className={classNames('route-item__wrapper')}>
@@ -48,37 +50,11 @@ const MyAndSavedRouteItem = ({
           <div className={classNames('route-item__info__like-button__wrapper')}>
             <p>{counter}</p>
             <button className={classNames('route-item__info__like-button')} onClick={handleLikeButtonClick}>
-              {!isLiked && (
-                <img
-                  className={classNames('route-item__info__like-button__img')}
-                  src={require('../../img/like.svg')}
-                  alt='like'
-                />
-              )}
-              {isLiked && (
-                <img
-                  className={classNames('route-item__info__like-button__img')}
-                  src={require('../../img/black-like.svg')}
-                  alt='like'
-                />
-              )}
+              <img className={classNames('route-item__info__like-button__img')} src={urlImgLike} alt='like' />
             </button>
           </div>
           <button className={classNames('route-item__info__saved-button')} onClick={handleSavedButton}>
-            {isSaved && (
-              <img
-                className={classNames('route-item__info__saved-button__img')}
-                src={require('../../img/bookmark-saved.svg')}
-                alt='save'
-              />
-            )}
-            {!isSaved && (
-              <img
-                className={classNames('route-item__info__saved-button__img')}
-                src={require('../../img/bookmark.svg')}
-                alt='save'
-              />
-            )}
+            <img className={classNames('route-item__info__saved-button__img')} src={urlImgSave} alt='save' />
           </button>
           <button className={classNames('route-item__info__arrow-button')} onClick={handleArrowButton}>
             <img

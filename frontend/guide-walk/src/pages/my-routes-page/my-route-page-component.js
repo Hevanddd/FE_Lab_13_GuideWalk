@@ -13,10 +13,10 @@ export const MyRoutesPageComponent = ({
   getToggleRatingRouteInMyRoutesPageStart,
 }) => {
   const userId = userInfoDate && userInfoDate.id;
-  const userName = userAuthData && userAuthData.userName;
 
   useEffect(() => {
     userId && getUserRoutesDataStart(userId);
+    //eslint-disable-next-line
   }, [userId]);
 
   return (
@@ -32,7 +32,6 @@ export const MyRoutesPageComponent = ({
               userId={userId && userId}
               userRateIds={userRateIds}
               userSavedRoadsIdList={userSavedRoadsIdList}
-              userName={userName}
               getToggleSavedRouteInMyRoutesPageStart={getToggleSavedRouteInMyRoutesPageStart}
               getToggleRatingRouteInMyRoutesPageStart={getToggleRatingRouteInMyRoutesPageStart}
               key={_id}
@@ -43,3 +42,5 @@ export const MyRoutesPageComponent = ({
     </div>
   );
 };
+
+

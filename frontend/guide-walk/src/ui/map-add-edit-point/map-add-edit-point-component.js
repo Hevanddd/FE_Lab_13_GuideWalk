@@ -46,7 +46,7 @@ const MapAddEditPointComponent = ({
   };
 
   return (
-    <div>
+    <>
       <ReactMapGL
         width={width}
         height={height}
@@ -59,7 +59,7 @@ const MapAddEditPointComponent = ({
           <div styleName='map-marker'></div>
         </Marker>
       </ReactMapGL>
-    </div>
+    </>
   );
 };
 

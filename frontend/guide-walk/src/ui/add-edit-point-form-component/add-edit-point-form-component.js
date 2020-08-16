@@ -60,6 +60,7 @@ const AddEditPointFormComponent = ({ savePoint, editedPoint, names }) => {
         name='name' 
         label='Point Name'
         placeholder={'Enter title'}
+        styleName='form__input'
         variant='outlined'
         InputLabelProps={{ shrink: true }}
       />
@@ -80,6 +81,7 @@ const AddEditPointFormComponent = ({ savePoint, editedPoint, names }) => {
         multiline
         rows={4}
         placeholder='Enter description'
+        styleName='form__input'
         variant='outlined'
         InputLabelProps={{ shrink: true }}
         rules={{ required: true }}

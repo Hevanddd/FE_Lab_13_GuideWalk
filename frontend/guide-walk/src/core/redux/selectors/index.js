@@ -10,6 +10,7 @@ export {
   allRoutesSelector,
   currentRouteSelector,
   currentPointDataSelector,
+  currentRouteMarkersPositionsSelector,
 } from './routes-selectors';
 export { routeDataSelector } from './all-route-data-selectors';
 export { isLoadingSelector } from './common-selectors';

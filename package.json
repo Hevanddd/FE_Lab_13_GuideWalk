@@ -6,13 +6,17 @@
   "scripts": {
     "start": "node index.js",
     "server": "nodemon index.js --open",
-    "client": "npm run start --prefix ../frontend/guide-walk",
+    "client": "npm run start --prefix frontend/guide-walk",
+    "build": "npm run build --prefix frontend/guide-walk",
+    "install-client": "cd frontend/guide-walk && npm i",
+    "heroku-postbuild": "npm run install-client && npm run build",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "config": "^3.3.1",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "mongoose": "^5.9.25"
   },
@@ -20,5 +24,8 @@
     "concurrently": "^5.2.0",
     "cross-env": "^7.0.2",
     "nodemon": "^2.0.4"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }
