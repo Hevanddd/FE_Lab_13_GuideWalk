@@ -68,6 +68,7 @@ export const MapDirectionsComponent = ({ markerPositions, zoom, setGeolocationPo
       directions.setWaypoint(1, finishMarkerPositions);
       directions.setDestination(finishMarkerPositions);
     });
+    return () => map.remove();
     //eslint-disable-next-line
   }, [markerPositions, isFirstPointWithGeolocation]);
 

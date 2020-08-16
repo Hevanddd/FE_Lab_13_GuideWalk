@@ -39,6 +39,7 @@ export {
   getNextPointStart,
   getNextPointFail,
   getNextPointSuccess,
+  setCurrentRouteMarkersPositions,
 } from './current-route-actions';
 export { getCoordinatesFail, getCoordinatesStart, getCoordinatesSuccess } from './get-coordinates-actions';
 export { toggleSavedRouteFail, toggleSavedRouteStart, toggleSavedRouteSuccess } from './add-remove-saved-route-actions';

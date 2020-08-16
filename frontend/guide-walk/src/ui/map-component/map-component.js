@@ -11,13 +11,13 @@ export const MapComponent = ({ width, height, zoom }) => {
     longitude,
     zoom,
   });
-  const [markers, setMatkers] = useState([]);
+  const [markers, setMarkers] = useState([]);
   const [selectedMarker, setSelectedMarker] = useState(null);
 
   const handleOnClick = (e) => {
     const coordinates = e.lngLat;
 
-    setMatkers((prevState) => {
+    setMarkers((prevState) => {
       const validateCoordinates = prevState.find(([lng, lat]) => {
         return lng === coordinates.lng && lat === coordinates.lat;
       });
@@ -35,7 +35,7 @@ export const MapComponent = ({ width, height, zoom }) => {
   };
 
   const handleDeleteMarker = (e, index) => {
-    setMatkers((prevState) => {
+    setMarkers((prevState) => {
       const copiedState = [...prevState];
       copiedState.splice(index, 1);
       return copiedState;

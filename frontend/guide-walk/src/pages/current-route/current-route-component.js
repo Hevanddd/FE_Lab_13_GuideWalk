@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { MapDirectionsComponent, CurrentRouteInfoBlock } from '../../ui';
+import classNames from 'classnames';
+import Button from '@material-ui/core/Button';
+import { MapDirectionsComponent, CurrentRouteInfoBlock, AlertDialog } from '../../ui';
+import './current-route.scss';
 
 export const CurrentRouteComponent = ({
   currentRoute,
@@ -7,9 +10,17 @@ export const CurrentRouteComponent = ({
   getNextPointStart,
   setCurrentRoute,
   setCurrentPoint,
+  setCurrentRouteMarkersPositions,
 }) => {
   const [markersPositions, setMarkersPositions] = useState();
   const [geolocationPosition, setGeolocationPosition] = useState();
+  const finishRoute = () => {
+    localStorage.clear();
+    setCurrentRoute(null);
+    setCurrentPoint(null);
+    setMarkersPositions(null);
+  };
+  console.log(markersPositions);
 
   //we need localStorage to get current data after page reloading or closing
   useEffect(() => {
@@ -58,6 +69,14 @@ export const CurrentRouteComponent = ({
         });
       }
     }
+    return () => {
+      if (markersPositions && !markersPositions.startMarkerPositions && geolocationPosition) {
+        setMarkersPositions((prevState) => ({
+          ...prevState,
+          startMarkerPositions: [geolocationPosition[0], geolocationPosition[1]],
+        }));
+      }
+    };
     //eslint-disable-next-line
   }, [currentPointData]);
 
@@ -67,33 +86,43 @@ export const CurrentRouteComponent = ({
     }
     //TODO: Make window to show after route finished
     else {
-      alert('You have succesfully finished this route');
-      localStorage.clear();
-      setCurrentRoute(null);
-      setCurrentPoint(null);
-      setMarkersPositions(null);
+      alert('You have successfully finished this route');
+      finishRoute();
     }
   };
-
   const handleCheckoutOnClick = () => {
     const { finishMarkerPositions } = markersPositions;
-    console.log(finishMarkerPositions, geolocationPosition);
+    const finishLng = finishMarkerPositions[0].toFixed(3);
+    const finishLat = finishMarkerPositions[1].toFixed(3);
+    const geolocationLng = geolocationPosition && geolocationPosition[0].toFixed(3);
+    const geolocationLat = geolocationPosition && geolocationPosition[1].toFixed(3);
+
+    if (geolocationLng === finishLng && geolocationLat === finishLat) handleNextRoute();
   };
 
+  const handleCancelOnClick = () => finishRoute();
   return (
     <div>
       {!currentRoute && <h1>Choose any route first</h1>}
       {markersPositions && (
         <div>
-          <div style={{ position: 'relative', height: '50vh', margin: '30px' }}>
+          <div className={classNames('map-directions')}>
             <MapDirectionsComponent
               markerPositions={markersPositions}
               setGeolocationPositionToProps={setGeolocationPosition}
               zoom={15}
             />
           </div>
-          <button onClick={handleCheckoutOnClick}>Checkout</button>
-          <CurrentRouteInfoBlock currentPointData={currentPointData} handleNextRoute={handleNextRoute} />
+          <div className={classNames('current-route__wrapper')}>
+            <CurrentRouteInfoBlock currentPointData={currentPointData} handleNextRoute={handleNextRoute} />
+            <p>To check, you need to enable geolocation</p>
+            <div className={classNames('current-route__button')}>
+              <Button onClick={handleCheckoutOnClick} color='primary' variant='contained'>
+                Checkout
+              </Button>
+              <AlertDialog handleCancelOnClick={handleCancelOnClick} />
+            </div>
+          </div>
         </div>
       )}
     </div>
