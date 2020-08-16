@@ -15,7 +15,7 @@ export const MapDirectionsComponent = ({ markerPositions, zoom, setGeolocationPo
 
   useEffect(() => {
     geolocationPosition && setGeolocationPositionToProps(geolocationPosition);
-  }, [geolocationPosition]);
+  }, [geolocationPosition, setGeolocationPositionToProps]);
 
   useEffect(() => {
     const map = new mapboxgl.Map({
