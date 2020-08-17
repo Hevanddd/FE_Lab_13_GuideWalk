@@ -1,41 +1,38 @@
-.form{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-    &__img{
-        display: flex;
+  &__img {
+    display: flex;
         justify-content: center;
         img{
             width: 80px;
             border-radius: 50%;
             margin-bottom: 10px;
-        }
-        .form__img__large{
-            width: 100px;
-            height: 100px;
-        }
+}
+    .form__img__large {
+      width: 100px;
+      height: 100px;
     }
+  }
 }
 
-.form > div{
-    width: 80%;
-    margin-top: 20px;
+.form > div {
+  width: 80%;
+  margin-top: 20px;
 }
 
 button.logout__btn {
-    width: 80%;
-    margin-top: 20px;
-    background-color: #457B9D;
-    width: 50%;
-    margin-top: 20px;
-    margin-bottom: 70px;
+  width: 80%;
+  margin-top: 20px;
+  background-color: #457b9d;
+  width: 50%;
+  margin-top: 20px;
+  margin-bottom: 70px;
 }
 
 input {
-    text-align: center;
+  text-align: center;
 }
-
-
-

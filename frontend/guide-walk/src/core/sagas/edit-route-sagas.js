@@ -1,13 +1,7 @@
 import { takeEvery, put, call } from 'redux-saga/effects';
 import { httpRequest } from '../../services';
 import { toast } from 'react-toastify';
-import {
-  editRouteStart,
-  editRouteFail,
-  editRouteSuccess,
-  loadingStop,
-  loadingStart,
-} from '../redux/actions';
+import { editRouteStart, editRouteFail, editRouteSuccess, loadingStop, loadingStart } from '../redux/actions';
 import { handleErrorInSagas } from '../../services/helpers/handle-error-in-sagas';
 
 function* callEditRoute({ payload }) {
