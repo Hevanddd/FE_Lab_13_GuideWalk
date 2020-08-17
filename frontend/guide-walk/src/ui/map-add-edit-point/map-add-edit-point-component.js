@@ -37,11 +37,13 @@ const MapAddEditPointComponent = ({ width, height, zoom, coordinatesMarker, setC
     setCoordinatesMarker(newCoordinates);
   };
 
-  // const handleOnClick = (e) => {
-  //   const coordinates = e.lngLat;
-  //   setPosition(coordinates);
-  //   setCoordinatesMarker(coordinates);
-  // };
+  const handleOnClick = (e) => {
+    const coordinates = e.lngLat;
+    const markerCoord = { longitude: coordinates[0], latitude: coordinates[1] };
+
+    setPosition(markerCoord);
+    setCoordinatesMarker(markerCoord);
+  };
 
   return (
     <>
@@ -50,11 +52,13 @@ const MapAddEditPointComponent = ({ width, height, zoom, coordinatesMarker, setC
         height={height}
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
         onViewportChange={setViewport}
-        // onClick={(e) => handleOnClick(e)}
+        onClick={(e) => handleOnClick(e)}
         mapStyle='mapbox://styles/mapbox/streets-v11'
         {...viewport}
       >
-        <Marker longitude={position.longitude} latitude={position.latitude} onDragEnd={onDragEnd} draggable></Marker>
+        <Marker longitude={position.longitude} latitude={position.latitude} onDragEnd={onDragEnd} draggable>
+          <div styleName='map-marker' />
+        </Marker>
       </ReactMapGL>
     </>
   );
