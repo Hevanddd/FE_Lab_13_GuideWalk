@@ -14,12 +14,14 @@ import {
   removeRouteFail,
   removeRouteStart,
   getToggleRatingRouteInTopRoutesPageSuccess,
+  setCurrentRouteMarkersPositions,
 } from '../actions';
 import { filterRatingRoutes } from '../../../services/helpers';
 
 const initialState = {
   addedRouteInfo: null,
   allRoutes: null,
+  currentRouteMarkersPositions: null,
 };
 
 const reducerMap = {
@@ -115,6 +117,13 @@ const reducerMap = {
     return {
       ...state,
       allRoutes: allRoutesData && filterRatingRoutes(allRoutesData, { routeId, ...data }),
+    };
+  },
+
+  [setCurrentRouteMarkersPositions]: (state, { payload }) => {
+    return {
+      ...state,
+      currentRouteMarkersPositions: payload,
     };
   },
 };

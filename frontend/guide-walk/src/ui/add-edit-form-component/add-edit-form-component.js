@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
@@ -13,6 +14,7 @@ import styles from './add-edit-form.module.scss';
 const routeFocuses = ['Fun', 'SightSeeing', 'Quest'];
 
 const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataStart, editedRoute, editRouteStart }) => {
+  const history = useHistory();
   const [route, setRoute] = useState(false);
 
   const { register, handleSubmit, control, errors, setValue } = useForm();
@@ -50,8 +52,11 @@ useEffect(() => {
       data.ownerName = userDataAuth && userDataAuth.userName;
       data.id = route && route.route._id;
       const result = {
-        pointArray: points,
-        routeInfo: data,
+        route: {
+          pointArray: points,
+          routeInfo: data,
+        },
+        history
       };
       if(editedRoute){
         editRouteStart(result);

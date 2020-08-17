@@ -8,7 +8,7 @@ export const LoaderComponent = ({ isLoading }) => {
     top: 0;
     right: 0;
     left: 0;
-    bottom: 57px;
+    bottom: 48px;
     background-color: #fff;
     z-index: 100;
     align-items: center;
