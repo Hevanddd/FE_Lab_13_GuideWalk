@@ -6,7 +6,6 @@ import { handleErrorInSagas } from '../../services/helpers/handle-error-in-sagas
 
 function* callEditRoute({ payload }) {
   try {
-    console.log(payload);
     yield put(loadingStart());
     const data = yield call(httpRequest, `/api/route/edit`, 'POST', payload.route);
     yield put(editRouteSuccess(data));
