@@ -10,8 +10,9 @@ import styles from './preview.module.scss';
 const PreviewRouteComponent = ({ getAllRouteDataStart, routeData, setCurrentRoute, currentRoute, userInfoDate, removeRouteStart }) => {
   const history = useHistory();
   const routeId = history.location.search.replace(/\?/, '');
-  
+
   const [isUserOwner, setIsUserOwner] = useState(false);
+  const [isStartedRoute, setIsStartedRoute] = useState(false);
   const [route, setRoute] = useState(false);
 
   useEffect(() => {
@@ -20,12 +21,12 @@ const PreviewRouteComponent = ({ getAllRouteDataStart, routeData, setCurrentRout
   
   useEffect(() => {
     routeData && setRoute(routeData);
-    userInfoDate && userInfoDate.user_routes.includes(routeId) && setIsUserOwner(true);
-  }, [routeData, routeId, userInfoDate]);
+    userInfoDate && routeId && userInfoDate.user_routes.includes(routeId) && setIsUserOwner(true);
+    currentRoute && currentRoute === routeId && setIsStartedRoute(true);
+  }, [routeData, routeId, userInfoDate, currentRoute]);
 
   const deleteRoute = () => {
-    removeRouteStart({userId: userInfoDate.id , routeId});
-    history.push('/');
+    removeRouteStart({result: {userId: userInfoDate.id , routeId}, history});
   };
 
   const startRoute = () => {
@@ -62,7 +63,7 @@ const PreviewRouteComponent = ({ getAllRouteDataStart, routeData, setCurrentRout
                   type='button'
                   color='primary'
                   variant='contained'
-                  disabled={!!currentRoute}
+                  disabled={!!isStartedRoute}
                   onClick={editRoute}
                 >
                   Edit
@@ -84,7 +85,7 @@ const PreviewRouteComponent = ({ getAllRouteDataStart, routeData, setCurrentRout
                   type='button'
                   color='primary'
                   variant='contained'
-                  disabled={!!currentRoute}
+                  disabled={!!isStartedRoute}
                   onClick={deleteRoute}
                 >
                   Delete
