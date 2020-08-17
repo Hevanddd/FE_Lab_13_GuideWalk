@@ -64,9 +64,8 @@ export const FullWidthTabs = () => {
   return (
     <div className='root'>
       <ThemeProvider theme={theme} >
-      <AppBar position="relative" 
-              style={{background: 'white', minHeight:'50px', boxShadow: 'none', width: '50%', margin: '0 auto'}}>
         <Tabs
+          style={{ width: '50%', margin: '0 auto'}}
           value={value}
           onChange={handleChange}
           indicatorColor="primary"
@@ -77,7 +76,6 @@ export const FullWidthTabs = () => {
           <Tab label="Top Routes" {...a11yProps(0)} />
           <Tab label="My Routes" {...a11yProps(1)} />
         </Tabs>
-      </AppBar>
       </ThemeProvider>
       <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
@@ -94,3 +92,4 @@ export const FullWidthTabs = () => {
     </div>
   );
 }
+
