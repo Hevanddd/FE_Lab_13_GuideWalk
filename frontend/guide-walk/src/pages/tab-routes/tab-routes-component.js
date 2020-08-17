@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
-import {  useTheme } from '@material-ui/core/styles';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import { TopRoutesPage } from '../top-routes';
 import { MyRoutesPage } from '../my-routes-page';
-
-import './tab-routes-component.scss'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -45,7 +43,6 @@ function a11yProps(index) {
 }
 
 export const FullWidthTabs = () => {
-  const theme = useTheme();
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -54,11 +51,21 @@ export const FullWidthTabs = () => {
 
   const handleChangeIndex = (index) => {
     setValue(index);
-  };
+  }; 
+
+  const theme = createMuiTheme({
+    palette: {
+      primary: {
+        main: '#457b9d'
+      }
+    }
+  })
 
   return (
     <div className='root'>
-      <AppBar position="relative" color="default" style={{ background: 'white' , minHeight:'50px', boxShadow: 'none', }}>
+      <ThemeProvider theme={theme} >
+      <AppBar position="relative" 
+              style={{background: 'white', minHeight:'50px', boxShadow: 'none', width: '50%', margin: '0 auto'}}>
         <Tabs
           value={value}
           onChange={handleChange}
@@ -71,6 +78,7 @@ export const FullWidthTabs = () => {
           <Tab label="My Routes" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
+      </ThemeProvider>
       <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={value}
