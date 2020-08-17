@@ -7,26 +7,23 @@ import { MapDrawComponent } from '../../ui/map-draw';
 
 import styles from './preview.module.scss';
 
-const PreviewRouteComponent = ({ getAllRouteDataStart, routeData, setCurrentRoute, currentRoute, userInfoDate, removeRouteStart }) => {
+const PreviewRouteComponent = ({
+  getAllRouteDataStart,
+  routeData,
+  setCurrentRoute,
+  currentRoute,
+  userInfoDate,
+  removeRouteStart,
+  userAuthData,
+}) => {
   const history = useHistory();
   const routeId = history.location.search.replace(/\?/, '');
-
   const [isUserOwner, setIsUserOwner] = useState(false);
   const [isStartedRoute, setIsStartedRoute] = useState(false);
   const [route, setRoute] = useState(false);
 
-  useEffect(() => {
-    getAllRouteDataStart(routeId);
-  }, [getAllRouteDataStart, routeId]);
-  
-  useEffect(() => {
-    routeData && setRoute(routeData);
-    userInfoDate && routeId && userInfoDate.user_routes.includes(routeId) && setIsUserOwner(true);
-    currentRoute && currentRoute === routeId && setIsStartedRoute(true);
-  }, [routeData, routeId, userInfoDate, currentRoute]);
-
   const deleteRoute = () => {
-    removeRouteStart({result: {userId: userInfoDate.id , routeId}, history});
+    removeRouteStart({ result: { userId: userInfoDate.id, routeId }, history });
   };
 
   const startRoute = () => {
@@ -40,12 +37,27 @@ const PreviewRouteComponent = ({ getAllRouteDataStart, routeData, setCurrentRout
   };
 
   const { name, description, rating, creation_date, ownerName } = route && route.route;
+  const userName = userAuthData && userAuthData.userName;
   const date = formatDate(creation_date);
   const { points } = route;
   const firstPoint = points && points[0].location;
   const lastPoint = points && points[points.length - 1].location;
 
+  const validationIsUserIsOwner = () => {
+    userName && ownerName && userName === ownerName && setIsUserOwner(true);
+  };
+
   const errorMessage = <p styleName='preview__error'>Firstly, you should finish your started route.</p>;
+
+  useEffect(() => {
+    getAllRouteDataStart(routeId);
+  }, [getAllRouteDataStart, routeId]);
+
+  useEffect(() => {
+    routeData && setRoute(routeData);
+    validationIsUserIsOwner();
+    currentRoute && currentRoute === routeId && setIsStartedRoute(true);
+  }, [routeData, routeId, userInfoDate, currentRoute]);
 
   return (
     <>
@@ -107,7 +119,9 @@ const PreviewRouteComponent = ({ getAllRouteDataStart, routeData, setCurrentRout
               </div>
             </div>
           </div>
-          <MapDrawComponent styleName='map' firstPoint={firstPoint} lastPoint={lastPoint} />
+          <div styleName='preview__map'>
+            <MapDrawComponent styleName='map' firstPoint={firstPoint} lastPoint={lastPoint} />
+          </div>
         </>
       )}
     </>

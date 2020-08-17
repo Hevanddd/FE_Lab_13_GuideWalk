@@ -1,68 +1,72 @@
-.preview{
+.preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 37vh;
+  p {
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+  }
+  &__name {
+    font-weight: bold;
+  }
+  &__description {
+    width: 80%;
+    flex-grow: 1;
+  }
+
+  &__buttons {
+    width: 70%;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    height: 37vh;
-    p{
-        margin-block-start: 0.5em;
-        margin-block-end: 0.5em;
+    justify-content: space-between;
+    justify-content: center;
+    button {
+      width: 30%;
+      margin: 0 10px;
     }
-    &__name{
-        font-weight: bold;
-    }
-    &__description{
-        width: 80%;
-        flex-grow: 1;
-    }
+  }
 
-    &__buttons{
-        width: 70%;
-        display: flex;
-        justify-content: space-between;
-        justify-content: center;
-        button{
-            width: 30%;
-            margin: 0 10px;
-        }
+  &__wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 90%;
+    margin-bottom: 10px;
+    div p {
+      color: #457b9d;
     }
+  }
 
-    &__wrapper{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        width: 90%;
-        margin-bottom: 10px;
-        div p{
-            color: #457B9D;
-        }
-    }
+  &__rating {
+    position: relative;
+  }
 
-    &__rating{
-        position: relative;
-    }
+  &__rating::after {
+    position: absolute;
+    content: '';
+    top: -10px;
+    left: 140%;
+    background: no-repeat url('../../img/like.svg');
+    background-size: 30px;
+    width: 30px;
+    height: 30px;
+  }
 
-    &__rating::after{
-        position: absolute;
-        content: '';
-        top: -10px;
-        left: 140%;
-        background: no-repeat url("../../img/like.svg");
-        background-size: 30px;
-        width: 30px;
-        height: 30px;
-    }
+  button.preview__btn {
+    background-color: #457b9d;
+  }
 
-    button.preview__btn{
-        background-color: #457B9D;
-    }
+  &__error {
+    font-size: 15px;
+    color: red;
+  }
 
-    &__error{
-        font-size: 15px;
-        color: red;
-    }
+  &__map {
+    margin-bottom: 50px;
+  }
 }
 
-.map{
-    flex-grow: 1;
+.map {
+  flex-grow: 1;
 }
