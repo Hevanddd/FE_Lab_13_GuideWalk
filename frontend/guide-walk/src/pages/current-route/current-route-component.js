@@ -31,6 +31,7 @@ export const CurrentRouteComponent = ({
     setCurrentPoint(null);
     setCurrentRouteMarkersPositions(null);
   };
+  const checkoutButtonName = currentPointData && currentPointData.pointsLeft ? 'Checkout' : 'Finish';
 
   //we need localStorage to get current data after page reloading or closing
   useEffect(() => {
@@ -136,10 +137,17 @@ export const CurrentRouteComponent = ({
           </div>
           <div className={classNames('current-route__wrapper')}>
             <CurrentRouteInfoBlock currentPointData={currentPointData} handleNextRoute={handleNextRoute} />
-            <p>To check, you need to enable geolocation</p>
+            <p
+              className={classNames({
+                'current-route__hint--error': isDisabled,
+                'current-route__hint': !isDisabled,
+              })}
+            >
+              To checkout, you need to enable geolocation
+            </p>
             <div className={classNames('current-route__button')}>
               <Button onClick={handleCheckoutOnClick} color='primary' variant='contained' disabled={isDisabled}>
-                Checkout
+                {checkoutButtonName}
               </Button>
               <AlertDialog handleCancelOnClick={handleCancelOnClick} />
             </div>
