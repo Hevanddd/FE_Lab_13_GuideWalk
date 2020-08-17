@@ -29,6 +29,7 @@ const TopRoutes = ({
     })
     getNextRoutesStart(nextPage);
   }
+
   return (
     <div className='top-routes__wrapper'>
       {allRoutes &&
@@ -37,20 +38,20 @@ const TopRoutes = ({
           
           return (
             <TopRoutesItemComponent
-            name={name}
-            rating={rating}
-            routeId={_id}
-            key={_id}
-            userId={userId}
-            userSavedRoadsIdList={userSavedRoadsIdList}
-            userRateIds={userRateIds}
-            getToggleSavedRouteInTopRoutesPageStart={getToggleSavedRouteInTopRoutesPageStart}
-            getToggleRatingRouteInTopRoutesPageStart={getToggleRatingRouteInTopRoutesPageStart}
+              name={name}
+              rating={rating}
+              routeId={_id}
+              key={_id}
+              userId={userId}
+              userSavedRoadsIdList={userSavedRoadsIdList}
+              userRateIds={userRateIds}
+              getToggleSavedRouteInTopRoutesPageStart={getToggleSavedRouteInTopRoutesPageStart}
+              getToggleRatingRouteInTopRoutesPageStart={getToggleRatingRouteInTopRoutesPageStart}
             />
             );
           })
       }
-      {allRoutes && 
+      { allRoutes && allRoutes.length % 10 === 0 &&
         <Waypoint
           scrollableAncestor={window}
           bottomOffset = '-200px'
