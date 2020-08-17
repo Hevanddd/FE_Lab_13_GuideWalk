@@ -24,7 +24,7 @@ export const AlertDialog = ({ handleCancelOnClick }) => {
 
   return (
     <div>
-      <Button variant='contained' color='default' onClick={handleClickOpen}>
+      <Button variant='contained' color='secondary' onClick={handleClickOpen}>
         Cancel Route
       </Button>
       <Dialog
@@ -43,7 +43,7 @@ export const AlertDialog = ({ handleCancelOnClick }) => {
           <Button onClick={handleClose} color='primary'>
             Disagree
           </Button>
-          <Button onClick={handleAgreeButton} color='primary' autoFocus>
+          <Button onClick={handleAgreeButton} color='secondary' autoFocus>
             Agree
           </Button>
         </DialogActions>

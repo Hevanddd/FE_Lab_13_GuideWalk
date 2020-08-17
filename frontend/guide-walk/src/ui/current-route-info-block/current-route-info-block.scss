@@ -1,6 +1,21 @@
 .info-block {
-  margin-top: 10px;
   text-align: left;
+
+  &__name {
+    text-align: center;
+    font-weight: 500;
+    margin: 0;
+  }
+  &__description {
+    margin: 5px 0;
+
+    &__text {
+      margin: 10px 0;
+    }
+  }
+  &__points-left {
+    margin: 5px 0;
+  }
 }
 
 #app {
