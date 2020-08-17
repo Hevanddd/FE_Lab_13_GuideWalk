@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
 import Button from '@material-ui/core/Button';
-import { MapDirectionsComponent, CurrentRouteInfoBlock, AlertDialog } from '../../ui';
+import { MapDirectionsComponent, CurrentRouteInfoBlock, AlertDialog, ModalComponent } from '../../ui';
 import './current-route.scss';
 
 export const CurrentRouteComponent = ({
@@ -15,6 +15,7 @@ export const CurrentRouteComponent = ({
 }) => {
   const [geolocationPosition, setGeolocationPosition] = useState();
   const [isDisabled, setIsDisable] = useState(true);
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const validationCheckout = () => {
     const finishMarkerPositions = currentRouteMarkersPositions && currentRouteMarkersPositions.finishMarkerPositions;
@@ -104,7 +105,7 @@ export const CurrentRouteComponent = ({
     }
     //TODO: Make window to show after route finished
     else {
-      alert('You have successfully finished this route');
+      setIsOpenModal(true);
       finishRoute();
     }
   };
@@ -118,14 +119,16 @@ export const CurrentRouteComponent = ({
         ],
       });
       setIsDisable(true);
+
       handleNextRoute();
     }
   };
-
+  const setIsOpenModalClose = () => setIsOpenModal(false);
   const handleCancelOnClick = () => finishRoute();
+
   return (
     <div>
-      {!currentRoute && <h1>Choose any route first</h1>}
+      {!currentRoute && <h2 className={classNames('current-route--no-route')}>Choose any route first</h2>}
       {currentRouteMarkersPositions && (
         <div>
           <div className={classNames('map-directions')}>
@@ -154,6 +157,7 @@ export const CurrentRouteComponent = ({
           </div>
         </div>
       )}
+      {isOpenModal && <ModalComponent isOpenModal={isOpenModal} setIsOpenModalClose={setIsOpenModalClose} />}
     </div>
   );
 };
