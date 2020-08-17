@@ -37,7 +37,7 @@ const TopRoutes = ({
               getToggleRatingRouteInTopRoutesPageStart={getToggleRatingRouteInTopRoutesPageStart}
             />
           );
-        })}
+         })}
     </div>
   );
 };

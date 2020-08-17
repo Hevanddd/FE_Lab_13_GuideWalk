@@ -58,7 +58,7 @@ export const FullWidthTabs = () => {
 
   return (
     <div className='root'>
-      <AppBar position="static" color="default" className="header">
+      <AppBar position="relative" color="default" style={{ background: 'white' , minHeight:'50px', boxShadow: 'none', }}>
         <Tabs
           value={value}
           onChange={handleChange}
