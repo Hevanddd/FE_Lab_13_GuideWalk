@@ -21,6 +21,7 @@ const useStyles = makeStyles({
     position: 'fixed',
     bottom: 0,
     width: '100%',
+    height: '47px',
     borderTop: '1px solid rgba(0, 0, 0, 0.54)',
   },
 });
