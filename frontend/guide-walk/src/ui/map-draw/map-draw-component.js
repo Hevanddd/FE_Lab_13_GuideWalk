@@ -6,16 +6,19 @@ import './map-draw.scss';
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_KEY;
 
-export const MapDrawComponent = ({firstPoint, lastPoint}) => {
+export const MapDrawComponent = ({ firstPoint, lastPoint, zoom }) => {
+  const longitude = firstPoint && firstPoint.longitude;
+  const latitude = firstPoint && firstPoint.latitude;
   const mapWrapper = useRef();
+
   useEffect(() => {
     const centerRadius = calculateCenterCircleWithTwoPoints(firstPoint, lastPoint);
     const radiusInKm = getRadiusFromLatLngInKm(firstPoint, lastPoint);
     const map = new mapboxgl.Map({
       container: mapWrapper.current,
       style: 'mapbox://styles/mapbox/streets-v11',
-      center: [24.031111, 49.842957],
-      zoom: 12,
+      center: [longitude, latitude],
+      zoom,
     });
 
     map.on('load', function () {

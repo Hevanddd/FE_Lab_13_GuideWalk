@@ -121,7 +121,7 @@ const PreviewRouteComponent = ({
             </div>
           </div>
           <div styleName='preview__map'>
-            <MapDrawComponent styleName='map' firstPoint={firstPoint} lastPoint={lastPoint} />
+            <MapDrawComponent styleName='map' firstPoint={firstPoint} lastPoint={lastPoint} zoom={13} />
           </div>
         </>
       )}

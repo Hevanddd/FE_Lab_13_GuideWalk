@@ -42,6 +42,9 @@
       font-size: 22px;
       font-weight: 500;
       margin: 5px 0 0 8px;
+      overflow: hidden;
+      width: 75%;
+      text-align: center;
 
       @media screen and (max-width: 768px) {
         margin-bottom: 2px;
