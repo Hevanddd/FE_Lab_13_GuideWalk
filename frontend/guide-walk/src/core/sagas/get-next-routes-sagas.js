@@ -7,7 +7,7 @@ function* callNextRoutesData({payload}) {
   try {
     const size = 10;
     yield put(loadingStart());
-    const data = yield call(httpRequest, `/api/route/?page=${payload.page}&size=${size}`, 'GET');
+    const data = yield call(httpRequest, `/api/route/?page=${payload}&size=${size}`, 'GET');
     yield put(getNextRoutesSuccess(data));
   } catch (e) {
     yield call(handleErrorInSagas, getNextRoutesFail);

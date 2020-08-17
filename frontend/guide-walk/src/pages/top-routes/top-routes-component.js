@@ -21,10 +21,13 @@ const TopRoutes = ({
   }, []);
   
   const [page, setPage] = useState(0);
-
   const handleOnEnter = () => {
-    setPage(page + 1);
-    getNextRoutesStart({page: page + 1});
+    const nextPage = page + 1;
+    setPage((prevState) => {
+      const currentPage = prevState + 1;
+      return currentPage;
+    })
+    getNextRoutesStart(nextPage);
   }
   return (
     <div className='top-routes__wrapper'>
