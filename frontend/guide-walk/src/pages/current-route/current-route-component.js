@@ -139,7 +139,7 @@ export const CurrentRouteComponent = ({
             />
           </div>
           <div className={classNames('current-route__wrapper')}>
-            <CurrentRouteInfoBlock currentPointData={currentPointData} handleNextRoute={handleNextRoute} />
+            <CurrentRouteInfoBlock currentPointData={currentPointData} />
             <p
               className={classNames({
                 'current-route__hint--error': isDisabled,
