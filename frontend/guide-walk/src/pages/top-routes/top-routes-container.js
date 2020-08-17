@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { allRoutesSelector, userInfoDateSelector, userSavedRoadsIdListSelector } from '../../core/redux/selectors';
 import {
   getAllRoutesStart,
+  getNextRoutesStart,
   getToggleSavedRouteInTopRoutesPageStart,
   getToggleRatingRouteInTopRoutesPageStart,
 } from '../../core/redux/actions';
@@ -13,6 +14,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = {
   getAllRoutesStart,
+  getNextRoutesStart,
   getToggleSavedRouteInTopRoutesPageStart,
   getToggleRatingRouteInTopRoutesPageStart,
 };

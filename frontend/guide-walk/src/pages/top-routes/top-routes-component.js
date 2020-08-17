@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router';
+import { Waypoint } from 'react-waypoint';
 import { TopRoutesItemComponent } from '../../ui/top-item-component';
 import './top-routes-component.scss';
 
 const TopRoutes = ({
   allRoutes,
   getAllRoutesStart,
+  getNextRoutesStart,
   userInfoDate,
   userSavedRoadsIdList,
   getToggleSavedRouteInTopRoutesPageStart,
@@ -17,27 +19,41 @@ const TopRoutes = ({
     getAllRoutesStart();
     //eslint-disable-next-line
   }, []);
+  
+  const [page, setPage] = useState(0);
 
+  const handleOnEnter = () => {
+    setPage(page + 1);
+    getNextRoutesStart({page: page + 1});
+  }
   return (
     <div className='top-routes__wrapper'>
       {allRoutes &&
         allRoutes.map((route) => {
           const { name, _id, rating, userRateIds } = route;
-
+          
           return (
             <TopRoutesItemComponent
-              name={name}
-              rating={rating}
-              routeId={_id}
-              key={_id}
-              userId={userId}
-              userSavedRoadsIdList={userSavedRoadsIdList}
-              userRateIds={userRateIds}
-              getToggleSavedRouteInTopRoutesPageStart={getToggleSavedRouteInTopRoutesPageStart}
-              getToggleRatingRouteInTopRoutesPageStart={getToggleRatingRouteInTopRoutesPageStart}
+            name={name}
+            rating={rating}
+            routeId={_id}
+            key={_id}
+            userId={userId}
+            userSavedRoadsIdList={userSavedRoadsIdList}
+            userRateIds={userRateIds}
+            getToggleSavedRouteInTopRoutesPageStart={getToggleSavedRouteInTopRoutesPageStart}
+            getToggleRatingRouteInTopRoutesPageStart={getToggleRatingRouteInTopRoutesPageStart}
             />
-          );
-        })}
+            );
+          })
+      }
+      {allRoutes && 
+        <Waypoint
+          scrollableAncestor={window}
+          bottomOffset = '-200px'
+          onEnter={handleOnEnter}
+        />
+      }
     </div>
   );
 };
