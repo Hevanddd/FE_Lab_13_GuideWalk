@@ -32,14 +32,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const ModalComponent = ({ isOpenModal, setIsOpenModalClose }) => {
-  console.log(isOpenModal);
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
   const [open, setOpen] = useState(isOpenModal);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
 
   const handleClose = () => {
     setOpen(false);

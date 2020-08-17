@@ -35,6 +35,7 @@ export const MapDrawComponent = ({ firstPoint, lastPoint, zoom }) => {
         },
       });
     });
+    //eslint-disable-next-line
   }, [firstPoint, lastPoint]);
 
   return <div id='draw' ref={mapWrapper} className='mapWrapper' />;

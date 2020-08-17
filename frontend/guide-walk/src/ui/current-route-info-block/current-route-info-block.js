@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import { Button } from '@material-ui/core';
 import './current-route-info-block.scss';
 
 export const CurrentRouteInfoBlock = ({ currentPointData }) => {
