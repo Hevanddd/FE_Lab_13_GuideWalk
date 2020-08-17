@@ -7,7 +7,14 @@ import { MapDrawComponent } from '../../ui/map-draw';
 
 import styles from './preview.module.scss';
 
-const PreviewRouteComponent = ({ getAllRouteDataStart, routeData, setCurrentRoute, currentRoute, userInfoDate, removeRouteStart }) => {
+const PreviewRouteComponent = ({
+  getAllRouteDataStart,
+  routeData,
+  setCurrentRoute,
+  currentRoute,
+  userInfoDate,
+  removeRouteStart,
+}) => {
   const history = useHistory();
   const routeId = history.location.search.replace(/\?/, '');
 
@@ -18,7 +25,7 @@ const PreviewRouteComponent = ({ getAllRouteDataStart, routeData, setCurrentRout
   useEffect(() => {
     getAllRouteDataStart(routeId);
   }, [getAllRouteDataStart, routeId]);
-  
+
   useEffect(() => {
     routeData && setRoute(routeData);
     userInfoDate && routeId && userInfoDate.user_routes.includes(routeId) && setIsUserOwner(true);
@@ -26,7 +33,7 @@ const PreviewRouteComponent = ({ getAllRouteDataStart, routeData, setCurrentRout
   }, [routeData, routeId, userInfoDate, currentRoute]);
 
   const deleteRoute = () => {
-    removeRouteStart({result: {userId: userInfoDate.id , routeId}, history});
+    removeRouteStart({ result: { userId: userInfoDate.id, routeId }, history });
   };
 
   const startRoute = () => {
@@ -107,7 +114,9 @@ const PreviewRouteComponent = ({ getAllRouteDataStart, routeData, setCurrentRout
               </div>
             </div>
           </div>
-          <MapDrawComponent styleName='map' firstPoint={firstPoint} lastPoint={lastPoint} />
+          <div styleName='preview__map'>
+            <MapDrawComponent styleName='map' firstPoint={firstPoint} lastPoint={lastPoint} />
+          </div>
         </>
       )}
     </>
