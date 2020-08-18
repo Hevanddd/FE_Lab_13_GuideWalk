@@ -1,10 +1,10 @@
 import React from 'react';
-import { ModalComponent } from '../../ui';
+import { SearchComponent } from '../../ui';
 
 export const HomeComponent = () => {
   return (
     <div>
-      <ModalComponent />
+      <SearchComponent />
     </div>
   );
 };

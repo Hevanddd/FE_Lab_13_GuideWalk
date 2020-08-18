@@ -16,6 +16,7 @@ import * as toggleSavedRouteInTopRoutesPage from './toggle-saved-route-top-route
 import * as toggleRatingRouteInSavedRoutesPage from './toggle-rating-route-saved-routes-page';
 import * as toggleRatingRouteInMyRoutesPage from './toggle-rating-route-my-routes-page';
 import * as toggleRatingRouteInTopRoutesPage from './toggle-rating-route-top-route-page';
+import * as getSearchData from './get-search-data-sagas';
 
 export function* rootSagas() {
   yield all(
@@ -37,6 +38,7 @@ export function* rootSagas() {
       ...Object.values(toggleRatingRouteInSavedRoutesPage),
       ...Object.values(toggleRatingRouteInMyRoutesPage),
       ...Object.values(toggleRatingRouteInTopRoutesPage),
+      ...Object.values(getSearchData),
     ].map(fork)
   );
 }

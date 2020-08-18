@@ -32,13 +32,13 @@ export {
   editRouteSuccess,
   editRouteFail,
 } from './routes-actions';
-export { 
+export {
   getAllRoutesStart,
   getAllRoutesFail,
   getAllRoutesSuccess,
   getNextRoutesStart,
   getNextRoutesSuccess,
-  getNextRoutesFail 
+  getNextRoutesFail,
 } from './get-all-routes-actions';
 export {
   setCurrentRoute,
@@ -53,3 +53,4 @@ export { toggleSavedRouteFail, toggleSavedRouteStart, toggleSavedRouteSuccess } 
 export { getAllRouteDataFail, getAllRouteDataStart, getAllRouteDataSuccess } from './all-route-data-actions';
 export { loadingStart, loadingStop } from './common-actions';
 export { toggleRatingFail, toggleRatingStart } from './toggle-rating-actions';
+export { getSearchDataFail, getSearchDataStart, getSearchDataSuccess } from './get-search-data-actions';
