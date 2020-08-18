@@ -64,7 +64,7 @@ export const FullWidthTabs = () => {
     <div className='root'>
       <ThemeProvider theme={theme} >
         <Tabs
-          style={{ width: '50%', margin: '0 auto'}}
+          style={{ width: '70%', margin: '0 auto'}}
           value={value}
           onChange={handleChange}
           indicatorColor="primary"
