@@ -3,6 +3,7 @@ import * as homeSagas from './user-saga';
 import * as addRouteSagas from './add-route-sagas';
 import * as editRouteSagas from './edit-route-sagas';
 import * as allRoutesSagas from './get-all-routes-sagas';
+import * as nextRoutesSagas from './get-next-routes-sagas';
 import * as getCoordinatesSagas from './get-coordinates-sagas';
 import * as allRouteDataSagas from './all-route-data-sagas';
 import * as nextPointSagas from './next-point-sagas';
@@ -15,6 +16,7 @@ import * as toggleSavedRouteInTopRoutesPage from './toggle-saved-route-top-route
 import * as toggleRatingRouteInSavedRoutesPage from './toggle-rating-route-saved-routes-page';
 import * as toggleRatingRouteInMyRoutesPage from './toggle-rating-route-my-routes-page';
 import * as toggleRatingRouteInTopRoutesPage from './toggle-rating-route-top-route-page';
+import * as getSearchData from './get-search-data-sagas';
 
 export function* rootSagas() {
   yield all(
@@ -23,6 +25,7 @@ export function* rootSagas() {
       ...Object.values(addRouteSagas),
       ...Object.values(editRouteSagas),
       ...Object.values(allRoutesSagas),
+      ...Object.values(nextRoutesSagas),
       ...Object.values(getCoordinatesSagas),
       ...Object.values(allRouteDataSagas),
       ...Object.values(nextPointSagas),
@@ -35,6 +38,7 @@ export function* rootSagas() {
       ...Object.values(toggleRatingRouteInSavedRoutesPage),
       ...Object.values(toggleRatingRouteInMyRoutesPage),
       ...Object.values(toggleRatingRouteInTopRoutesPage),
+      ...Object.values(getSearchData),
     ].map(fork)
   );
 }
