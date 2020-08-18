@@ -12,7 +12,7 @@ import { handleErrorInSagas } from '../../services/helpers/handle-error-in-sagas
 function* callSearchData({ payload }) {
   try {
     yield put(loadingStart());
-    const data = yield call(httpRequest, `/api/route/?page=${payload}&size=${size}`, 'GET');
+    const data = yield call(httpRequest, `api/route/find?name=${payload}`, 'GET');
     yield put(getSearchDataSuccess(data));
   } catch (e) {
     yield call(handleErrorInSagas, getSearchDataFail);

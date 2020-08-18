@@ -1,10 +1,10 @@
 import React from 'react';
-import { SearchComponent } from '../../ui';
+import { Search } from '../../ui';
 
 export const HomeComponent = () => {
   return (
     <div>
-      <SearchComponent />
+      <Search />
     </div>
   );
 };

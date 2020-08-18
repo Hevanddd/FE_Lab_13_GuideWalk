@@ -11,4 +11,4 @@ export { RouteItemComponent } from './route-item-component';
 export { LoginComponent } from './login-component';
 export { AlertDialog } from './alert-dialog-component';
 export { ModalComponent } from './modal-component';
-export { SearchComponent } from './search-component';
+export { Search } from './search-component';
