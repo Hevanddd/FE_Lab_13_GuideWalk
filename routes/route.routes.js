@@ -9,9 +9,8 @@ const router = new Router();
 router.get("/", async (req, res) => {
   try {
     const { size = 10, page = 0 } = req.query;
-    console.log(size + ' ' + page );
     const querySize = size * (page + 1);
-    const routesCollection = await Route.find({}).limit(querySize);
+    const routesCollection = await Route.find({}).sort({rating: -1}).limit(querySize);
 
     res.status(201).json(routesCollection.slice(size * page));
 
