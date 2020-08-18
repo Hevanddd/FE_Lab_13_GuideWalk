@@ -5,15 +5,7 @@ import CSSModules from 'react-css-modules';
 
 import styles from './map-add-edit-point-component.module.scss';
 
-const MapAddEditPointComponent = ({
-  width,
-  height,
-  zoom,
-  coordinatesMarker,
-  setCoordinatesMarker,
-  nameMarker,
-}) => {
-  
+const MapAddEditPointComponent = ({ width, height, zoom, coordinatesMarker, setCoordinatesMarker }) => {
   const { latitude, longitude } = coordinatesMarker;
 
   const [viewport, setViewport] = useState({
@@ -26,23 +18,31 @@ const MapAddEditPointComponent = ({
     latitude,
     longitude,
   });
-  
+
   useEffect(() => {
     setPosition({
       latitude,
-      longitude
+      longitude,
     });
     setViewport({
       latitude,
       longitude,
-      zoom
-    })
+      zoom,
+    });
   }, [coordinatesMarker, latitude, longitude, zoom]);
 
   const onDragEnd = ({ lngLat }) => {
     const newCoordinates = { longitude: lngLat[0], latitude: lngLat[1] };
     setPosition(newCoordinates);
     setCoordinatesMarker(newCoordinates);
+  };
+
+  const handleOnClick = (e) => {
+    const coordinates = e.lngLat;
+    const markerCoord = { longitude: coordinates[0], latitude: coordinates[1] };
+
+    setPosition(markerCoord);
+    setCoordinatesMarker(markerCoord);
   };
 
   return (
@@ -52,11 +52,12 @@ const MapAddEditPointComponent = ({
         height={height}
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
         onViewportChange={setViewport}
+        onClick={(e) => handleOnClick(e)}
         mapStyle='mapbox://styles/mapbox/streets-v11'
         {...viewport}
       >
         <Marker longitude={position.longitude} latitude={position.latitude} onDragEnd={onDragEnd} draggable>
-          <div styleName='map-marker'></div>
+          <div styleName='map-marker' />
         </Marker>
       </ReactMapGL>
     </>

@@ -14,3 +14,4 @@ export {
 } from './routes-selectors';
 export { routeDataSelector } from './all-route-data-selectors';
 export { isLoadingSelector } from './common-selectors';
+export { searchDataSelector } from './search-selectors';

@@ -2,6 +2,12 @@
   &__wrapper {
     margin-bottom: 82px;
     margin-top: 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    @media screen and (max-width: 668px) {
+      grid-template-columns: 1fr;
+    }
   }
   &__empty {
     text-align: center;

@@ -13,9 +13,10 @@ import { handleErrorInSagas } from '../../services/helpers/handle-error-in-sagas
 function* callAddedRouteData({ payload }) {
   try {
     yield put(loadingStart());
-    const data = yield call(httpRequest, `/api/route/create`, 'POST', payload);
+    const data = yield call(httpRequest, `/api/route/create`, 'POST', payload.route);
     yield put(getAddedRouteDataSuccess(data));
     yield call(toast.success, 'Route successfully added!', { autoClose: 2000 });
+    payload.history.push('/');
   } catch (e) {
     yield call(handleErrorInSagas, getAddedRouteDataFail);
   } finally {

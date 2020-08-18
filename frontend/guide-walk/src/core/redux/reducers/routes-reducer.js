@@ -6,6 +6,7 @@ import {
   getAllRoutesStart,
   getAllRoutesFail,
   getAllRoutesSuccess,
+  getNextRoutesSuccess,
   setCurrentRoute,
   setCurrentPoint,
   getNextPointStart,
@@ -62,6 +63,13 @@ const reducerMap = {
     return {
       ...state,
       addedRouteInfo: null,
+    };
+  },
+
+  [getNextRoutesSuccess]: (state, { payload }) => {
+    return {
+      ...state,
+      allRoutes: [...state.allRoutes, ...payload],
     };
   },
 
