@@ -1,10 +1,5 @@
 import { connect } from 'react-redux';
-import {
-  searchDataSelector,
-  userInfoDateSelector,
-  userRoutesDataSelector,
-  userSavedRoadsIdListSelector,
-} from '../../core/redux/selectors';
+import { userInfoDateSelector, userRoutesDataSelector, userSavedRoadsIdListSelector } from '../../core/redux/selectors';
 import {
   getUserRoutesDataStart,
   getToggleSavedRouteInMyRoutesPageStart,
@@ -15,7 +10,6 @@ const mapStateToProps = (state) => ({
   userInfoDate: userInfoDateSelector(state),
   userRoutesData: userRoutesDataSelector(state),
   userSavedRoadsIdList: userSavedRoadsIdListSelector(state),
-  searchData: searchDataSelector(state),
 });
 const mapDispatchToProps = {
   getUserRoutesDataStart,
