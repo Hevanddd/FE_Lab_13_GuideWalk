@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const config = require("config");
+const path = require("path");
 const app = express();
 
 app.use(express.json({ extended: true }));
@@ -13,7 +14,7 @@ const PORT = process.env.PORT || config.get("port") || 5000;
 app.use(express.static("frontend/guide-walk/build"));
 
 app.get("/*", function (req, res) {
-  res.sendFile(path.join(__dirname, "/frontend/guide-walk/build", "index.html"));
+  res.sendFile(path.join(__dirname, "frontend/guide-walk/build", "index.html"));
 });
 
 async function start() {
