@@ -12,9 +12,9 @@ const PORT = process.env.PORT || config.get("port") || 5000;
 
 app.use(express.static("frontend/guide-walk/build"));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '/frontend/guide-walk/build', 'index.html'))
-})
+// app.get('/', (req, res) => {
+//   res.sendFile(path.join(__dirname, '/frontend/guide-walk/build', 'index.html'))
+// })
 
 async function start() {
   try {

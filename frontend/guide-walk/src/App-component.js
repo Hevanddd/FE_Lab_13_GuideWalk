@@ -11,7 +11,7 @@ import {
   HomePage,
   TabPage
 } from './pages';
-import { Loader, MapDirectionsComponent, Header, NavigationComponent } from './ui';
+import { Loader, Header, NavigationComponent } from './ui';
 import 'react-toastify/dist/ReactToastify.css';
 
 export const AppComponent = () => {
@@ -24,13 +24,10 @@ export const AppComponent = () => {
         <Route path='/current-route' component={CurrentRoutePage} />
         <Route path='/add-route' component={AddRoutePage} />
         <Route path='/edit-route' component={EditRoutePage} />
-        <Route path='/direction-route' component={MapDirectionsComponent} />
         <Route path='/profile-info' component={ProfilePage} />
-        <Route exact path='/saved-routes' component={SavedRoutesPage} />
         <Route path='/saved-routes' component={SavedRoutesPage} />
         <Route path='/route' component={PreviewRoutePage} />
         <Route path='/home' component={HomePage} />
-        <Route path='/routes' component={TabPage} />
 
         <Redirect to='/' />
       </Switch>
