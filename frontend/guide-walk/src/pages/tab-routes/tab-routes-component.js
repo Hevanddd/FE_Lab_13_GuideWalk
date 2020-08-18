@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -7,23 +7,21 @@ import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import { TopRoutesPage } from '../top-routes';
 import { MyRoutesPage } from '../my-routes-page';
+import { Search } from '../../ui';
+import './tab-routes-component.scss';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
   return (
     <div
-      role="tabpanel"
+      role='tabpanel'
       hidden={value !== index}
       id={`full-width-tabpanel-${index}`}
       aria-labelledby={`full-width-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box p={3}>
-          {children}
-        </Box>
-      )}
+      {value === index && <Box p={3}>{children}</Box>}
     </div>
   );
 }
@@ -42,7 +40,7 @@ function a11yProps(index) {
 }
 
 export const FullWidthTabs = () => {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -50,32 +48,35 @@ export const FullWidthTabs = () => {
 
   const handleChangeIndex = (index) => {
     setValue(index);
-  }; 
+  };
 
   const theme = createMuiTheme({
     palette: {
       primary: {
-        main: '#457b9d'
-      }
-    }
-  })
+        main: '#457b9d',
+      },
+    },
+  });
 
   return (
     <div className='root'>
-      <ThemeProvider theme={theme} >
+      <ThemeProvider theme={theme}>
         <Tabs
-          style={{ width: '50%', margin: '0 auto'}}
+          style={{ width: '50%', margin: '0 auto' }}
           value={value}
           onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          variant="fullWidth"
-          aria-label="full width tabs example"
+          indicatorColor='primary'
+          textColor='primary'
+          variant='fullWidth'
+          aria-label='full width tabs example'
         >
-          <Tab label="Top Routes" {...a11yProps(0)} />
-          <Tab label="My Routes" {...a11yProps(1)} />
+          <Tab label='Top Routes' {...a11yProps(0)} />
+          <Tab label='My Routes' {...a11yProps(1)} />
         </Tabs>
       </ThemeProvider>
+      <div className='search'>
+        <Search />
+      </div>
       <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={value}
@@ -85,10 +86,9 @@ export const FullWidthTabs = () => {
           <TopRoutesPage />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-        <MyRoutesPage />
+          <MyRoutesPage />
         </TabPanel>
       </SwipeableViews>
     </div>
   );
-}
-
+};

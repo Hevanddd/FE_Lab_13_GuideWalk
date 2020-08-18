@@ -7,10 +7,10 @@ export const MyRoutesPageComponent = ({
   userInfoDate,
   getUserRoutesDataStart,
   userRoutesData,
-  userAuthData,
   userSavedRoadsIdList,
   getToggleSavedRouteInMyRoutesPageStart,
   getToggleRatingRouteInMyRoutesPageStart,
+  searchData,
 }) => {
   const userId = userInfoDate && userInfoDate.id;
 
@@ -21,8 +21,26 @@ export const MyRoutesPageComponent = ({
 
   return (
     <div className={classNames('my-routes__wrapper')}>
-      {userRoutesData &&
+      {!searchData &&
+        userRoutesData &&
         userRoutesData.map((route) => {
+          const { name, _id, rating, userRateIds } = route;
+          return (
+            <MyAndSavedRouteItemComponent
+              name={name}
+              counter={rating}
+              routeId={_id}
+              userId={userId && userId}
+              userRateIds={userRateIds}
+              userSavedRoadsIdList={userSavedRoadsIdList}
+              getToggleSavedRouteInMyRoutesPageStart={getToggleSavedRouteInMyRoutesPageStart}
+              getToggleRatingRouteInMyRoutesPageStart={getToggleRatingRouteInMyRoutesPageStart}
+              key={_id}
+            />
+          );
+        })}
+      {searchData &&
+        searchData.map((route) => {
           const { name, _id, rating, userRateIds } = route;
           return (
             <MyAndSavedRouteItemComponent
@@ -42,5 +60,3 @@ export const MyRoutesPageComponent = ({
     </div>
   );
 };
-
-
