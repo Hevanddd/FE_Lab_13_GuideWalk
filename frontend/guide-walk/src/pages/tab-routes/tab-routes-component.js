@@ -74,15 +74,16 @@ export const FullWidthTabs = () => {
           <Tab label='My Routes' {...a11yProps(1)} />
         </Tabs>
       </ThemeProvider>
-      <div className='search'>
-        <Search />
-      </div>
+      
       <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={value}
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
+          <div className='search'>
+            <Search />
+          </div>
           <TopRoutesPage />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
