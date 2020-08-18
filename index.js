@@ -12,13 +12,7 @@ const PORT = process.env.PORT || config.get("port") || 5000;
 console.log(process.env);
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("frontend/guide-walk/build"));
-
-  app.get("*", (req, res) => {
-    res.sendFile(
-      path.resolve(__dirname, "frontend", "guide-walk", "build", "index.html")
-    );
-  });
+  app.use(express.static(path.resolve(__dirname, "frontend", "guide-walk", "build")));
 }
 
 async function start() {
