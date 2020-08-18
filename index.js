@@ -9,12 +9,17 @@ app.use("/api/route", require("./routes/route.routes"));
 app.use("/api/user", require("./routes/user.routes"));
 
 const PORT = process.env.PORT || config.get("port") || 5000;
+console.log(process.env);
 
-app.use(express.static(path.join(__dirname,  'frontend', 'guide-walk', 'build')));
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("frontend/guide-walk/build"));
 
-// app.get('/', (req, res) => {
-//   res.sendFile(path.join(__dirname, '/frontend/guide-walk/build', 'index.html'))
-// })
+  app.get("*", (req, res) => {
+    res.sendFile(
+      path.resolve(__dirname, "frontend", "guide-walk", "build", "index.html")
+    );
+  });
+}
 
 async function start() {
   try {

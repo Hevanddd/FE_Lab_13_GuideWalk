@@ -8,8 +8,8 @@
     "server": "nodemon index.js --open",
     "client": "npm run start --prefix frontend/guide-walk",
     "build": "npm run build --prefix frontend/guide-walk",
-    "install-client": "cd frontend/guide-walk && npm i",
-    "heroku-postbuild": "npm run install-client && npm run build",
+    "install-client": " npm i --prefix frontend/guide-walk",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run install-client && npm run build",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "",
