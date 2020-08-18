@@ -9,11 +9,8 @@ app.use("/api/route", require("./routes/route.routes"));
 app.use("/api/user", require("./routes/user.routes"));
 
 const PORT = process.env.PORT || config.get("port") || 5000;
-console.log(process.env);
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.resolve(__dirname, "frontend", "guide-walk", "build")));
-}
+app.use(express.static("frontend/guide-walk/build"));
 
 async function start() {
   try {
