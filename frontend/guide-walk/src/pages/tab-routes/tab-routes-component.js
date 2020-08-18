@@ -8,6 +8,7 @@ import Box from '@material-ui/core/Box';
 import { TopRoutesPage } from '../top-routes';
 import { MyRoutesPage } from '../my-routes-page';
 import { Search } from '../../ui';
+import './tab-routes-component.scss';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -73,7 +74,9 @@ export const FullWidthTabs = () => {
           <Tab label='My Routes' {...a11yProps(1)} />
         </Tabs>
       </ThemeProvider>
-      <Search />
+      <div className='search'>
+        <Search />
+      </div>
       <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={value}
