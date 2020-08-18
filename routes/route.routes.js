@@ -185,4 +185,26 @@ router.post("/rate", async (req, res) => {
   }
 });
 
+router.get('/find', async (req, res) => {
+  try {
+    const { name } = req.query;
+    console.log(name);
+    if (!name) {
+      res.status(206).json({message : 'Name is not defined'});
+      return
+    }
+
+    const foundRoute = await Route.find({name: name});
+    console.log(foundRoute);
+    if (!foundRoute) {
+      res.status(206).json({message : 'Route is not found'});
+      return
+    }
+
+    res.status(201).json(foundRoute);
+  } catch (error) {
+    res.status(500).json({ message: "Search error " + error });
+  }
+})
+
 module.exports = router;
