@@ -1,15 +1,17 @@
 import { connect } from 'react-redux';
-import {getAllRouteDataStart, setCurrentRoute} from '../../core/redux/actions';
-import { routeDataSelector, currentRouteSelector } from '../../core/redux/selectors';
+import { getAllRouteDataStart, setCurrentRoute, removeRouteStart } from '../../core/redux/actions';
+import { routeDataSelector, currentRouteSelector, userInfoDateSelector } from '../../core/redux/selectors';
 
 const mapStateToProps = (state) => ({ 
     routeData: routeDataSelector(state),
-    currentRoute: currentRouteSelector(state)
+    currentRoute: currentRouteSelector(state),
+    userInfoDate: userInfoDateSelector(state),
 });
 
 const mapDispatchToProps = {
     getAllRouteDataStart,
-    setCurrentRoute
+    setCurrentRoute,
+    removeRouteStart
 };
 
 export const PreviewRouteContainer = connect(mapStateToProps, mapDispatchToProps);

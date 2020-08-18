@@ -4,21 +4,21 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { MapAddEditPoint } from '../map-add-edit-point';
 import { useForm, Controller } from 'react-hook-form';
+import { VIEWPORT } from './constants';
 
 import styles from './add-edit-point-form.module.scss';
 
 
-const AddEditPointFormComponent = ({ savePoint, editedPoint, titles }) => {
+const AddEditPointFormComponent = ({ savePoint, editedPoint, names }) => {
   const { register, handleSubmit, control, setValue, errors} = useForm();
 
-
-  const title = editedPoint ? editedPoint.title : '';
+  const name = editedPoint ? editedPoint.name : '';
   const description = editedPoint ? editedPoint.description : '';
-  const initialCoords = editedPoint && editedPoint.location;
+  const initialCoords = editedPoint ? editedPoint.location : VIEWPORT;
 
   const [coordinates, setCoordinates] = useState(initialCoords);
 
-    const submitPoint = (point) => {
+  const submitPoint = (point) => {
     point.location = coordinates;
     if (editedPoint) {
       const isEdited = true;
@@ -29,16 +29,13 @@ const AddEditPointFormComponent = ({ savePoint, editedPoint, titles }) => {
   };
 
   useEffect(() => {
-    setValue('title', title);
+    setValue('name', name);
     setValue('description', description);
-
-  }, [title, description, setValue]);
-
+  }, [name, description, setValue]);
 
   useEffect(() => {
     setCoordinates(initialCoords);
   }, [initialCoords]);
-
 
   return (
     <div styleName='form'>
@@ -47,8 +44,11 @@ const AddEditPointFormComponent = ({ savePoint, editedPoint, titles }) => {
           required: true,
           validate: {
             occupied: (value) => {
+              if(editedPoint){
+                return true;
+              }
               let isOccupied;
-              titles.forEach(el => {
+              names.forEach(el => {
                 if (value === el){
                   isOccupied = false;
                 }
@@ -57,19 +57,19 @@ const AddEditPointFormComponent = ({ savePoint, editedPoint, titles }) => {
             }
           }
         })}
-
-        name='title'
+        name='name' 
         label='Point Name'
         placeholder={'Enter title'}
+        styleName='form__input'
         variant='outlined'
         InputLabelProps={{ shrink: true }}
       />
 
-      {errors.title && errors.title.type === 'required' && (
-      <p styleName='error'>Enter title of your point.</p>
+      {errors.name && errors.name.type === 'required' && (
+        <p styleName='error'>Enter title of your point.</p>
       )}
     
-      {errors.title && errors.title.type === "occupied" && (
+      {errors.name && errors.name.type === 'occupied' && (
         <p styleName='error'>You already have this point</p>
       )}
 
@@ -81,6 +81,7 @@ const AddEditPointFormComponent = ({ savePoint, editedPoint, titles }) => {
         multiline
         rows={4}
         placeholder='Enter description'
+        styleName='form__input'
         variant='outlined'
         InputLabelProps={{ shrink: true }}
         rules={{ required: true }}
