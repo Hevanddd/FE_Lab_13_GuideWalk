@@ -48,6 +48,7 @@ const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataSta
     if (points.length < 2) {
       setIsEmptyList(true);
     } else {
+      console.log(data);
       data.owner = userInfoDate && userInfoDate.id;
       data.ownerName = userDataAuth && userDataAuth.userName;
       data.id = route && route.route._id;

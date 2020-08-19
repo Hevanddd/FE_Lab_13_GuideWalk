@@ -9,7 +9,6 @@ const Point = require("../models/Point");
 
 const router = new Router();
 
-
 const multer = require("multer");
 
 const storage = multer.diskStorage({ 
@@ -22,7 +21,6 @@ const storage = multer.diskStorage({
 }); 
 
 const upload = multer({ storage: storage }); 
-
 
 router.get("/", async (req, res) => {
   try {
@@ -83,7 +81,7 @@ router.post("/create", upload.single('image'), async (req, res) => {
       points: pointIndexes,
       img: {
         data: fs.readFileSync(
-          path.join(__dirname + "/uploads/" + req.file.filename)
+          path.join(__dirname + "/uploads/" + routeInfo.img)
         ),
         contentType: "image/png",
       },
