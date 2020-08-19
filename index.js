@@ -2,19 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const config = require("config");
 const path = require("path");
-const multer = require("multer");
 const app = express();
 
-const storage = multer.diskStorage({ 
-  destination: (req, file, cb) => { 
-      cb(null, 'uploads') 
-  }, 
-  filename: (req, file, cb) => { 
-      cb(null, file.fieldname + '-' + Date.now()) 
-  } 
-}); 
-
-const upload = multer({ storage: storage }); 
 
 app.use(express.json({ extended: true }));
 

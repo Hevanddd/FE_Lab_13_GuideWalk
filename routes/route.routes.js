@@ -9,6 +9,21 @@ const Point = require("../models/Point");
 
 const router = new Router();
 
+
+const multer = require("multer");
+
+const storage = multer.diskStorage({ 
+  destination: (req, file, cb) => { 
+      cb(null, 'uploads') 
+  }, 
+  filename: (req, file, cb) => { 
+      cb(null, file.fieldname + '-' + Date.now()) 
+  } 
+}); 
+
+const upload = multer({ storage: storage }); 
+
+
 router.get("/", async (req, res) => {
   try {
     const { size = 10, page = 0 } = req.query;
@@ -41,7 +56,7 @@ router.get("/preview/:id", async (req, res) => {
   }
 });
 
-router.post("/create", async (req, res) => {
+router.post("/create", upload.single('image'), async (req, res) => {
   try {
     const { pointArray, routeInfo } = req.body;
 
