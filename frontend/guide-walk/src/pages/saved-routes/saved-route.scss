@@ -10,7 +10,7 @@
       grid-template-columns: repeat(2, 1fr);
     }
 
-    @media screen and (max-width: 668px) {
+    @media screen and (max-width: 768px) {
       grid-template-columns: 1fr;
     }
   }
