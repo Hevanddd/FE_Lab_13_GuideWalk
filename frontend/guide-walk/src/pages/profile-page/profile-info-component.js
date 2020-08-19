@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { TextField }  from '@material-ui/core'; 
+import { TextField } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -22,21 +22,21 @@ const CssTextField = withStyles({
   },
 })(TextField);
 
-export const ProfileInfoComponent = ({userAuthData}) => {
-  const {isAuthenticated, logout} = useAuth0();
+export const ProfileInfoComponent = ({ userAuthData }) => {
+  const { isAuthenticated, logout } = useAuth0();
   const userName = userAuthData && userAuthData.userName;
   const userEmail = userAuthData && userAuthData.email;
   const imgUrl = userAuthData && userAuthData.picture;
 
   return (
-    <div className={styles.form}>           
+    <div className={styles.wrapper}>
       <form className={styles.form}>
         <div className={styles.form__img}>
           <img src={imgUrl} alt={userName} />
         </div>
         <CssTextField
-          label="Name"
-          variant="outlined"
+          label='Name'
+          variant='outlined'
           value={userName || ''}
           InputProps={{
             readOnly: true,
@@ -47,10 +47,10 @@ export const ProfileInfoComponent = ({userAuthData}) => {
         />
 
         <CssTextField
-          id="standard-read-only-input"
-          label="Email"
+          id='standard-read-only-input'
+          label='Email'
           value={userEmail || ''}
-          variant="outlined"
+          variant='outlined'
           InputProps={{
             readOnly: true,
           }}
@@ -58,15 +58,12 @@ export const ProfileInfoComponent = ({userAuthData}) => {
             shrink: true,
           }}
         />
-      </form>
-      {isAuthenticated && <Button 
-        variant="contained"  
-        className={styles.logout__btn}
-        color="primary" 
-        onClick={logout}>
+        {isAuthenticated && (
+          <Button variant='contained' className={styles.logout__btn} color='primary' onClick={logout}>
             Log out
-        </Button>}
+          </Button>
+        )}
+      </form>
     </div>
-  )
+  );
 };
-
