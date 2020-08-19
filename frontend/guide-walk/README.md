@@ -8,7 +8,7 @@ The idea of the project is to create a travel guide with routes and quests. The
 
 ## Demo
 Find us here: <br/>
-[snow-project-pets-app](https://guidewalk.herokuapp.com//) <br/>
+[GuideWalk-app](https://guidewalk.herokuapp.com//) <br/>
 ![photo_2020-04-27_12-07-43](https://i.ibb.co/zNk8LbP/2020-08-18-18-28-25.png)
 
 ## Main useful commands
