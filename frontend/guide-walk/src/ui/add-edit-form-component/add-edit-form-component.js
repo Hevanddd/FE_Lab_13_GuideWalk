@@ -23,13 +23,13 @@ const AddEditFormComponent = ({ userInfoDate, userDataAuth, getAddedRouteDataSta
   const [points, setPoints] = useState([]);
   const [editedPoint, setEditedPoint] = useState(false);
   const [isEmptyList, setIsEmptyList] = useState(false);
-useEffect(() => {
+  useEffect(() => {
     editedRoute && setRoute(editedRoute);
   }, [editedRoute]);
 
   useEffect(() => {
     route && setPoints(route.points);
-    if(route){
+    if (route) {
       setValue('name', route.route.name);
       setValue('focus', route.route.focus);
       setValue('description', route.route.description);
@@ -56,11 +56,11 @@ useEffect(() => {
           pointArray: points,
           routeInfo: data,
         },
-        history
+        history,
       };
-      if(editedRoute){
+      if (editedRoute) {
         editRouteStart(result);
-      } else{
+      } else {
         getAddedRouteDataStart(result);
       }
     }
@@ -115,7 +115,7 @@ useEffect(() => {
           select
           label='Route Focus'
           placeholder='Route Focus'
-          styleName = 'form__input'
+          styleName='form__input'
           SelectProps={{
             native: true,
           }}
@@ -136,13 +136,26 @@ useEffect(() => {
           multiline
           rows={4}
           placeholder='Enter description'
-          styleName = 'form__input'
+          styleName='form__input'
           variant='outlined'
           InputLabelProps={{ shrink: true }}
           rules={{ required: true }}
         />
 
         {errors.description && <p styleName='error'> Enter description about your route</p>}
+
+        <p> Enter your route image</p>
+
+        <TextField
+          name='img'
+          type='file'
+          inputRef={register({ required: true })}
+          placeholder='Upload Image'
+          variant='outlined'
+          styleName='form__input'
+        />
+
+        {errors.img && <p styleName='error'> Enter your route image</p>}
 
         <ul styleName='form__pointsList'>
           {points &&
