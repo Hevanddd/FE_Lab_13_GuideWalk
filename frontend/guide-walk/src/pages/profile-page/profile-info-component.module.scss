@@ -6,13 +6,13 @@
 
   &__img {
     display: flex;
-        justify-content: center;
-        img{
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            margin-bottom: 10px;
-        }
+    justify-content: center;
+    img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
   }
 }
 
@@ -23,7 +23,6 @@
 
 button.logout__btn {
   width: 80%;
-  margin-top: 20px;
   background-color: #457b9d;
   width: 50%;
   margin-top: 20px;
@@ -32,4 +31,13 @@ button.logout__btn {
 
 input {
   text-align: center;
+}
+
+.wrapper {
+  width: 75%;
+  margin: 0 auto;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 }

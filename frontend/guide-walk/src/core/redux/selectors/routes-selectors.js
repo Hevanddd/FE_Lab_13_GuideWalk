@@ -13,3 +13,4 @@ export const currentRouteMarkersPositionsSelector = createSelector(
   getRouteData,
   (routes) => routes.currentRouteMarkersPositions
 );
+export const isLoadingPaginationSelector = createSelector(getRouteData, (routes) => routes.isLoadingPagination);

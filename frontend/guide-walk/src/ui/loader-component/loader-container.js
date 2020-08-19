@@ -1,8 +1,9 @@
 import { connect } from 'react-redux';
-import { isLoadingSelector } from '../../core/redux/selectors';
+import { isLoadingSelector, isLoadingPaginationSelector } from '../../core/redux/selectors';
 
 const mapStateToProps = (state) => ({
   isLoading: isLoadingSelector(state),
+  isLoadingPagination: isLoadingPaginationSelector(state),
 });
 const mapDispatchToProps = {};
 

@@ -6,7 +6,9 @@ import {
   getAllRoutesStart,
   getAllRoutesFail,
   getAllRoutesSuccess,
+  getNextRoutesStart,
   getNextRoutesSuccess,
+  getNextRoutesFail,
   setCurrentRoute,
   setCurrentPoint,
   getNextPointStart,
@@ -23,6 +25,7 @@ const initialState = {
   addedRouteInfo: null,
   allRoutes: null,
   currentRouteMarkersPositions: null,
+  isLoadingPagination: false,
 };
 
 const reducerMap = {
@@ -46,7 +49,7 @@ const reducerMap = {
     };
   },
 
-  [getAllRoutesStart]: (state, { payload }) => {
+  [getAllRoutesStart]: (state) => {
     return {
       ...state,
     };
@@ -66,10 +69,25 @@ const reducerMap = {
     };
   },
 
+  [getNextRoutesStart]: (state) => {
+    return {
+      ...state,
+      isLoadingPagination: true,
+    };
+  },
+
   [getNextRoutesSuccess]: (state, { payload }) => {
     return {
       ...state,
       allRoutes: [...state.allRoutes, ...payload],
+      isLoadingPagination: false,
+    };
+  },
+
+  [getNextRoutesFail]: (state) => {
+    return {
+      ...state,
+      isLoadingPagination: false,
     };
   },
 
