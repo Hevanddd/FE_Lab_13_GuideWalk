@@ -13,14 +13,14 @@ Find us here: <br/>
 
 ## Main useful commands
 
+### `npm i`
+
+To install all dependencies you should use this command.
+
 ### `npm run dev`
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.
 
 ### `npm run build`
 
