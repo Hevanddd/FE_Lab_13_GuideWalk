@@ -20,8 +20,8 @@ export const MyRoutesPageComponent = ({
 
   return (
     <div className={classNames('my-routes__wrapper')}>
-      {userRoutesData &&
-        userRoutesData.map((route) => {
+        {userRoutesData &&
+          userRoutesData.map((route) => {
           const { name, _id, rating, userRateIds } = route;
           return (
             <MyAndSavedRouteItemComponent
