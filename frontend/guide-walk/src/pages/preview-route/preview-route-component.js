@@ -57,6 +57,8 @@ const PreviewRouteComponent = ({
     routeData && setRoute(routeData);
     validationIsUserIsOwner();
     currentRoute && currentRoute === routeId && setIsStartedRoute(true);
+
+    return () => setIsUserOwner(false);
     //eslint-disable-next-line
   }, [routeData, currentRoute, userName, ownerName, routeId]);
 
