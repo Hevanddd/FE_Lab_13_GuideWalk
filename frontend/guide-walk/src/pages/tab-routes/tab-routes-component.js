@@ -41,6 +41,7 @@ function a11yProps(index) {
 
 export const FullWidthTabs = () => {
   const [value, setValue] = useState(0);
+  const isTopRoutePage = value === 0;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -74,9 +75,7 @@ export const FullWidthTabs = () => {
           <Tab label='My Routes' {...a11yProps(1)} />
         </Tabs>
       </ThemeProvider>
-      <div className='search'>
-        <Search />
-      </div>
+      <div className='search'>{isTopRoutePage && <Search />}</div>
       <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={value}
