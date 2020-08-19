@@ -1,3 +1,6 @@
+const fs = require('fs');
+const path = require('path');
+
 const { Router } = require("express");
 
 const Route = require("../models/Route");
@@ -10,10 +13,11 @@ router.get("/", async (req, res) => {
   try {
     const { size = 10, page = 0 } = req.query;
     const querySize = size * (page + 1);
-    const routesCollection = await Route.find({}).sort({rating: -1}).limit(querySize);
+    const routesCollection = await Route.find({})
+      .sort({ rating: -1 })
+      .limit(querySize);
 
     res.status(201).json(routesCollection.slice(size * page));
-
   } catch (e) {
     return res.status(500).json({ message: "Getting routes fault " + e });
   }
@@ -62,6 +66,12 @@ router.post("/create", async (req, res) => {
       focus: routeInfo.focus,
       description: routeInfo.description,
       points: pointIndexes,
+      img: {
+        data: fs.readFileSync(
+          path.join(__dirname + "/uploads/" + req.file.filename)
+        ),
+        contentType: "image/png",
+      },
       userRateIds: [],
       ownerName: routeInfo.ownerName,
     });
@@ -185,24 +195,24 @@ router.post("/rate", async (req, res) => {
   }
 });
 
-router.get('/find', async (req, res) => {
+router.get("/find", async (req, res) => {
   try {
     const { name } = req.query;
     if (!name) {
-      res.status(206).json({message : 'Name is not defined'});
-      return
+      res.status(206).json({ message: "Name is not defined" });
+      return;
     }
 
-    const foundRoute = await Route.find({name: name});
+    const foundRoute = await Route.find({ name: name });
     if (!foundRoute) {
-      res.status(206).json({message : 'Route is not found'});
-      return
+      res.status(206).json({ message: "Route is not found" });
+      return;
     }
 
     res.status(201).json(foundRoute);
   } catch (error) {
     res.status(500).json({ message: "Search error " + error });
   }
-})
+});
 
 module.exports = router;
