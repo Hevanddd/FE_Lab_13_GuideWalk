@@ -5,7 +5,7 @@ import { LoginComponent } from '../../ui';
 
 export const ResourcesProviderComponent = ({ children, refreshUserDataAuth, getUserInfoDataStart }) => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
-  const userName = user && user[`https://username`];
+  const userName = user && user.nickname;
   useEffect(() => {
     user && refreshUserDataAuth(user);
     userName && getUserInfoDataStart(userName);

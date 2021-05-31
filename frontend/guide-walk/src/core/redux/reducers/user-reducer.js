@@ -72,7 +72,7 @@ const reducerMap = {
   },
 
   [refreshUserDataAuth]: (state, { payload }) => {
-    const userName = payload[`https://username`];
+    const userName = payload.nickname;
     return {
       ...state,
       userDataAuth: { ...payload, userName },
